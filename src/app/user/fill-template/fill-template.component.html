@@ -1,0 +1,86 @@
+<div class="usertemplatefilling-wrapper-cls">
+    <div class="usertemplatefilling-header-cls">
+        <p>{{selectedTemplateobj.templateName}}</p>
+        <div class="progressbar-wrapper-cls">
+            <div class="templatefillingloader-cls">
+                <div class="loadingprogress-cls" [style.width]="progresstyle">
+                </div>
+            </div>
+            <div *ngIf="progress == 0" style="color:white;margin-left:28px;" class="progress-text">{{progresstyle}}</div>
+            <div *ngIf="progress != 0" class="progress-text">{{progresstyle}} complete</div>
+        </div>
+    </div>
+    <div class="usertemplatefilling-body-cls">
+        <div class="questionsection-cls">
+            <div class="questions-cls">
+                <div  *ngFor="let question of questionlist;let i = index" style="width:100%;">
+                    <!-- text input field -->
+                    
+                    <div class="questiondescription-cls" [ngClass]="question['attributeDto']['attributeName']" *ngIf='question["inputType"] === "textfield"' [style.display]='((question["groupDto"]["groupId"] === currentgroupid ) && (question["visible"] === true))? "block" : "none"'>
+                        <p>{{question["description"]}}</p>
+                        <textarea   [value]='question["defaultValue"]' (mouseover)="highlightFieldInTemplateOnMouseoverQuestion($event,question['attributeDto']['attributeName'],true)" (mouseout)="highlightFieldInTemplateOnMouseoverQuestion($event,question['attributeDto']['attributeName'],false)"  (input)="keyPressInput($event,question['attributeDto']['attributeName'])" (focus)='focusonInput($event,question["defaultValue"],question["attributeDto"]["attributeName"])' (focusout)='focusoutInputa($event,question["defaultValue"],question["attributeDto"]["attributeName"])' autocomplete="nope" ></textarea>
+                    </div>
+                    <!-- date input field -->
+
+                    <div class="questiondescription-cls" [ngClass]="question['attributeDto']['attributeName']" *ngIf='question["inputType"] === "datefield"' [style.display]='((question["groupDto"]["groupId"] === currentgroupid ) && (question["visible"] === true))? "block" : "none"'>
+                         
+                        <p>{{question["description"]}}</p>
+                        <div class="datepicker-wrapper">
+                        <input class="datepicker-input" matInput [matDatepicker]="picker3" [value]="question['defaultValue']" (mouseover)="highlightFieldInTemplateOnMouseoverQuestion($event,question['attributeDto']['attributeName'],true)" (mouseout)="highlightFieldInTemplateOnMouseoverQuestion($event,question['attributeDto']['attributeName'],false)" (dateChange)="datechange($event,question['attributeDto']['attributeName'])" [(ngModel)]="question['defaultValue']">
+                        <mat-datepicker-toggle matSuffix [for]="picker3" class="datepicker-icon" style="color:var(--custombgColor);width:18%"></mat-datepicker-toggle>
+                        <mat-datepicker #picker3></mat-datepicker>
+                        </div>
+                    </div>
+                    <!-- checkbox -->
+
+                    <div class="questiondescription-cls container" [ngClass]="question['attributeDto']['attributeName']" *ngIf=' question["inputType"] === "checkBox"' [style.display]='((question["groupDto"]["groupId"] === currentgroupid ) && (question["visible"] === true))? "block" : "none"'>
+                        <p>{{question["description"]}} </p>
+                        <input type="checkbox"  [value]='question["defaultValue"]' [checked]='(question["defaultValue"] === "true") ? true : false ' (change)="checkBoxChange($event,question['attributeDto']['attributeName'],question)" style="appearance: none;">
+                    </div>
+                    <!-- Dropdown options -->
+
+                    <div class="questiondescription-cls" [ngClass]="question['attributeDto']['attributeName']" *ngIf='question["inputType"] === "comboBox"' [style.display]='((question["groupDto"]["groupId"] === currentgroupid ) && (question["visible"] === true))? "block" : "none"'>
+                            <p>{{question["description"]}}</p>
+                            <select  (change)="dropdownValueChangeEvent($event,question['attributeDto']['attributeName'],question)">
+                                    
+                                    <option *ngFor='let option of question["questionOptionDto"]' [selected]="option['optionValue'] === question['defaultValue']">{{option['optionValue']}}</option>
+                            </select>
+                    </div>
+                     <!-- Radio options -->
+
+                    <div class="questiondescription-cls" [ngClass]="question['attributeDto']['attributeName']" *ngIf='question["inputType"] === "radio"' [style.display]='((question["groupDto"]["groupId"] === currentgroupid ) && (question["visible"] === true))? "block" : "none"'>
+                        <p>{{question["description"]}}</p>
+
+                          <mat-radio-group aria-label="Select an option" style="display: flex;
+                          flex-flow: column nowrap;
+                          width: 90%;
+                          align-items: flex-start;">
+                                <mat-radio-button *ngFor='let option of question["questionOptionDto"]' [value]="option['optionValue']"  [checked]="option['optionValue'] === question['defaultValue']" (change)="radioButtonChange($event,question)">{{option['optionValue']}}</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="actionbar-cls">
+                <div class="actionbutton-cls">
+                    <button (click)="back()" *ngIf="backbuttonflag">
+                        <mat-icon>navigate_before</mat-icon> Back
+                    </button>
+                    <button (click)="next()" *ngIf="!submitflag"> Next <mat-icon>navigate_next</mat-icon></button>
+                    <button (click)="purchase()" *ngIf="submitflag"> {{isRecreationMode() ? 'Recreate' : 'Purchase'}} <mat-icon>navigate_next</mat-icon></button>
+                </div>
+                <div class="actionlinks-cls" *ngIf="!isRecreationMode()">
+                    <button (click)="saveAndContinue(null)">Save & Continue Later</button>
+                </div>
+            </div>
+        </div>
+        <div class="templatesection-cls">
+            <div class="templatesection-header-cls">
+                <p>Document Preview</p>
+            </div>
+            <div class="templatesection-body-cls" id="templatecontainer">
+
+            </div>
+        </div>
+    </div>
+</div>

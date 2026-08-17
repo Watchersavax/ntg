@@ -1,0 +1,89 @@
+<div class="dialogwrapper">
+  
+  <span>
+    <h2 class="title">Add New {{activeRole.roleDisplayName}}</h2>
+  </span>
+  <div class="errormessage" *ngIf="errorflag">{{errormessage}}</div>
+
+  <div class="w-100">
+    <form [formGroup]="createUser" class="editform" (keydown)="keyDownFunction($event)">
+      <div *ngIf="isCorporate" class="w-100">
+        <mat-form-field class="example-full-width" style="width: 100%;">
+          <input matInput placeholder="Company Name" formControlName="corporateInfo">
+        </mat-form-field>
+      </div>
+      <div *ngIf="!isCorporate" class="w-100">
+        <mat-form-field class="example-full-width" style="width: 100%;">
+          <input matInput placeholder="First Name" formControlName="firstName">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" style="width: 100%;">
+          <input matInput placeholder="Last Name" formControlName="lastName">
+        </mat-form-field>
+      </div>
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <input matInput placeholder="User Name" formControlName="userName">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <input matInput placeholder="Email" formControlName="email">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" style="width: 100%;" *ngIf="roleId === 4">
+        <input matInput placeholder="Calendly Page URL" formControlName="calendlyId">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <input matInput placeholder="Phone Number" formControlName="contact" (keypress)="keyPressEvent($event)"
+          pattern="[0-9]*" inputmode="numeric" maxlength="11" minlength="11">
+      </mat-form-field>
+      <mat-form-field style="width: 100%;">
+        <mat-label>User Type</mat-label>
+        <mat-select formControlName="type" style="margin-top: 1em;" (selectionChange)="clearErrorMessage()">
+          <mat-option value="individual">
+            Individual
+          </mat-option>
+          <mat-option value="corporate">
+            Corporate
+          </mat-option>
+          <mat-option value="agent">
+            Agent
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="example-full-width" style="width: 100%;" *ngIf="isAgent">
+        <input
+          id="lasraa"
+          (keypress)="keyPressEventLasrra($event)"
+          pattern="[A-Za-z0-9]*"
+          inputmode="text"
+          maxlength="12"
+          matInput
+          matTooltip="Enter your LASRAA Number"
+          placeholder="LAG ID."
+          [type]="'text'"
+          formControlName="lasrra"
+        />
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" style="width: 100%;" *ngIf="isCorporate">
+        <input
+          id="cac"
+          (keypress)="keyPressEventLasrra($event)"
+          pattern="[A-Za-z0-9]*"
+          inputmode="text"
+          minlength="8"
+          matInput
+          matTooltip="Enter your CAC Number"
+          placeholder="CAC Number"
+          [type]="'text'"
+          formControlName="cac"
+        />
+      </mat-form-field>
+
+    </form>
+  </div>
+
+  <div class="actiongroup">
+    <button mat-button style="background-color: var(--custombtnColor);font-size:small;color: white;;margin-right:20px;"
+      (click)="onSubmit()">Create User</button>
+    <button mat-button mat-dialog-close="false"
+      style="background-color: #545859;font-size:small;color: white;">Cancel</button>
+  </div>
+</div>

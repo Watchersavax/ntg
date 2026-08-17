@@ -1,0 +1,331 @@
+.documentlisting-cls {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-content: flex-start;
+  position: relative;
+}
+
+.listofdocuments-cls {
+  width: 98%;
+  height: 86%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  margin-left: 10px;
+  position: absolute;
+  top: 11vh;
+  overflow: auto;
+}
+.searchbox-cls {
+  display: flex;
+  width: 100%;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-content: center;
+  box-shadow: 0 0 5px 1px #00000073;
+  margin-bottom: 5px;
+  position: absolute;
+  top: 0;
+  z-index: 10;
+  background-color: white;
+}
+
+.searchbox-cls input {
+  width: 18vw;
+}
+
+.searchbox-wrapper-cls {
+  display: flex;
+  width: 56%;
+  flex-flow: row wrap;
+
+  justify-content: flex-end;
+  align-content: center;
+  padding: 10px;
+  transition: 0.5s ease all;
+}
+
+.searchbox-wrapper-cls input {
+  opacity: 0;
+  width: 0%;
+  transition: 0.5s ease all;
+  /* border-radius: 8px 0px 0px 8px; */
+}
+
+.searchbox-wrapper-cls button {
+  height: 40px;
+  background-color: var(--custombgColor);
+  outline: none;
+  border: 2px solid var(--custombgColor);
+  /* border-radius: 50%; */
+  width: 40px;
+  color: white;
+  transition: 0.7s ease all;
+}
+
+.searchbox-wrapper-cls:hover {
+  width: 56%;
+}
+
+.searchbox-wrapper-cls:hover button {
+  /* border:2px solid va; */
+  color: var(--custombgColor);
+  background-color: transparent;
+  border-left: 0px;
+  /* border-radius: 0px 8px 8px 0px; */
+}
+
+.searchbox-wrapper-cls:hover input {
+  opacity: 1;
+  background-color: transparent;
+  color: var(--customgrey);
+  font-weight: 600;
+  border: 0px;
+  outline: none;
+  border-bottom: 2px solid var(--custombgColor);
+  border-top: 2px solid var(--custombgColor);
+  border-left: 2px solid var(--custombgColor);
+  padding: 5px;
+  margin: 5px;
+  width: 62%;
+  font-size: medium;
+  margin: 0px;
+}
+
+.filteroptions {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-end;
+  width: 60%;
+}
+
+.paginator-cls {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.paginator-cls p {
+  /* margin: 5px 0px 0px 5px; */
+}
+
+.paginator-cls .page-navigation-cls {
+  height: 25px;
+  background-color: transparent;
+  border: 0px;
+  outline: none;
+  color: var(--custombgColor);
+  cursor: pointer;
+  margin: 0px;
+  padding: 0px;
+}
+
+.paginator-cls .page-navigation-disabled-cls {
+  height: 25px;
+  background-color: transparent;
+  border: 0px;
+  outline: none;
+  color: var(--customgrey);
+  cursor: pointer;
+  margin: 0px;
+  padding: 0px;
+}
+
+.inactive-filter-cls {
+  width: 10vw;
+  background-color: transparent;
+  color: black;
+  border: 0px;
+  border-radius: 0px;
+  box-shadow: none;
+  min-height: 7vh;
+  outline: none;
+}
+
+.active-filter-class {
+  width: 10vw;
+  background-color: transparent;
+  color: black;
+  border-radius: 0px;
+  border: 0px;
+  border-bottom: 3px solid var(--custombgColor);
+  box-shadow: none;
+  min-height: 7vh;
+  outline: none;
+}
+.table-wrapper-cls {
+  display: flex;
+  flex-flow: column nowrap;
+  /* height: 77vh;
+  width:90vw; */
+  width: 98%;
+  height: 86%;
+  /* display: flex; */
+  /* flex-flow: row wrap; */
+  justify-content: flex-start;
+  align-content: flex-start;
+  margin-left: 10px;
+  position: absolute;
+  top: 11vh;
+  overflow: auto;
+}
+
+.table-header-cls {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: baseline;
+  background-color: var(--customgrey);
+  color: white;
+  font-size: small;
+  font-weight: 700;
+  border-radius: 7px 5px 0px 0px;
+}
+
+.table-header-cell-cls {
+  flex: 2;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: baseline;
+  height: 100%;
+  min-width: 60px;
+}
+.table-row-cell-cls {
+  flex: 2;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  /* border-right: 1px solid #00000014; */
+  font-size: small;
+  word-break: break-all;
+  padding-left: 10px;
+  min-width: 60px;
+}
+.table-body-cls {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  overflow-y: scroll;
+  height: 100%;
+  padding: 1px;
+  width: 99.5%;
+  overflow-x: hidden !important;
+}
+.mat-card-list-cls {
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 0px !important;
+  box-shadow: 0 2px 6px -1px rgba(0, 0, 0, 0.48),
+    0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  min-height: 45px;
+}
+.iconbutton {
+  background-color: #2d814b00;
+  color: black;
+  width: 25px !important;
+  height: 25px;
+  border-radius: 50%;
+}
+.hide-button {
+  display: none;
+}
+
+.show-button{
+  display: block;
+}
+@media all and (min-width: 576px) and (max-width: 1024px) {
+  .document-card-cls h1 {
+    font-size: small;
+  }
+
+  .document-card-cls {
+    width: 45%;
+  }
+
+  .document-card-cls:hover p {
+    font-size: medium;
+  }
+
+  .paginator-cls {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .paginator-cls .page-navigation-cls {
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .paginator-cls .page-navigation-disabled-cls {
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .mat-icon {
+    height: 24px !important;
+    width: 24px !important;
+    margin-right: 0px !important;
+  }
+}
+
+@media all and (max-width: 655px) {
+  .searchbox-cls {
+    margin-bottom: 0px;
+  }
+
+  .listofdocuments-cls {
+    margin-left: 0px;
+    top: 13vh;
+    width: 100%;
+    height: 85%;
+  }
+
+  .document-card-cls {
+    width: 42%;
+  }
+
+  .active-filter-class {
+    font-size: x-small;
+    width: 16vw;
+  }
+
+  .inactive-filter-cls {
+    font-size: x-small;
+    width: 16vw;
+  }
+
+  .filteroptions {
+    width: 50%;
+  }
+
+  .paginator-cls p {
+    font-size: small;
+    margin: 8px 0px 8px 0px;
+  }
+
+  .searchbox-cls input {
+    width: 31vw;
+  }
+
+  .paginator-cls .page-navigation-cls {
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .paginator-cls .page-navigation-disabled-cls {
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .mat-icon {
+    height: 24px !important;
+    width: 24px !important;
+    margin-right: 0px !important;
+  }
+}

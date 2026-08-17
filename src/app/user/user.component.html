@@ -1,0 +1,104 @@
+<div class="homepage-wrapper-cls h-100">
+  <nav class="shadow-sm navbar navbar-light w-100">
+    <div class="container-fluid">
+      <div class="company-logo-cls">
+        <span class="navbar-brand d-flex align-items-center" style="margin-left: 1rem">
+          <img src="assets/Notago_logo.png" alt="NotaGo logo" />
+        </span>
+      </div>
+
+      <div class="quick-options-cls">
+        <button mat-button class="hamburger-cls" *ngIf="isSignedIn" id="drawerbutton" (click)="toggleSidebar($event)"
+          style="
+            color: var(--custombgColor);
+            padding-right: 4px;
+            cursor: pointer;
+          ">
+          <mat-icon style="font-size: x-large; margin-bottom: 6px">menu</mat-icon>
+        </button>
+        <div class="d-flex flex-nowrap justify-content-end align-items-center ms-2 w-100 px-4">
+          <div>
+            <span>
+              <button mat-button  [routerLink]="isSignedIn ? '/user/home/card/templist' : '/user/home'"  routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }">
+                Home
+              </button>
+            </span>
+            <span>
+              <button mat-button [routerLink]="'/user/how-it-work'" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }" *ngIf="!isSignedIn">
+                How it works
+              </button>
+            </span>
+            <div class="dropdown" *ngIf="!isSignedIn">
+              <button mat-button class="dropbtn" [class.select]="isSelectedProfile">
+                User Profiles
+                <mat-icon>keyboard_arrow_down</mat-icon>
+              </button>
+              <div class="dropdown-content" [class.show]="isOpenProfile">
+                <a *ngFor="let profile of profiles" [class.dropdown-content-select]="profile.select"
+                  [routerLink]="profile.link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                  {{profile.name}}
+                </a>
+              </div>
+            </div>
+
+            <div class="dropdown me-4" *ngIf="!isSignedIn">
+              <button mat-button class="dropbtn" [class.select]="isSelectedContact">
+                Help Centre
+                <mat-icon>keyboard_arrow_down</mat-icon>
+              </button>
+              <div class="dropdown-content" [class.show]="isOpenContact">
+                <a *ngFor="let item of helpCenters" [class.dropdown-content-select]="item.select"
+                  [routerLink]="item.link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                  {{item.name}}
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="ml-4">
+            <button mat-button (click)="openSigninBox()" *ngIf="!isSignedIn">
+              Login
+            </button>
+            <button class="outline-btn" mat-button (click)="openSignupBox()" *ngIf="!isSignedIn">
+              SignUp
+            </button>
+          </div>
+          <button mat-button [class.active]="
+              isActiveRoute('/user/myaccount/documents') ||
+              isActiveRoute('user/myaccount/agent/documents')
+            " (click)="goToDashboard(); remove()" *ngIf="isSignedIn">
+            Dashboard
+          </button>
+      
+          <button mat-button [routerLink]="'/user/how-it-work'" routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }" *ngIf="isSignedIn">
+            How it works
+          </button>
+
+          <div class="dropdown me-4" *ngIf="isSignedIn">
+            <button mat-button class="dropbtn" [class.select]="isSelectedContact">
+              Help Centre
+              <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
+            <div class="dropdown-content" [class.show]="isOpenContact">
+              <a [class.dropdown-content-select]="false"
+              [routerLink]="'/user/help-centre/faq'" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+              FAQ’s
+            </a>
+              <a [class.dropdown-content-select]="false"
+                [routerLink]="'/user/contactus'" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="remove()">
+                Contact Us
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </nav>
+  <div class="body-cls">
+    <router-outlet></router-outlet>
+    <app-legal-footer variant="shell"></app-legal-footer>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+.dialogwrapper {
+    width: 30vw;
+    /* height: 55vh; */
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+  }
+  
+  .dialogwrapper span {
+    width: 100%;
+  }
+  
+  .actiongroup {
+    margin-top:1vh;
+    margin-bottom:1vh;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+  }
+  
+  .editform {
+    /* height:34vh; */
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+  
+  }
+  
+  .errorMessage{
+    color:red;
+    margin-bottom:1vh;
+    font-weight:500;
+  }
+  
+  
+  @media only screen and (max-width:1024px) {
+    .dialogwrapper {
+      width: 37vw;
+      /* height: 55vh; */
+    }
+  
+    .maincontent {
+      /* height: 55vh; */
+    }
+  
+    .dialogwrapper h2{
+      font-size:medium;
+  }
+  
+    .actiongroup {
+      margin-top: 1vh;
+      margin-bottom:1vh;
+    }
+    .mat-button {
+      width:120px;
+      font-size: larger;
+    }
+  }

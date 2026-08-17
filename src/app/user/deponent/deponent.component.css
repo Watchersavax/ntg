@@ -1,0 +1,72 @@
+.deponentbox-deponent-cls {
+  min-width: 35vw;
+  background-color: white;
+  display: flex;
+  flex-flow: column nowrap;
+  align-content: space-around;
+  align-items: flex-end;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 1px 20px 13px #00000078;
+}
+
+.deponentbox-deponent-cls > button {
+  background-color: var(--custombgColor);
+  border: 0px;
+  color: white;
+  width: 10%;
+  height: 5%;
+  outline: none;
+  cursor: pointer;
+  border-radius: 26px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px 1px #0000005e;
+  z-index: 1000;
+}
+.maincontent-cls-login-cls {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  flex-flow: column nowrap;
+  align-content: space-around;
+  align-items: space-around;
+}
+.content {
+  display: flex;
+  justify-content: center;
+  /* background-color: black; */
+}
+.form-container {
+  display: flex;
+  flex-flow: column wrap;
+  margin-top: 0vh;
+  /* background-color: grey; */
+}
+
+.field {
+  margin: 5px;
+  padding: 5px;
+}
+.submitbutton {
+  margin: 5px;
+  padding: 2px;
+  background-color: var(--custombtnColor);
+  color: white;
+  font-size: medium;
+  font-weight: 500;
+}
+.errormessage {
+  background-color: rgba(228, 108, 99, 0);
+  color: red;
+  width: 100%;
+  height: 2vh;
+  display: flex;
+  font-weight: 500;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: medium;
+}

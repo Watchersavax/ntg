@@ -1,0 +1,16 @@
+<div class="maincontent">
+    <span>
+        <h2 mat-dialog-title>Schedule Meeting</h2>
+        <button (click)="close()"><mat-icon>close</mat-icon></button>
+    </span>
+    <p style="margin:20px">Select Date and Time</p>
+        <div style=" width:95%; align-items: center;">
+        <input matInput type="datetime-local" [(ngModel)]="meetingSchedule" placeholder="Select Date and Time" >
+    </div>
+    <div class="actiongroup">
+        <button mat-button  mat-dialog-close="" 
+            style="background-color: var(--custombtnColor); font-size:small;    font-weight: 600; color: white;margin-right:20px;">Close</button>
+        <button mat-button  [mat-dialog-close]="meetingSchedule" 
+            style="background-color: var(--custombtnColor); font-size:small;    font-weight: 600; color: white;margin-right:20px;" *ngIf="!!meetingSchedule">Save</button>
+    </div>
+</div> 

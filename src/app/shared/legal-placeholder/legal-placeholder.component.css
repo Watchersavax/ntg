@@ -1,0 +1,172 @@
+.legal-page {
+  min-height: 100vh;
+  background: #ffffff;
+  color: #263238;
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Match the auth module's typography. Headings need !important to override the
+   global `h1..h6 { font-family: Roboto !important }` rule in styles.css. */
+.legal-page h1,
+.legal-page h2,
+.legal-page h3 {
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif !important;
+}
+
+/* Sticky full-width bar so the header stays put while content scrolls under it. */
+.legal-page__header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: #ffffff;
+  border-bottom: 1px solid #e7ecef;
+}
+
+.legal-page__header-inner {
+  width: min(100%, 72rem);
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.legal-page__brand {
+  color: #172c43;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.legal-page__nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.legal-page a {
+  color: #347a63;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.legal-page a:hover,
+.legal-page a:focus {
+  text-decoration: underline;
+}
+
+.legal-page__content {
+  width: min(100%, 52rem);
+  margin: 0 auto;
+  padding: 4rem 2rem 5rem;
+}
+
+.legal-page__eyebrow {
+  color: #559a82;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+}
+
+.legal-page h1,
+.legal-page h2 {
+  color: #172c43;
+}
+
+.legal-page h1 {
+  font-size: 2.5rem;
+  line-height: 1.18;
+  font-weight: 700;
+  margin: 0 0 1rem;
+}
+
+.legal-page__intro {
+  color: #5f6b73;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  margin: 0 0 1.25rem;
+}
+
+.legal-page__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  color: #8a9393;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 0 0 3rem;
+}
+
+.legal-page section {
+  padding: 1.75rem 0 0;
+}
+
+/* The only horizontal rule the source document uses: before the closing
+   copyright block. */
+.legal-page__rule {
+  border: 0;
+  border-top: 1px solid #e7ecef;
+  margin: 2.25rem 0 1.5rem;
+}
+
+.legal-page h2 {
+  font-size: 1.35rem;
+  line-height: 1.35;
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+}
+
+.legal-page h3 {
+  color: #172c43;
+  font-size: 1.05rem;
+  line-height: 1.4;
+  font-weight: 700;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.legal-page p {
+  color: #5f6b73;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0 0 0.85rem;
+}
+
+.legal-page p:last-child {
+  margin-bottom: 0;
+}
+
+.legal-page ul {
+  color: #5f6b73;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0 0 0.85rem;
+  padding-left: 1.35rem;
+}
+
+.legal-page li {
+  margin: 0 0 0.35rem;
+}
+
+.legal-page li:last-child {
+  margin-bottom: 0;
+}
+
+@media only screen and (max-width: 640px) {
+  .legal-page__header-inner {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 1.25rem;
+  }
+
+  .legal-page__content {
+    padding: 3rem 1.25rem 4rem;
+  }
+
+  .legal-page h1 {
+    font-size: 2rem;
+  }
+}

@@ -1,0 +1,39 @@
+<div class="phone-verification-dialog">
+    <div class="dialog-header">
+        <h2>Verify Phone Number</h2>
+        <button class="close-button" type="button" (click)="close()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div class="dialog-body">
+        <div class="phone-summary">
+            <span class="phone-label">Phone Number</span>
+            <span class="phone-number">{{data.contact}}</span>
+        </div>
+
+        <div class="otp-send-row">
+            <button mat-button class="primary-action send-button" type="button" (click)="sendOtp()"
+                [disabled]="sendingOtp || verifyingOtp || resendCooldownSeconds > 0">
+                {{getResendButtonLabel()}}
+            </button>
+        </div>
+
+        <mat-form-field class="otp-field">
+            <input matInput placeholder="OTP Code" [(ngModel)]="otp" inputmode="numeric" maxlength="6"
+                (keypress)="keyPress($event)" [disabled]="!otpSent || verifyingOtp">
+        </mat-form-field>
+
+        <div class="error-message" *ngIf="errorMessage">
+            {{errorMessage}}
+        </div>
+    </div>
+
+    <div class="dialog-actions">
+        <button mat-button class="secondary-action" type="button" (click)="close()" [disabled]="verifyingOtp">Cancel</button>
+        <button mat-button class="primary-action" type="button" (click)="verifyOtp()"
+            [disabled]="!otpSent || verifyingOtp || sendingOtp">
+            Verify
+        </button>
+    </div>
+</div>

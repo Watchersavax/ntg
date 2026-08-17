@@ -1,0 +1,61 @@
+<div class="dialogwrapper">
+  
+  <span>
+    <h2 class="title">Edit {{activeRole.roleDisplayName}}</h2>
+  </span>
+  <div class="w-100">
+    <div class="errormessage" *ngIf="errorflag">{{errormessage}}</div>
+
+    <form [formGroup]="editUser" class="editform" (keydown)="keyDownFunction($event)">
+
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <input matInput placeholder="First Name" formControlName="firstName">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <input matInput placeholder="Last Name" formControlName="lastName">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <input matInput placeholder="User Name" formControlName="userName">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <input matInput placeholder="Email" formControlName="email">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <input matInput placeholder="Phone Number" formControlName="contact" (keypress)="keyPressEvent($event)"
+          pattern="[0-9]*" inputmode="numeric" maxlength="11" minlength="11">
+      </mat-form-field>
+
+      <h5 class="mt-3">Administrative Access</h5>
+      <div class="permission-group">
+        <div class="checkbox-with-label">
+          <span>User Management</span>
+          <mat-checkbox [checked]="userManagement" (change)="userManagement = !userManagement;"></mat-checkbox>
+        </div>
+        <div class="checkbox-with-label">
+          <span>Registrar Management</span>
+          <mat-checkbox [checked]="registrarManagement"
+            (change)="registrarManagement = !registrarManagement;"></mat-checkbox>
+        </div>
+        <div class="checkbox-with-label">
+          <span>Template Management</span>
+          <mat-checkbox [checked]="templateManagement"
+            (change)="templateManagement = !templateManagement;"></mat-checkbox>
+        </div>
+      </div>
+
+    </form>
+
+    <div class="actiongroup">
+      <button mat-button
+        style="background-color: var(--custombtnColor);font-size:small;color: white;;margin-right:20px;"
+        (click)="onSubmit()">Submit</button>
+      <button mat-button mat-dialog-close="false"
+        style="background-color: #545859;font-size:small;color: white;">Cancel</button>
+    </div>
+
+  </div>
+
+</div>

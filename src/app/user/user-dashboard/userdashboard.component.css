@@ -1,0 +1,197 @@
+.userdashboard-cls{
+    height: 100%;
+    width: 100vw;
+    display:flex;
+    flex-flow:row nowrap;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.sidebar-navigation-cls{
+    /* min-height: 34%; */
+    width: 100%;
+    display: flex;
+    margin-top: 2vh;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    /* box-shadow: 0 0 7px 1px #00000078; */
+    animation:0.5s sidebaractionanimation ease; 
+
+}
+
+
+@keyframes sidebaractionanimation{
+    from {margin-left:-100vw;}
+    to {margin-left:0vw;}
+}
+
+
+.sidebar-user-avatar-cls{
+    height: 28%;
+    margin-top:5px;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    overflow-y:auto;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    box-shadow: -1px 2px 12px 1px #0000004f;
+    background-color:transparent;
+    /* background-color: var(--custombgColor); */
+    animation:0.5s avataranimation ease; 
+    border-bottom: 1px solid white;
+}
+
+@keyframes avataranimation{
+    from {margin-left:-100vw;}
+    to {margin-left:0vw;}
+}
+
+
+.sidebar-user-avatar-cls img{
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    background-color: transparent;
+    margin-top: 5px;
+    padding:1px;
+    border: 3px solid white;
+    box-shadow: 2px 0px 10px 0px rgba(162, 162, 162, 0.59);
+    /* animation:2.5s imageanimation infinite linear; */
+}
+
+@keyframes imageanimation{
+    from {border:none}
+    to {border: 3px solid rgb(162, 162, 162);}
+}
+
+.userdashboard-sidebar-cls{
+    height: 100%;
+    width: 16%;
+    /* box-shadow: 0 0 11px 0px #00000078; */
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    background-color:var(--custombgColor);
+
+    align-items: center;
+    
+}
+
+
+.userdashboard-sidebar-cls button {
+    transition:0.5s ease all;   
+}
+
+.userdashboard-sidebar-cls button:hover {
+    /* transform:skewY(10deg); */
+    background-color:#ffffff;
+    color: var(--custombgColor);
+}
+
+
+.mybutton{
+    width: 84%;
+    background-color: var(--customDarkgreen);
+    color: white;
+    outline: none;
+    border: 1px solid white;
+    min-height: 6vh;
+    font-size: medium;
+    font-weight: 400;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 0 11px 1px #00000061;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: Roboto !important;
+}
+
+ .myactive{
+    background-color:white;
+    color: var(--custombgColor);
+}
+
+.mybuttonmobile{
+    width: 84%;
+    background-color: transparent;
+    color: white;
+    outline: none;
+    border: 0px;
+    min-height: 6vh;
+    font-size: small;
+    font-weight: 600;
+    border-radius: 3px;
+    cursor: pointer;
+    box-shadow: 0 0 11px 1px #00000061;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display:none;
+}
+
+.user-text-class{
+    margin:0px ; 
+    padding:0px;
+    color: white; 
+    font-size: 15px; 
+    font-weight: 400; 
+    margin-bottom: 5px;
+}
+.userdashboard-body-cls{
+    height:100%;
+    width:84%;
+    overflow-y: auto;
+}
+
+.userdashboard-sidebar-mobile-cls{
+    height: 100%;
+    width: 50%;
+    /* box-shadow: 0 0 11px 0px #00000078; */
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    background-color:var(--customgrey);
+    align-items: center;
+    display:none;
+    position: absolute;
+    z-index: 100;
+    animation:0.5s sidebaractionanimation ease; 
+}
+
+@media all and (min-width:768px) and (max-width:1024px) {
+    .userdashboard-sidebar-cls{
+        width:20%;
+    }
+    .userdashboard-sidebar-cls p{
+        display:none;
+    }
+    .userdashboard-body-cls{
+        width:80%;
+    }
+    
+}
+
+@media all and (max-width:655px){
+
+
+    .userdashboard-sidebar-cls{
+        display:none;
+    }
+
+    .userdashboard-sidebar-mobile-cls{
+        display:flex;
+    }
+    .userdashboard-body-cls{
+        width:100%;
+    }
+    
+}
+
+@media only screen and (max-width:1408px) {
+    .user-text-class{
+        font-size: 13px; 
+    }
+    
+  }

@@ -1,0 +1,67 @@
+<div class="main-container">
+
+  <div class="ribbon-label">
+    <h2>Frequently Asked Questions</h2>
+    <button class="optional" matTooltip="Add FAQ Category" (click)="createFaqCategory()" mat-raised-button >
+      New FAQ Category
+    </button>
+  </div>
+
+  <div class="content-wrapper">
+    
+    <div class="anchor-box-wrapper"> 
+      <div class="anchor-box">
+        <div id="anchor-box-content">
+          <div *ngFor="let faq of faqList; let categoryIndex = index;" class="anchor">
+            <a (click)="scroll(faq.id)">{{faq.name}}</a>
+            <span class="square">{{faq.faqQueries.length}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-box-wrapper">
+      <div class="faq-box">
+        <div id="faq-box-content">
+          <div *ngFor="let faq of faqList; let categoryIndex = index;">
+            <div [id]="faq.id" class="faq-category-label">
+              <div class="circle"></div>
+              <span style="margin: 0 10px">{{faq.name}}</span>
+              <mat-slide-toggle matTooltip="{{faq.active ? 'Unpublish' : 'Publish'}} FAQ Category" 
+                                [checked]="faq.active" (change)="publishCategory(faq)" ></mat-slide-toggle>
+              <button style="margin: 0 10px" matTooltip="Edit FAQ Category" class="button-round" mat-raised-button (click)="editFaqCategory(faq)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button style="margin: 0 10px" matTooltip="Delete FAQ Category" class="button-round" mat-raised-button (click)="deleteFaqCategory(faq.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button style="float: right;" matTooltip="Add FAQ Query" class="button-round" mat-raised-button (click)="createFaqQuery(faq.id)">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+            <div class="faq-query-list">
+              <mat-accordion>
+                <mat-expansion-panel *ngFor="let query of faq.faqQueries; let queryIndex = index">
+                  <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*" [collapsedHeight]="'auto'" [expandedHeight]="'auto'" >
+                    <div class="faq-query-label">{{query.name}}</div>
+                    <mat-slide-toggle matTooltip="{{query.active ? 'Unpublish' : 'Publish'}} FAQ Query" class="adjust-position" 
+                                      [checked]="query.active" (change)="publishQuery(query)"></mat-slide-toggle>
+                    <button matTooltip="Delete FAQ Query" class="button-round adjust-position" mat-raised-button (click)="deleteFaqQuery($event, query.id)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                    <button matTooltip="Edit FAQ Query" class="button-round adjust-position" mat-raised-button (click)="editFaqQuery($event, query)">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                  </mat-expansion-panel-header>
+                  <div class="left-full" [innerHTML]="query.description"></div>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+
+  </div>
+  
+</div>

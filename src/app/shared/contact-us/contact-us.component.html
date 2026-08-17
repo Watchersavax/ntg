@@ -1,0 +1,50 @@
+<div [ngClass]=" userdata.roleId == 2 ? 'user-page-wrapper-cls' : 'pagewrapper'">
+    <div [ngClass]=" userdata.roleId == 2 ? 'user-loginbox-cls' : 'loginbox'">
+        <div class="content">
+            
+            <h2>Enquiry</h2>
+        </div>
+        <div class="form-container">
+            <!-- (keydown)="keyDownFunction($event)" -->
+            
+            <form [formGroup]="contactusform">
+
+                <mat-form-field>
+                    <mat-label>Select Subject</mat-label>
+                    <!-- [(ngModel)]="userdetails.state.stateId" -->
+                    
+                    <mat-select formControlName="subject">
+                        <mat-option *ngFor="let ticketCategory of ticketCategoryList" [value]="ticketCategory.tcaId">
+                            {{ticketCategory.tcaName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="field">
+                    <textarea matInput matTooltip="Enter your query" placeholder="Enter your query"
+                        formControlName="message"></textarea>
+                </mat-form-field>
+
+                <div class="errormessage" *ngIf="errorflag" (click)="toggle()">
+                    <span style="margin-left: 10px;">{{errormessage}}</span>
+                </div>
+                <button mat-button class="subminbutton" (click)="onSubmit()">Send Message</button>
+            </form>
+
+        </div>
+
+        <div class="company-details-cls">
+            <p class="heading">Contact Us</p>
+            <p class="sub-heading">HeadQuarters</p>
+            <p class="sub-heading-1">37, Adeniyi Jones Avenue</p>
+            <p class="sub-heading-1">Ikeja, Lagos</p>
+            <p class="sub-heading-1">Nigeria</p>
+            <div style="margin-top: 20px;">
+                <p class="contact"><strong>WhatsApp Only:</strong> +234 7047001413</p>
+                <p class="contact"><strong>Email:</strong> apehg@notago.ng</p>
+            </div>
+
+        </div>
+    </div>
+    <app-ticket-grid #ticketcomp [contactus]="true"></app-ticket-grid>
+</div>

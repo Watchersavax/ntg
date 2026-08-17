@@ -1,0 +1,23 @@
+<div class="dialogwrapper" id="myip">
+        <div class="containerwrapper">
+          <span style="width:100%;display: flex;flex-flow: row nowrap;justify-content: space-between;background-color: var(--custombgColor);">
+            <h2 mat-dialog-title style="margin:0px;">Design template description page</h2>
+            <div class="actionbar">
+            <button mat-button (click)="onSubmit()" syle="border:1px solid white;">Submit</button>
+            <button (click)="close()" style="background-color: transparent;outline:none;border: 0px;cursor: pointer;"><mat-icon style="color: white;font-size: 24px;">close</mat-icon></button>
+           
+        </div>
+        </span>
+          
+          <div class="dialog-body-cls">
+              <!-- [config]="ckeConfig"  -->
+
+                <ckeditor [editor]="Editor" [(ngModel)]="editorData" (ready)="onReady($event)" (change)="checkDataOnChange()">
+                
+                </ckeditor>
+            
+          </div>
+          
+        </div>
+      </div>
+      

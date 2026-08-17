@@ -1,0 +1,58 @@
+<div class="dialogwrapper">
+  
+  <mat-dialog-content class="mat-typography">
+    <div class="errormessage" *ngIf="errorflag">{{errormessage}}</div>
+    <h2 class="text-header-class">Upload Affidavit Template</h2>
+    <div class="text-div">
+      <p class="text-class">
+        We have integrated a feature that allows you to seamlessly submit your completed affidavit for the registrar's
+        signature.
+      </p>
+      <p class="text-class">
+        Simply upload the filled affidavit onto our secure server, and our system will initiate the necessary steps to
+        obtain the registrar's signature promptly.
+      </p>
+      <p class="text-class" style="font-weight: bold;">
+        Note:
+      </p>
+      <p class="text-class">
+        1. Your must have your signature on the document before upload, without the signature, your affidavit woun’t be
+        approved and signed by the Registrar.
+      </p>
+      <p class="text-class">
+        2.You will be charged a fee of <span style="font-weight: bold;">₦</span> {{selectedTemplateobj.templatePrice}}
+        once you successfully upload your template.
+      </p>
+    </div>
+
+    <form class="uploadform" [formGroup]="uploadForm">
+
+      <mat-form-field style="width: 100%;" class="custom-form-field">
+        <button mat-icon-button class="custom-icon-button" (click)="fileInput.click()" matTooltip="Select a file">
+          <mat-icon>cloud_upload</mat-icon>
+        </button>
+        <input type="file" #fileInput hidden (change)="onFileSelected($event)" accept=".docx,.pdf"
+          formControlName="file">
+        <input matInput placeholder="Choose file" [value]="selectedFile?.name || 'Choose file'" readonly
+          style="border: none; color: #969696; flex-grow: 1;cursor: pointer;"  (click)="fileInput.click()">
+        <div class="message">Only DOCX, PDF max size of 5MB</div>
+
+      </mat-form-field>
+      
+    </form>
+
+    <div class="actiongroup">
+      <button mat-button (click)="upload()" style="
+          font-size: small;
+          color: white;
+          margin-right: 20px;width: 30%;    padding: 5px;
+        " [style.background-color]="errorflag ? '#545859' : '#006D3E'" [disabled]="errorflag">
+        Upload
+      </button>
+      <button mat-button mat-dialog-close="false"
+        style="background-color: #545859; font-size: small; color: white;width: 30%; margin-right: 10px;  padding: 5px;">
+        Cancel
+      </button>
+    </div>
+  </mat-dialog-content>
+</div>

@@ -1,0 +1,33 @@
+:host {
+    display: block;
+    width: 100%;
+}
+
+.verify-phone-button {
+    background-color: var(--custombtnColor);
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    min-width: 0;
+    width: auto;
+    white-space: nowrap;
+    padding: 0 16px;
+    margin-top: -6px;
+    margin-bottom: 10px;
+}
+
+.phone-warning,
+.phone-inline-error {
+    width: 100%;
+    color: #c62828;
+    font-size: 13px;
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+@media only screen and (max-width:655px) {
+    .verify-phone-button {
+        width: auto;
+        margin-bottom: 12px;
+    }
+}

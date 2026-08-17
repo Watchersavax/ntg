@@ -1,0 +1,114 @@
+.tablewrapper {
+    width: 82vw;
+    border: 1px solid #00000038;
+    padding: 15px;
+    background-color: white;
+    border-radius: 10px;
+    margin-left: 12px;
+    margin-top: 12px;
+    margin-bottom: 0px;
+    height: 100%;
+  }
+  
+  .mat-card-list-cls{
+    display: flex;
+    flex-flow: row nowrap;
+    padding:0px!important;
+    box-shadow: 0 2px 6px -1px rgba(0, 0, 0, 0.48), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+    height:auto;
+  }
+  
+  
+  .tablelabel {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .tablelabel span{
+    font-size:medium;
+    /* color:var(--customgrey); */
+  }
+  
+  .tablelabel h4 {
+    flex: 1;
+    flex-grow: 1;
+    flex-shrink: 1;
+  }
+  
+  .tablelabel button {
+    width: 10vw;
+    background-color: var(--custombgColor);
+    margin-bottom: 16px;
+    /* background: linear-gradient(to bottom, #be3a34 0%, #545859 100%); */
+  
+    color: white;
+  }
+  
+  td {
+    transition: 0.3s ease;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  #specialheading{
+    padding-left:24px;
+  }
+  
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+  
+  .action-groups {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin-left:10px;
+    /* border-bottom: 1px solid black; */
+    align-items: center;
+  }
+  
+  .action-groups button {
+    background-color: #2d814b00;
+    color: black;
+    width: 25px !important;
+    height: 25px;
+    border-radius: 50%;
+  }
+  
+  .disable .mat-chip.mat-standard-chip {
+    background-color: grey;
+    content: "no centent"
+  }
+  
+  .enable .mat-chip.mat-standard-chip {
+    background-color: var(--custombgColor);
+  }
+  
+  /* tr:hover td {
+    border-bottom: 3px red solid;
+    border-top: 3px red solid;
+    border-right: 0px red solid;
+    border-left: 0px red solid;
+  } */
+  
+  .actionclass {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .actionclass span {
+    flex: 1;
+  }
+  
+  .actionclass button {
+    flex: 1;
+    background-color: white !important;
+    color: black;
+  
+  }

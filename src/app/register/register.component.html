@@ -1,0 +1,63 @@
+<div class="pagewrapper">
+    <div class="loginbox">
+        <div class="content">
+            
+            <h1>Signup</h1>
+        </div>
+        
+        <div class="form-container">
+
+            <form [formGroup]="registerformgroup" (keydown)="keyDownFunction($event)">
+
+                <mat-form-field class="field">
+                    <input matInput matTooltip="Enter your Firstname" placeholder="First name"
+                        formControlName="firstname">
+                </mat-form-field>
+
+                <mat-form-field class="field">
+                    <input matInput matTooltip="Enter your Lastname" placeholder="Last name" formControlName="lastname">
+                </mat-form-field>
+
+                <mat-form-field class="field">
+                    <input matInput matTooltip="Enter your  Username" placeholder="Username" formControlName="username">
+                </mat-form-field>
+
+                <mat-form-field class="field">
+                    <input matInput matTooltip="Enter email" placeholder="Email" formControlName="email">
+                </mat-form-field>
+
+                <mat-form-field class="field">
+                    <input matInput matTooltip="Business firm name" placeholder="Business firm name" formControlName="corporateinfo">
+                </mat-form-field>
+
+                <mat-form-field class="field">
+                    <input matInput matTooltip="Enter your password" placeholder="Enter your password"
+                        [type]="hide ? 'password' : 'text'" formControlName="password">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+
+                <mat-form-field class="field">
+                    <input matInput matTooltip="Re enter your password" placeholder="Re Enter password"
+                        [type]="hide ? 'password' : 'text'" formControlName="repassword">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+
+                <div class="errormessage" *ngIf="errorflag" >
+                    <span style="margin-left: 10px;">{{errormessage}}</span>
+                </div>
+                <button mat-button class="subminbutton" (click)="onSubmit()">Register</button>
+
+                <div style="display:flex;flex-flow:row wrap;justify-content: center">
+                    <div class="field" style="margin-top:8px "><a [routerLink]="['/login']">Already have an account</a></div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

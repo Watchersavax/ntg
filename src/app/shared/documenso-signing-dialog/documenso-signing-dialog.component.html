@@ -1,0 +1,13 @@
+<div class="documenso-signing-dialog">
+  <button class="close-button" type="button" (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <app-documenso-signing-embed
+    [signingUrl]="signingUrl"
+    [name]="name"
+    [email]="email"
+    [allowDocumentRejection]="allowDocumentRejection"
+    (documentCompleted)="documentCompleted()"
+    (documentRejected)="documentRejected($event)"
+  ></app-documenso-signing-embed>
+</div>

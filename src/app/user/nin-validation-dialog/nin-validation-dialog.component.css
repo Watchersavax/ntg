@@ -1,0 +1,99 @@
+.dialogwrapper {
+    width: 30rem;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    border-radius: 10px;
+    /* box-shadow: 0px 1px 20px 13px #00000078; */
+  }
+
+  .dialogwrapper span {
+    width: 100%;
+  }
+
+  .mat-dialog-content {
+    width: 70% !important;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-label {
+    font-size: small !important;
+  }
+
+  .mat-dialog-title{
+    background-color: white !important;
+    color: black !important;
+    text-align: center;
+    font-size: medium;
+    font-weight: 400;
+    margin: 20px !important;
+  }
+  .actiongroup {
+    margin-top:1vh;
+    margin-bottom:1vh;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+
+  .validateNIN {
+    /* height:34vh; */
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+  }
+
+  .custom-form-field{
+    align-items: flex-start;
+  }
+
+.errormessage{
+    color:red;
+    margin-bottom:1vh;
+    font-weight:500;
+  }
+
+  .calendly-dialogwrapper {
+    width: 65rem;
+    max-width: calc(100vw - 48px);
+    overflow-x: hidden;
+    align-items: stretch;
+  }
+
+  .calendly-dialogwrapper app-calendly-appointment-dialog {
+    display: block;
+    width: 100%;
+  }
+
+
+  @media only screen and (max-width:1024px) {
+    .dialogwrapper {
+      /* width: 37vw; */
+      /* height: 55vh; */
+    }
+
+    .dialogwrapper h2{
+      font-size:medium;
+  }
+
+    .actiongroup {
+      margin-top: 1vh;
+      margin-bottom:1vh;
+    }
+    .mat-button {
+      width:120px;
+      font-size: larger;
+    }
+  }
+
+
+
+
+

@@ -1,0 +1,19 @@
+<footer class="legal-footer" [ngClass]="'legal-footer--' + variant">
+  <span class="legal-footer__copy" *ngIf="showCopyright">© NotaGo</span>
+  <a
+    class="legal-footer__link"
+    href="/privacy-policy"
+    [attr.target]="target"
+    [attr.rel]="rel"
+  >
+    Privacy Policy
+  </a>
+  <a
+    class="legal-footer__link"
+    href="/terms-of-service"
+    [attr.target]="target"
+    [attr.rel]="rel"
+  >
+    Terms of Service
+  </a>
+</footer>

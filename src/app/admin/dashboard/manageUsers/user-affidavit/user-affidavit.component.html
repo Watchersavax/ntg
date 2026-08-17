@@ -1,0 +1,107 @@
+<div class="tablewrapper">
+
+  <div class="tablelabel">
+
+    <span style="padding: 0px; margin-bottom: 12px; font-weight: 500;font-size: large;">
+      <span>User:<a [routerLink]="['/admin','dashboard','users']" class="breadcrumb-cls">{{userName}}</a>
+        <span style="font-size: large;margin: 5px;color: grey;font-size:larger"> / </span>
+      </span>
+      <span>Affidavits</span>
+    </span>
+
+    <span style="margin-bottom: 12px;">
+      <input  id="searchUserAffidavit" style="border: 0px;border-bottom: 2px solid #545859;outline: none;font-size: medium;width: 18vw;"
+              [(ngModel)]="pageParam.keyword" (ngModelChange)="keywordUpdate.next($event)" placeholder="Search User Affidavits...">
+      <mat-icon style="color: #545859;">search</mat-icon>
+    </span>
+
+    <span style="padding: 0px; margin-bottom: 12px; font-weight: 500; font-size: medium;">
+      <mat-tab-group [(selectedIndex)]="selectedIndex" (selectedTabChange)="tabChanged($event)">
+        <mat-tab label="Draft"></mat-tab>
+        <mat-tab label="Pending"></mat-tab>
+        <mat-tab label="Submit"></mat-tab>
+        <mat-tab label="Genuine"></mat-tab>
+      </mat-tab-group>
+    </span>
+
+  </div>
+
+  <div class="table-wrapper-cls">
+
+    <div class="table-header-cls" matSort (matSortChange)="sortData($event)" style="border:1px solid black">
+
+      <div class="table-header-cell-cls" mat-sort-header="templateName" style="border-right: 1px solid #00000038;">
+        Affidavit Name
+      </div>
+
+      <div class="table-header-cell-cls" mat-sort-header="price" style="border-right: 1px solid #00000038; flex: 1">
+        Price
+      </div>
+      
+      <div class="table-header-cell-cls no-sort-header" style="border-right: 1px solid #00000038; ">
+        Custom Name
+      </div>
+
+      <div *ngIf="affidavitStatus['finalStatus'] != 'Genuine'" class="table-header-cell-cls no-sort-header" style="border-right: 1px solid #00000038; flex: 1;">
+        Payment Status
+      </div>
+
+      <div class="table-header-cell-cls no-sort-header" style="border-right: 1px solid #00000038; flex: 1;">
+        Registrar Status
+      </div>
+      <div *ngIf="affidavitStatus['finalStatus'] == 'Genuine'" class="table-header-cell-cls no-sort-header" style="border-right: 1px solid #00000038; flex: 1;">
+        Marked By
+      </div>
+
+      <div  *ngIf="affidavitStatus.status == 'Pending' && adminManagement" class="table-header-cell-cls no-sort-header" style="flex: 1">
+        Actions
+      </div>
+
+    </div>
+
+    <div class="table-body-cls" infinite-scroll [infiniteScrollDistance]="scrollDistance"
+      [infiniteScrollUpDistance]="scrollUpDistance" [infiniteScrollThrottle]="throttle" (scrolled)="nextPage()"
+      [infiniteScrollDisabled]="infiniteScrollDisabled" [scrollWindow]="false">
+
+      <mat-card *ngFor="let userAffidavit of userAffidavitList; let i = index" class="mat-card-list-cls">
+        
+        <div class="table-row-cell-cls">
+          {{userAffidavit.templateName}}
+        </div>
+
+        <div class="table-row-cell-cls" style="flex: 1">
+          {{userAffidavit.price}}
+        </div>
+
+        <div class="table-row-cell-cls">
+          {{userAffidavit.userAffidavitCustomName}}
+        </div>
+
+        <div *ngIf="affidavitStatus['finalStatus'] != 'Genuine'" class="table-row-cell-cls" style="flex: 1">
+          {{userAffidavit.status}}
+        </div>
+
+        <div class="table-row-cell-cls" style="flex: 1">
+          {{userAffidavit.registrarStatus}}
+        </div>
+        <div *ngIf="affidavitStatus['finalStatus'] == 'Genuine'" class="table-row-cell-cls" style="flex: 1">
+          {{userAffidavit.registrarName}}
+        </div>
+
+        <div  *ngIf="affidavitStatus.status == 'Pending' && adminManagement" class="table-row-cell-cls" style="flex: 1;">
+          <div class="action-groups">
+            <button *ngIf="userAffidavit.storedDocumentAvailable" matTooltip="Mark Status as Paid" mat-raised-button style="margin:5px" (click)="markUserAffidavitAsPaid(userAffidavit)">
+              <mat-icon style="color:var(--custombtnColor) ;font-size: 16px;">payment</mat-icon>
+            </button>
+            <button *ngIf="!userAffidavit.storedDocumentAvailable" matTooltip="Stored document is missing" mat-raised-button style="margin:5px">
+              <mat-icon style="color: lightgrey ;font-size: 16px;">payment</mat-icon>
+            </button>
+          </div>
+        </div>
+
+      </mat-card>
+    </div>
+  
+  </div>
+
+</div>

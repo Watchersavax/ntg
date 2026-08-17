@@ -1,0 +1,8 @@
+<button mat-button type="button" class="verify-phone-button" *ngIf="canVerifyPhoneNumber()"
+    (click)="openPhoneVerificationDialog()">Verify Phone Number</button>
+<div class="phone-warning" *ngIf="showPhoneVerificationWarning()">
+    {{getPhoneVerificationWarning()}}
+</div>
+<div class="phone-inline-error" *ngIf="errorMessage && !showPhoneVerificationWarning()">
+    {{errorMessage}}
+</div>

@@ -1,0 +1,43 @@
+<div class="dialogwrapper">
+  
+  <span>
+    <h2 mat-dialog-title>Edit Faq Query</h2>
+  </span>
+  <mat-dialog-content class="mat-typography">
+    <div class="errorMessage" *ngIf="errorFlag">{{errorMessage}}</div>
+
+    <form [formGroup]="editFaqQuery" class="editform">
+
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <input matInput placeholder="Name" formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <input matInput placeholder="Sequence Number" formControlName="sequence">
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%;">
+        <mat-label>Faq Category</mat-label>
+        <mat-select formControlName="categoryId">
+          <mat-option *ngFor="let faqCategory of faqCategoryList" [value]="faqCategory.id">
+            {{faqCategory.name}} 
+          </mat-option>
+        </mat-select>
+      </mat-form-field>  
+
+      <ckeditor [editor]="classicEditor" formControlName="description" (ready)="onReady($event)">
+
+      </ckeditor>
+
+    </form>
+
+    <div class="actiongroup">
+      <button mat-button style="background-color: var(--custombtnColor);font-size:small;color: white;;margin-right:20px;"
+        (click)="onSubmit()">Submit</button>
+      <button mat-button mat-dialog-close="false"
+        style="background-color: #545859;font-size:small;color: white;">Cancel</button>
+    </div>
+
+  </mat-dialog-content>
+  
+</div>

@@ -1,0 +1,11 @@
+/*
+ * Container-only styling. Layout and screen styles live in the shared
+ * `auth-shared.css` (referenced from this component's styleUrls and from every
+ * presentational child), so the container host keeps just the page-level box.
+ */
+:host {
+  display: block;
+  min-height: 100vh;
+  color: #17191c;
+  background: #faf9f7;
+}

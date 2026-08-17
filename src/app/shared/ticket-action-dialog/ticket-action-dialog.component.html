@@ -1,0 +1,34 @@
+<div class="maincontent">
+    <span>
+        <h2 mat-dialog-title>Take Action</h2>
+        <button (click)="close()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </span>
+    <p *ngIf="userdata.roleId == 1 && (!!alreadyassignedto && alreadyassignedto.userId != userdata.userId)"
+        style="color:var(--custombgColor)">*Already assigned to {{alreadyassignedto.userName}}</p>
+    <p *ngIf="errorflag" style="color:red;font-weight:800;">{{error}}</p>
+    <mat-form-field style="margin-top:15px;">
+
+        <textarea matInput (ngModelChange)="onKeyenter()" [(ngModel)]="dataobj.message"
+            placeholder="Enter your comments"></textarea>
+    </mat-form-field>
+    <span style="margin-bottom: 12px;background-color: transparent;width: 48%;"
+        *ngIf="contactusflag != true && actionflag == 3">
+        <input #searchinput id="searchUser"
+            style="border: 0px;border-bottom: 2px solid #545859;outline: none;font-size: medium;width: 18vw;"
+            [(ngModel)]="keyword" (keypress)="keywordUpdate.next($event)" [matAutocomplete]="auto"
+            placeholder="Search User...">
+        <mat-icon style="color: #545859;">search</mat-icon>
+    </span>
+    <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of userList" [value]="option.userName">
+            {{option.userName}}
+        </mat-option>
+    </mat-autocomplete>
+
+    <div class="actiongroup">
+        <button mat-button (click)="onSubmit()"
+            style="background-color: var(--custombtnColor); font-size:small;font-weight: 600; color: white;margin-right:20px;">Save</button>
+    </div>
+</div>

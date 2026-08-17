@@ -1,0 +1,60 @@
+.tablewrapper {
+  width: 82vw;
+  border: 1px solid #00000038;
+  padding: 15px;
+  background-color: white;
+  border-radius: 10px;
+  margin-left: 12px;
+  margin-top: 12px;
+  margin-bottom: 0px;
+  height: 100%;
+}
+.mat-card-list-cls {
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 0px !important;
+  box-shadow: 0 2px 6px -1px rgba(0, 0, 0, 0.48),
+    0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  min-height: 45px;
+}
+.paginator-cls {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  height: 7%;
+}
+
+.button-cls{
+    width: 7vw;
+    background-color: var(--custombtnColor);
+    color: white;
+}
+.mat-icon{
+    background-color: white !important;
+    color: var(--custombgColor);
+}
+.deleteIconbutton {
+    height: 25px;
+    border-radius: 50%;
+    background: white; 
+    margin-right: 5px;
+}
+.button-cls-disabled{
+  background-color: grey;
+  color: white;
+  box-shadow: none;
+}
+.table-row-cell-cls .button-cls-disabled{
+  background-color:grey;
+  color: white;
+  box-shadow: none;
+  width: 7vw;
+}
+
+.empty-msg {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: red;
+}

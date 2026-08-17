@@ -1,0 +1,118 @@
+.persondetails-form-cls {
+    width: 86vw;
+    height: 89vh;
+    background-color: transparent;
+    overflow-y:auto;
+    margin-left: 8px;
+}
+
+.persondetails-form-cls form{
+    display:flex;
+    flex-flow:row wrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+
+
+
+.inputfields-cls{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-content: center;
+    /* background-color: lightblue; */
+    padding: 14px;
+   
+}
+
+.inputfields-cls .mat-form-field{
+    width: 70%;
+}
+
+.submitbutton {
+    background-color: var(--custombgColor);
+    color: white;
+    margin-left: 15px;
+    box-shadow: 0 0 8px 1px #00000087;
+    width: 11vw;
+    margin-top: 4vh;
+}
+
+.submitbutton:active{
+    box-shadow:none;
+    cursor: pointer;
+}
+
+.inputfields-address-cls {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-content: center;
+    /* background-color: lightblue; */
+    padding-left: 14px;
+}
+
+.inputfields-address-cls textarea.mat-input-element{
+    height: 8vh;
+    width:100%;
+}
+
+.namedata-cls h2{
+    color:white;
+    background-color: var(--custombgColor);
+    margin-top: 0px;
+    padding:5px;
+    padding-left:10px;
+    /* padding-top: 1vh; */
+    /* text-decoration: underline; */
+}
+
+.namedata-cls{
+    margin: 10px;
+    padding: 10px;
+    width: 42%;
+    height: 77vh;
+    display: flex;
+    
+    flex-flow: column nowrap;
+    border-bottom: 4px solid var(--custombgColor);
+    box-shadow: 0 0 6px 1px #00000063;
+    border-radius: 2px;
+    margin-top: 6vh;
+    background-color:white;
+}
+
+.actionbar{
+
+    height: 6.0vh;
+    margin-left: 0vh;
+    z-index: 13;
+    display: flex;
+    /* -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal; */
+    flex-flow: row wrap;
+    /* -webkit-box-pack: justify; */
+    justify-content: center;
+    margin-top: 10px;
+    background-color: #4C4D51;
+
+  }
+  
+  .actionbar button {
+    width:9vw;
+    background-color:var(--custombgColor);
+    font-size: medium;
+  }
+
+
+  @media only screen and (min-width:576px ) and (max-width: 992px) {
+    .persondetails-form-cls{
+        width:96vw;
+    }
+
+    .submitbutton{
+        width:16vw;
+    }
+  }

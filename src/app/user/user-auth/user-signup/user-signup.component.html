@@ -1,0 +1,124 @@
+<div class="auth-page">
+  <aside class="auth-brand-panel">
+    <div class="auth-brand-content">
+      <img
+        class="auth-logo"
+        src="assets/Notago_logo.png"
+        alt="NotaGo logo"
+      />
+
+      <div class="auth-brand-copy">
+        <h1>{{ getBrandTitle() }}</h1>
+        <p>{{ getBrandDescription() }}</p>
+      </div>
+
+      <div class="auth-trust-list">
+        <div class="auth-trust-item" *ngFor="let item of trustItems">
+          <mat-icon>{{ item.icon }}</mat-icon>
+          <span>{{ item.label }}</span>
+        </div>
+      </div>
+
+      <img
+        class="auth-preview"
+        [class.auth-preview--certificate]="componentType === 'login'"
+        [src]="getBrandPreviewPath()"
+        alt=""
+      />
+    </div>
+  </aside>
+
+  <main class="auth-content-panel">
+    <div class="auth-content-inner">
+      <div class="auth-progress" *ngIf="showProgress()">
+        <span class="auth-progress__segment auth-progress__segment--active"></span>
+        <span
+          class="auth-progress__segment"
+          [class.auth-progress__segment--active]="isProgressComplete()"
+        ></span>
+      </div>
+
+      <app-account-type-step
+        *ngIf="componentType === 'account-type'"
+        [options]="accountTypeOptions"
+        (select)="selectAccountType($event)"
+        (login)="login()"
+      ></app-account-type-step>
+
+      <app-register-form
+        *ngIf="componentType === 'register'"
+        [formGroup]="registerFormGroup"
+        [formType]="formType"
+        [proceedToPayment]="proceedToPayment"
+        [selectedAccountType]="selectedAccountType"
+        [registerRequestModel]="registerRequestModel"
+        [errorFlag]="errorFlag"
+        [errorMessage]="errorMessage"
+        (submitForm)="onRegisterSubmit()"
+        (editDetails)="editRegistrationDetails()"
+        (registerEvent)="onRegisterEvent($event)"
+        (login)="login()"
+        (back)="goLandingPage()"
+        (clearError)="toggle()"
+      ></app-register-form>
+
+      <app-login-form
+        *ngIf="componentType === 'login'"
+        [formGroup]="loginFormGroup"
+        [errorFlag]="errorFlag"
+        [errorMessage]="errorMessage"
+        (submitForm)="onLoginSubmit()"
+        (forgot)="forgot()"
+        (signup)="signup()"
+        (clearError)="toggle()"
+      ></app-login-form>
+
+      <app-forgot-form
+        *ngIf="componentType === 'forgot'"
+        [formGroup]="forgotFormGroup"
+        [errorFlag]="errorFlag"
+        [errorMessage]="errorMessage"
+        [success]="success"
+        (submitForm)="onForgotSubmit()"
+        (login)="login()"
+        (clearError)="togglewithmessage('')"
+        (keyPress)="keyPress()"
+      ></app-forgot-form>
+
+      <app-otp-verification
+        *ngIf="componentType === 'otpVerification'"
+        [formGroup]="otpVerificationForm"
+        [email]="registerRequestModel.email"
+        [errorFlag]="errorFlag"
+        [errorMessage]="errorMessage"
+        [resendEnabled]="resendDisable"
+        [resendTimer]="resendTimer"
+        (submitForm)="onVerifyOTPSubmit()"
+        (resend)="resendEmailOTP()"
+        (edit)="editEmailORMobile()"
+      ></app-otp-verification>
+
+      <section class="auth-state auth-state--centered" *ngIf="componentType === 'maxResendOTP'">
+        <h2>Resend OTP limit exceeds</h2>
+        <p class="auth-state-subtitle">
+          You have reached maximum Resend OTP limit. Please write to us on
+          smilepass@mail.com. Our team will reach to you.
+        </p>
+        <button
+          type="button"
+          mat-button
+          class="auth-primary-button"
+          (click)="login()"
+        >
+          Okay
+        </button>
+      </section>
+
+      <app-legal-footer
+        variant="auth"
+        [showCopyright]="false"
+        *ngIf="componentType !== 'register'"
+      ></app-legal-footer>
+    </div>
+  </main>
+</div>

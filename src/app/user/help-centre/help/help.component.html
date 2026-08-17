@@ -1,0 +1,43 @@
+<div class="main-container">
+
+  <div class="ribbon-label">
+    <h2>Frequently Asked Questions (FAQ’s)</h2>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="faq-box-wrapper">
+      <div class="faq-box">
+        <div id="faq-box-content">
+          <div *ngFor="let faq of faqList; let categoryIndex = index;">
+            
+            <div class="faq-query-list">
+              <mat-accordion>
+                <mat-expansion-panel *ngFor="let query of faq.faqQueries; let queryIndex = index">
+                  <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*" [collapsedHeight]="'auto'" [expandedHeight]="'auto'" >
+                    <div class="faq-query-label">{{query.name}}</div>
+                  </mat-expansion-panel-header>
+                  <div class="left-full" [innerHTML]="query.description"></div>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+
+  </div>
+
+  <div class="w-100 d-flex justify-content-center align-items-center">
+    <div class="contact-container">
+      <div>
+        <h4 class="w-100 text-center" style="font-weight: 700 !important;">Still can’t find the answer to your question?</h4>
+      </div>
+      <div class="d-flex justify-content-between p-4 w-100 font-weight-normal" style="font-weight: 500 !important;">
+        <div class="d-flex m-2"><span>WhatsApp only</span>: +234 707 589 7045</div>
+        <div class="d-flex m-2"><span>Email</span>:  help@e-affidavit.ng</div>
+      </div>
+    </div>
+  </div>
+  
+</div>

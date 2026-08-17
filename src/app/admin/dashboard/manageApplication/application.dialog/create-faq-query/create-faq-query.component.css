@@ -1,0 +1,86 @@
+.dialogwrapper {
+  min-width: 60vw;
+  min-height: 55vh;
+  max-height: 64vh;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.dialogwrapper span {
+  width: 100%;
+}
+
+.actiongroup {
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+}
+
+.editform {
+  /* height:34vh; */
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+}
+
+.errorMessage {
+  color: red;
+  margin-bottom: 1vh;
+  font-weight: 500;
+}
+
+.cke_reset {
+  width: 85vw !important;
+}
+
+.cke_top {
+  border-bottom: 0px !important;
+  border: 2px solid var(--custombgColor) !important;
+}
+
+.cke_bottom {
+  border-top: 0px !important;
+  border: 0px !important;
+  border: 2px solid var(--custombgColor) !important;
+}
+
+.ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable, .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners{
+  min-height:64vh!important;
+  border: 1px solid var(--custombgColor) !important;
+  border-top:0px!important;
+}
+
+.ck.ck-toolbar {
+  border: 1px solid var(--custombgColor) !important;
+}
+
+@media only screen and (max-width:1024px) {
+  .dialogwrapper {
+    width: 37vw;
+    /* height: 55vh; */
+  }
+
+  .maincontent {
+    /* height: 55vh; */
+  }
+
+  .dialogwrapper h2 {
+    font-size: medium;
+  }
+
+  .actiongroup {
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+  }
+
+  .mat-button {
+    width: 120px;
+    font-size: larger;
+  }
+}

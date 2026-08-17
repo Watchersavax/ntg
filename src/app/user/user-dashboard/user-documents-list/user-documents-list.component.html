@@ -1,0 +1,98 @@
+<div class="documentlisting-cls">
+    <div class="searchbox-cls">
+
+        <span style="align-self: flex-end; ">
+            <input  id="searchUserAffidavit" style="border: 0px;border-bottom: 2px solid #545859;outline: none;font-size: medium;;font-size:medium"
+                    [(ngModel)]="searchKeyword" (ngModelChange)="search()" placeholder="Search By Name..." />
+            <mat-icon style="color: #545859;">search</mat-icon>
+        </span>
+
+        <div class="filteroptions">
+            <button (click)="onStatusChange('Pending')" style="cursor: pointer"
+                [className]="(activeStatusTab['finalStatus'] == 'Pending') ? 'active-filter-class' : 'inactive-filter-cls'">Draft</button>
+            <button (click)="onStatusChange('Paid')" style="cursor: pointer"
+                [className]="(activeStatusTab['finalStatus'] == 'Paid') ? 'active-filter-class' : 'inactive-filter-cls'">Pending</button>
+            <button (click)="onStatusChange('Verified')" style="cursor: pointer"
+                [className]="(activeStatusTab['finalStatus'] == 'Verified') ? 'active-filter-class' : 'inactive-filter-cls'">Submit</button>
+            <button (click)="onStatusChange('Scheduled')" style="cursor: pointer"
+                [className]="(activeStatusTab['finalStatus'] == 'Scheduled') ? 'active-filter-class' : 'inactive-filter-cls'">Meeting</button>
+            <button (click)="onStatusChange('Approved')" style="cursor: pointer"
+                [className]="(activeStatusTab['finalStatus'] == 'Approved') ? 'active-filter-class' : 'inactive-filter-cls'">Signed</button>
+            <button (click)="onStatusChange('Rejected')" style="cursor: pointer"
+                [className]="(activeStatusTab['finalStatus'] == 'Rejected') ? 'active-filter-class' : 'inactive-filter-cls'">Rejected</button>
+        </div>
+
+        <div class="paginator-cls">
+            <p style="color:red">{{dataMessage}}</p>
+            <p style="color:grey">Page no :</p>
+            <button [disabled]="prevflag" (click)="previousPage()"  [ngClass]="(prevflag == true) ?'page-navigation-disabled-cls': 'page-navigation-cls'" ><mat-icon style="font-size: 24px;margin-right:0px">navigate_before</mat-icon></button>
+                <p>{{pageParam.page+1}}</p>
+            <button [disabled]="nextflag" (click)="nextPage()"   [ngClass]="(nextflag == true) ?'page-navigation-disabled-cls': 'page-navigation-cls'"><mat-icon style="font-size: 24px;margin-right:0px">navigate_next</mat-icon></button>
+        </div>
+
+    </div>
+    <div class="listofdocuments-cls">
+        <mat-card *ngFor="let document of filteredList;let i = index" [id]="'mydocument'+i" class="document-card-cls">
+            <!-- [innerHTML]="document.htmlValue" [style]="document.cssvalue" -->
+
+            <div class="container-cls" [id]="'containerid'+i"
+                [innerHTML]="(document.htmlValue == undefined )? ((document.userAffidavitCustomName == null || document.userAffidavitCustomName == undefined || document.userAffidavitCustomName == '')?document.templateName:document.userAffidavitCustomName) :document.htmlValue | safe: 'html'"
+                style="width:200px;height:200px"></div>
+            <div class="actiongroup-container-cls">
+                <h1 matTooltipPosition="above"
+                    *ngIf="document.userAffidavitCustomName != null && document.userAffidavitCustomName != undefined && document.userAffidavitCustomName != ''"
+                    [matTooltip]="document.userAffidavitCustomName"
+                    style="word-break: break-all;font-size:medium;padding: 0px 10px 0px 10px;">
+                    {{document.userAffidavitCustomName}}
+                </h1>
+                <h1 matTooltipPosition="above"
+                    *ngIf="document.userAffidavitCustomName == null || document.userAffidavitCustomName == undefined || document.userAffidavitCustomName == ''"
+                    [matTooltip]="document.templateName">
+                    
+                    {{document.templateName}}
+                </h1>
+                <div class="upperrorw-cls">
+                    <button *ngIf="document.status === 'Paid' && document.registrarStatus !== 'Approved'" (click)="verifyNINSign(document)" class="enablebutton-cls">Verify</button>
+                    <button *ngIf="document.registrarStatus === 'Approved'" (click)="downloadDocument(document)" class="enablebutton-cls">Download</button>
+                    <button *ngIf="document.registrarStatus != 'Approved'" (click)="openFinalPriview(document)" class="enablebutton-cls" [disabled]="document.disablePreviewFlag">Preview</button>
+                    <button [disabled]="document.status === 'Paid'"
+                    [ngClass]="[(document.status === 'Paid') ? 'disablebutton-cls' : 'enablebutton-cls', (document.isUploaded || document.isCaseRelated) ? 'hide-button' : 'show-button']"
+                        (click)="editAffidavit(document)" *ngIf="document.registrarStatus != 'Approved' && document.status != 'Verified'">Edit</button>
+                    <button *ngIf="document.registrarStatus != 'Approved' && document.status == 'Pending'"
+                        [ngClass]='(document.status === "Paid")?"disablebutton-cls":"enablebutton-cls"'
+                        (click)="deleteUserAffidavit(i, document)">Delete</button>
+                    <button *ngIf="document.status === 'Verified' && document.registrarStatus !== 'Scheduled' && document.registrarStatus !== 'Approved' && document.registrarStatus !== 'Rejected'" (click)="scheduleDocument(document,'Verified')" class="enablebutton-cls">Schedule</button>
+                    <button *ngIf="document.registrarStatus === 'Scheduled' && document.canCancelAppointment" (click)="cancelScheduledAppointment(document)" class="enablebutton-cls">Cancel</button>
+                    <button *ngIf="document.registrarStatus === 'Scheduled'" [disabled]="!canJoinMeeting(document)"
+                        [ngClass]="canJoinMeeting(document) ? 'enablebutton-cls' : 'disablebutton-cls'"
+                        (click)="joinMeeting(document)">Join</button>
+                    <button *ngIf="document.registrarStatus === 'Scheduled' && document.missedAppointment" (click)="scheduleDocument(document,'Scheduled')" class="enablebutton-cls">ReSchedule</button>
+                    <button *ngIf="activeStatusTab['finalStatus'] == 'Scheduled' && canSendToSignDocument(document)"
+                        [disabled]="document.disableSendToSign" (click)="sendToSign(document)" class="enablebutton-cls">Send to Sign</button>
+                    <button *ngIf="activeStatusTab['finalStatus'] == 'Scheduled' && canSignDocument(document)"
+                        (click)="signDocument(document)" class="enablebutton-cls">Sign</button>
+                    <button *ngIf="document.registrarStatus === 'Rejected' && canRecreateDocument(document)" (click)="recreateDocument(document)" class="enablebutton-cls">Recreate</button>
+                    <button *ngIf="document.registrarStatus === 'Rejected'" (click)="showRejectReason(document)" class="enablebutton-cls">Reason</button>
+                </div>
+                <div class="upperrorw-cls"
+                    *ngIf="document.registrarStatus != 'Approved' && document.status == 'Pending'">
+                    <button [ngClass]="(document.status != 'Pending')?'disablebutton-cls':'enablebutton-cls'"  >
+                        <app-payment-check [affidavitIdFromParent]="document.userAffidavitId"
+                            [affidavitpriceFromParent]="document.price"
+                            [isPriceDialogOpen]="shouldOpenPriceDialog"
+                            [templatePrice]="document.templatePrice"
+                            [templateFastTrackPrice]="document.templateFastTrackPrice"
+                            [affidavitnameFromParent]="(!!document.userAffidavitCustomName)?document.userAffidavitCustomName:document.templateName" [isExpress]="document.isExpress"
+                            (someEvent)="eventTriggeredFromPaymentChild()"></app-payment-check>
+                    </button>
+                </div>
+
+                <p matTooltip = "Marked genuine by {{document.registrarName}} (Registrar of {{document.registrarCourtName}})" *ngIf="document.registrarStatus == 'Approved' && !!document.registrarName">Marked by {{document.registrarName}}</p>
+                <p *ngIf="document.registrarStatus == 'Approved' && !document.registrarName">Genuine</p>
+                <p *ngIf="document.registrarStatus != 'Approved'">&nbsp;&nbsp;{{document.status}}&nbsp;&nbsp;</p>
+
+            </div>
+
+        </mat-card>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="tablewrapper">
+    <div class="tablelabel" style="min-height: 55px;">
+  
+      <span style="padding: 0px; margin-bottom: 12px; font-weight: 500;font-size: large;">
+        <span>Category:<a [routerLink]="['/admin','dashboard','categories']" class="breadcrumb-cls">{{categoryName}}</a>
+        </span>
+      </span>
+
+      <span style="margin-bottom: 12px;">
+      </span>
+    </div>
+  
+    <div class="table-wrapper-cls">
+  
+      <div class="table-header-cls" matSort (matSortChange)="sortData($event)" style="border:1px solid black">
+          <div class="table-header-cell-cls" mat-sort-header="title" style="border-right: 1px solid #00000038;">
+              Title
+          </div>
+          <div class="table-header-cell-cls" mat-sort-header="status" style="    border-right: 1px solid #00000038;">
+              Status
+          </div>
+          <div class="table-header-cell-cls no-sort-header"  >
+            Actions
+          </div>
+      </div>
+      
+      <div class="table-body-cls" infinite-scroll
+            [infiniteScrollDistance]="scrollDistance"
+            [infiniteScrollUpDistance]="scrollUpDistance"
+            [infiniteScrollThrottle]="throttle"
+            (scrolled)="nextPage()"
+            [infiniteScrollDisabled] = "infinitescrolldisable"
+            [scrollWindow]="false">
+          
+          <mat-card *ngFor="let subcategory of subCategoriesList; let i = index" class="mat-card-list-cls">
+            
+            <div class="table-row-cell-cls" >
+              {{subcategory.templateSubCategoryName}}
+            </div>
+            
+            <div class="table-row-cell-cls">                                                
+              <mat-slide-toggle [checked]="subcategory.active" (change)="onSlide(subcategory)" ></mat-slide-toggle>
+            </div>
+
+            <div class="table-row-cell-cls">
+              <div class="action-groups">
+                <button matTooltip="Edit Sub Category Details" mat-raised-button style="margin:5px" (click)="editSubCategory(subcategory)">
+                  <mat-icon style="color:var(--custombtnColor) ;font-size: 16px;">edit</mat-icon>
+                </button>
+                
+              </div>
+            </div>
+  
+          </mat-card>
+      </div>
+  </div>

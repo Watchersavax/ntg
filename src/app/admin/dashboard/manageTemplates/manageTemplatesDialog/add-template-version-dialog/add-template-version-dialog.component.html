@@ -1,0 +1,40 @@
+<div class="dialogwrapper">
+    <div class="maincontent">
+        <span>
+            <h2 mat-dialog-title>Add Template Version</h2>
+        </span>
+        <mat-dialog-content class="mat-typography">
+                <div class="errormessage" *ngIf="errorflag">{{errormessage}}</div>
+            <div style="">
+                <form [formGroup]="editformgroup"  class="editform" (keydown)="keyDownFunction($event)">
+
+                    <mat-form-field class="example-full-width" style="width: 100%;">
+                        <input class="disableinput" matInput placeholder="Template Name" formControlName="templateName"
+                            [value]="tablerow.templateName">
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width" style="width: 100%;">
+                        <input class="disableinput" matInput placeholder="Category Name" formControlName="templateCategoryName"
+                            [value]="tablerow.templateCategory.templateCategoryName">
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width" style="width: 100%;">
+                        <input class="disableinput" matInput placeholder="Template Price" formControlName="templatePrice"
+                            [value]="tablerow.templatePrice">
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width" style="width: 100%;">
+                        <input matInput placeholder="Add New Version" formControlName="newversion">
+                    </mat-form-field>
+
+                </form>
+                <div class="actiongroup">
+                    <button mat-button
+                        style="background-color: var(--custombtnColor);color: white;margin-right:20px;" (click)="onSubmit()">Submit</button>
+                    <button mat-button mat-dialog-close="false"
+                        style="background-color: #545859;color: white;">Cancel</button>
+                </div>
+            </div>
+        </mat-dialog-content>
+    </div>
+</div>

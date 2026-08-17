@@ -1,0 +1,69 @@
+<div class="persondetails-form-cls">
+    <form [formGroup]="detailsupdateform">
+        <div class="namedata-cls">
+            <h2>Personal Information</h2>
+            <div class="inputfields-cls">
+                <mat-form-field>
+                    <input matInput placeholder="First Name" formControlName="firstName"
+                        [(ngModel)]="userdetails.firstName">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Last Name" formControlName="lastName"
+                        [(ngModel)]="userdetails.lastName">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="namedata-cls">
+            <h2>State & City</h2>
+            <div class="inputfields-address-cls">
+                <!-- contactnumbervalidator -->
+
+                <mat-form-field style="width:70%;">
+                    <input (keypress)="keyPress($event)" pattern="[0-9]*" matInput placeholder="Phone Number"
+                        inputmode="numeric" maxlength="11" formControlName="contact" [(ngModel)]="userdetails.contact">
+                </mat-form-field>
+                <mat-form-field style="width: 70%;">
+                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                        cdkAutosizeMaxRows="5" placeholder="Address" formControlName="address"
+                        [(ngModel)]="userdetails.address"></textarea>
+                </mat-form-field>
+            </div>
+            <div class="inputfields-cls">
+                <mat-form-field *ngIf="userdetails.state != undefined">
+                    <mat-label>Select State</mat-label>
+                    <mat-select (selectionChange)="toggleOptionsSection()" [(ngModel)]="userdetails.state.stateId"
+                        formControlName="state">
+                        <mat-option *ngFor="let state of statelist" [value]="state.stateId">
+                            {{state.stateName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="userdetails.state == undefined">
+                    <mat-label>Select State</mat-label>
+                    <mat-select (selectionChange)="toggleOptionsSection()" formControlName="state">
+                        <mat-option *ngFor="let state of statelist" [value]="state.stateId">
+                            {{state.stateName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput placeholder="City" formControlName="cityName" [(ngModel)]="userdetails.cityName">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput placeholder="Pincode" formControlName="pincode" [(ngModel)]="userdetails.pincode">
+                </mat-form-field>
+
+                <button mat-button class="submitbutton" (click)="onSubmit()">Submit</button>
+            </div>
+        </div>
+
+        <div class="errormessage" *ngIf="errorflag" (click)="toggle()">
+            <span style="margin-left: 10px;">{{errormessage}}</span>
+        </div>
+
+    </form>
+
+</div>

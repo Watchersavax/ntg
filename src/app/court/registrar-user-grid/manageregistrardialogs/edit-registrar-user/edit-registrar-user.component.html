@@ -1,0 +1,54 @@
+<div class="dialogwrapper">
+  
+  <span>
+    <h2 class="title">Edit Registrar </h2>
+  </span>
+  <div class="w-100">
+    <div class="errormessage" *ngIf="errorflag">{{errormessage}}</div>
+
+    <form [formGroup]="editUser" class="editform" (keydown)="keyDownFunction($event)">
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <input matInput placeholder="First Name" formControlName="firstName">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <input matInput placeholder="Last Name" formControlName="lastName">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <input matInput placeholder="User Name" formControlName="userName">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <mat-label>Select</mat-label>
+        <mat-select formControlName="session">
+          <mat-option *ngFor="let session of sessions"
+            value="{{session.sessionId}}">{{session.sessionName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <input matInput placeholder="Email" formControlName="email">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <input matInput placeholder="Calendly Page URL" formControlName="calendlyId">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <input matInput placeholder="Phone Number" formControlName="contact" (keypress)="keyPressEvent($event)"
+          pattern="[0-9]*" inputmode="numeric" maxlength="11" minlength="11">
+      </mat-form-field>
+
+    </form>
+
+    <div class="actiongroup">
+      <button mat-button
+        style="background-color: var(--custombtnColor);font-size:small;color: white;;margin-right:20px;"
+        (click)="onSubmit()">Submit</button>
+      <button mat-button mat-dialog-close="false"
+        style="background-color: #545859;font-size:small;color: white;">Cancel</button>
+    </div>
+
+  </div>
+
+</div>

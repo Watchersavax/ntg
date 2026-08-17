@@ -1,0 +1,24 @@
+<div class="card-container">
+    <div class="card" id="scheduledAffidavitCard">
+        <h3>Scheduled e-Affidavit</h3>
+        <p class="heading-1">Oath Administration & Affidavit Issuance by Appointment</p>
+        <div class="price">₦ {{ data.templatePrice}}</div>
+        <p class="description">
+            Book a convenient appointment for your Oath administration, after which your affidavit will be promptly issued, ensuring a smooth & dependable experience.
+        </p>
+        <div class="proceed-btn-container">
+            <button class="proceed-btn" (click)="selectOption(false)">Proceed</button>
+        </div>
+    </div>
+    <div class="card" id="fastTrackAffidavitCard"  *ngIf="data.fastTrackPrice">
+        <h3>Fast-Track e-Affidavit</h3>
+        <p class="heading-1">Instant Oath Taking & Affidavit Issuance</p>
+        <div class="price">₦{{ data.fastTrackPrice}}</div>
+        <p class="description">
+            Expedite your Affidavit process with priority access to a dedicated Commissioner of Oath, ensuring swift and efficient service for time-sensitive requirements.
+        </p>
+        <div class="proceed-btn-container">
+            <button class="proceed-btn" (click)="selectOption(true)">Proceed</button>
+        </div>
+    </div>
+</div>

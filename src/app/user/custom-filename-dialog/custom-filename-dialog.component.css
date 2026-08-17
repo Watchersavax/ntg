@@ -1,0 +1,115 @@
+.maincontent {
+    height: 300px;
+    width: 500px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.maincontent span {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    /* background-color: var(--custombgColor); */
+}
+
+.mat-dialog-title {
+    padding: 20px !important;
+    background-color: white !important;
+    color: black !important;
+    font-family: Inter;
+    font-size: 26px;
+    font-weight: 500 !important;
+    line-height: 16px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+
+.maincontent h2{
+    margin-top: 20px !important;
+    margin-left : 20px !important
+}
+
+.maincontent button{
+    background-color: var(--custombgColor);
+    outline: none;
+    border: 0px;
+    color: white;
+    /* border-radius: 6px; */
+    width: 8%;
+    margin: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+    height: 30%;
+}
+
+::ng-deep .mat-form-field-label-wrapper {
+    font-size: 18px !important;
+}
+.mat-input-element {
+ height: 50px !important;
+ padding: 20px !important;
+}
+
+.maincontent button:active{
+    box-shadow: none;
+}
+
+.maincontent button mat-icon {
+    font-size:25px;
+    font-weight:bold;
+}
+
+.actiongroup {
+    margin-top: 3vh;
+    margin-bottom:1vh;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+}
+
+.actiongroup button{
+    border-radius: 6px;
+    height: 50px !important;
+    width:  100px !important;
+    font-size: medium !important;
+
+}
+.mat-form-field-appearance-legacy .mat-form-field-wrapper{
+    padding: 0.6375em 0!important;
+}
+
+@media only screen and (max-width:1024px) {
+    .maincontent {
+        /* width: 45vw; */
+        /* height: 42vh; */
+    }
+
+    .maincontent p {
+        padding: 10px;
+        font-size:small;
+    }
+
+    .maincontent h2{
+        font-size:medium;
+    }
+
+}
+
+@media only screen and (max-width:425px){
+
+    .mat-form-field{
+        width: 180px;
+    }
+}
+
+

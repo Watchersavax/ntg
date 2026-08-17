@@ -1,0 +1,6 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+
+<button (click)="makePayment()" [autoClose]="true" class="paynow-button" 
+        mat-raised-button angular-rave mat matTooltip="Pay NGN {{registerModel.registrationPrice}} to complete Registration!">
+    Pay NGN {{registerModel.registrationPrice}} <mat-icon style="color: white;font-size: 16px;">open_in_new</mat-icon>
+</button>

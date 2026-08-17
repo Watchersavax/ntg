@@ -1,0 +1,55 @@
+<div class="dialogwrapper-cls">
+        <div class="header-cls">
+            <p style="font-size: large;font-weight: 700; margin-left:10px;color:var(--customgrey);">Template Preview</p>
+            
+            <button (click)="close()"><mat-icon>close</mat-icon></button></div>
+
+            <div class="pdfcontent" *ngIf="!pdfData">
+                <span>
+                    <div *ngIf="isLoaded" style="text-align: right;">
+                        <button (click)="prevPage()" [disabled]="page === 1">Prev</button>
+                        <span style="margin-left: 2px;margin-right: 2px;">{{ page }} / {{ totalPages }}</span>
+                        <button (click)="nextPage()" [disabled]="page === totalPages">Next</button>
+                     </div>
+                    <pdf-viewer
+                      [src]="pdfSource"
+                      [original-size]="false"
+                      [show-all]="false"
+                      (after-load-complete)="callBackFn($event)"
+                      [page]="page"
+                    ></pdf-viewer>
+                  </span>
+                
+            </div>
+            <div *ngIf="pdfData">
+                <span>
+                    <div *ngIf="isLoaded" style="text-align: right;">
+                        <button (click)="prevPage()" [disabled]="page === 1">Prev</button>
+                        <span style="margin-left: 2px;margin-right: 2px;">{{ page }} / {{ totalPages }}</span>
+                        <button (click)="nextPage()" [disabled]="page === totalPages">Next</button>
+                     </div>
+                    <pdf-viewer
+                      [src]="pdfData"
+                      [original-size]="false"
+                      [show-all]="false"
+                      (after-load-complete)="callBackFn($event)"
+                      [page]="page"
+                    ></pdf-viewer>
+                  </span>
+            </div>
+           
+            <div class="actionbar" *ngIf="!previewflag">
+
+        <app-payment-check style="background-color: var(--custombgColor);
+            border-radius: 4px;
+            height: 38px;" [affidavitIdFromParent]="affidavitId" [affidavitpriceFromParent]="affidavitprice"
+            [affidavitnameFromParent]="documentname" [isExpress]="isExpress" [isPriceDialogOpen]="shouldOpenPriceDialog"></app-payment-check>
+        <span style="padding:3px"></span>
+        <button mat-raised-button (click)="close()">
+            <span style="padding:3px">Cancel</span></button>
+    </div>
+    <div class="actionbar" *ngIf="downloadbuttonflag">
+        <button mat-raised-button (click)="downloadSignedPdf();">Download<mat-icon>file_download</mat-icon></button>
+    </div>
+
+</div>

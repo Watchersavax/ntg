@@ -1,0 +1,53 @@
+.dialogwrapper {
+    width: 64vw;
+    /* height: 55vh; */
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+  }
+  
+  .dialogwrapper span {
+    width: 100%;
+    display:flex;
+    flex-flow:row nowrap;
+    justify-content: space-between;
+    height:62px;
+  }
+  
+  .dialogwrapper span h2{
+    width:100%;
+  }
+
+  .dialogwrapper span button{
+    background-color: var(--custombgColor);
+    color: white;
+    border: 0px;
+    outline: none;
+    height: 42px;
+    cursor: pointer;
+  }
+
+  .actiongroup {
+    margin-top:1vh;
+    margin-bottom:1vh;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+  }
+  
+  .editform {
+    /* height:34vh; */
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+  
+  }
+  
+  .errormessage{
+    color:red;
+    margin-bottom:1vh;
+    font-weight:500;
+  }
+  

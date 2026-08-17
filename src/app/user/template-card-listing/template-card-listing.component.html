@@ -1,0 +1,82 @@
+<div class="page-container">
+    <div class="affidavit-type-wrapper" >
+        <div class="bold mb-4 affidavit-type">Affidavit Type</div>
+        <div  class="affidavit-type-container">
+            <div *ngFor="let subCategory of subCategoryList; let i = index" class="affidavit-type-item">
+              <button 
+                class="btn btn-outline w-100" 
+                [ngClass]="{'active': subCategory.templateSubCategoryId === selectedSubCategoryId}" 
+                (click)="selectSubCategory(subCategory.templateSubCategoryId)" style="height: 45px;">
+                {{ subCategory.templateSubCategoryName }}
+              </button>
+            </div>
+            <button class="btn btn-outline w-100" style="height: 45px;" (click)="openCaseRealtedDialog()" *ngIf="userType==='corporate'">
+                Case-Related Affidavits
+           </button>
+            
+          </div>
+
+    </div>
+    <div class="pagewrapper-cls">
+        <div class="header mb-4">
+            <h2 class="text-start d-flex align-items-center">Templates
+                <mat-icon class="text-muted ml-2 mt-2">play_arrow</mat-icon>
+                <span *ngIf="selectedSubCategoryName" class="text-muted  ml-2 mt-2" style="font-size: 18px" >
+           {{ selectedSubCategoryName }}
+        </span>
+           
+            <form class="documents-search-form-cls" (keydown)="onhittingEnter($event)">
+                <div class="searchbox-wrapper-cls">
+                  <input class="searchbox-cls" id="js-search-input" name="q" type="search" placeholder="Search"
+                    required=""  [(ngModel)]="filtervalue"/>
+                  <div class="btn-solid-cls">
+                    <button type="submit" (click)="searchTemplates()">
+                      <span>
+                        <mat-icon style="font-size: x-large">search</mat-icon>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            
+            </h2>
+        </div>
+        <div class="container-local">
+            <mat-grid-list (window:resize)="handleSize($event)" [cols]="mybreakpoint" rowHeight="50vh" gutterSize="70px">
+                <ng-container *ngFor="let template of templatelist;let i = index">
+                    <mat-grid-tile class="document-card-cls" colspan="1" rowspan="1">
+                        <div class="container-cls" [attr.id]="'affidavitcard-' + template.templateId"></div>
+                        <div class="actiongroup-cls">
+                            <h3 class="custom-heading" [matTooltip]="template.templateName"
+                            matTooltipPosition="above" 
+                            matTooltipShowDelay="500" 
+                            matTooltipHideDelay="200">{{ template.templateName }}</h3>
+                            <div class="upperrorw-cls">
+                                <button class="enablebutton-cls btn" (click)="useTemplate(template.templateId)">Use
+                                    Template</button>
+                            </div>
+                        </div>
+                    </mat-grid-tile>
+                </ng-container>
+            </mat-grid-list>
+        </div>
+
+        <div class="footer">
+            <div class="paginator-cls"  style="margin-bottom: 16px;">
+            <p style="color:var(--customgrey)">{{dataMessage}}</p>
+            <p style="color:var(--custombgColor)">Page: </p>
+            <button [disabled]="prevflag" (click)="previousPage()"
+                [ngClass]="(prevflag == true) ?'page-navigation-disabled-cls': 'page-navigation-cls'">
+                <mat-icon style="font-size: 27px;">navigate_before</mat-icon>
+            </button>
+            <p>{{page+1}}</p>
+            <button [disabled]="nextflag" (click)="nextPage()"
+                [ngClass]="(nextflag == true) ?'page-navigation-disabled-cls': 'page-navigation-cls'">
+                <mat-icon style="font-size: 27px;">navigate_next</mat-icon>
+            </button>
+            </div>
+        </div>
+
+    </div>
+
+</div>

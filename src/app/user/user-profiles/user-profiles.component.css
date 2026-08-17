@@ -1,0 +1,7 @@
+.profile-container {
+    background: rgba(235, 241, 238, 1);
+    padding: 2rem 6rem 2rem 6rem;
+    height: max-content;
+    min-height: 100%;
+    font-family: system-ui;
+}

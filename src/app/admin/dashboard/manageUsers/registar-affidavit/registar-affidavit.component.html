@@ -1,0 +1,154 @@
+<div class="tablewrapper">
+
+    <div class="tablelabel">
+  
+      <span style="padding: 0px; margin-bottom: 12px; font-weight: 500;font-size: large;">
+        <span>User:<a [routerLink]="['/admin','dashboard','registrars']" class="breadcrumb-cls">{{userName}}</a>
+          <span style="font-size: large;margin: 5px;color: grey;font-size:larger"> / </span>
+        </span>
+        <span>Affidavits</span>
+      </span>
+  
+      <span style="margin-bottom: 12px;">
+		<input id="searchbar"
+		style="border: 0px;border-bottom: 2px solid #545859;outline: none;font-size: medium;width: 14vw;"
+		[(ngModel)]="keyword" (ngModelChange)="keywordUpdate.next($event)"
+		placeholder="Search User Affidavits...">
+	<mat-icon style="color: #545859;">search</mat-icon>
+      </span>
+  
+    </div>
+
+    <div class="table-wrapper-cls">
+		<div class="table-header-cls" matSort (matSortChange)="sortData($event)" style="border:1px solid black">
+			<div class="table-header-cell-cls no-sort-header" style="flex:0.5; border-right: 1px solid #00000038;"
+			*ngIf="registrarStatus == 'Pending'">
+				
+			</div>
+			<div class="table-header-cell-cls" mat-sort-header="templateName"
+				style="border-right: 1px solid #00000038;">
+				Affidavit Name 
+			</div>
+			<div class="table-header-cell-cls" mat-sort-header="affidavitName"
+				style="border-right: 1px solid #00000038;">
+				Custom Name
+			</div>
+			<div class="table-header-cell-cls" mat-sort-header="email" style="border-right: 1px solid #00000038;">
+				Email
+			</div>
+			<div class="table-header-cell-cls" mat-sort-header="userName"
+				style="flex:1;border-right: 1px solid #00000038;">
+				User Name
+			</div>
+			<div class="table-header-cell-cls" mat-sort-header="price"
+				style="  flex:1;  border-right: 1px solid #00000038;">
+				Price(NGN)
+			</div>
+			<div *ngIf="registrarStatus != 'Approved'" class="table-header-cell-cls no-sort-header"
+				style="   flex:0.5; border-right: 1px solid #00000038;">
+				Payment Status
+			</div>
+			<div class="table-header-cell-cls no-sort-header" style="flex:0.5; border-right: 1px solid #00000038;">
+				Registrar Status
+			</div>
+			<div *ngIf="registrarStatus == 'Approved' || registrarStatus == 'All'" class="table-header-cell-cls no-sort-header"
+				style="   flex:0.5; border-right: 1px solid #00000038;">
+				Marked By
+			</div>
+			<div class="table-header-cell-cls no-sort-header" *ngIf="registrarStatus == 'Scheduled'" style="flex:0.75;">
+				Appoinment Missed
+			</div>
+			<div class="table-header-cell-cls no-sort-header"  style="flex:1.25;">
+				Actions
+			</div>
+		</div>
+		<div class="table-body-cls">
+
+			<mat-card *ngFor="let affidavit of courtAffidavitList;let i = index" class="mat-card-list-cls">
+				<div class="table-row-cell-checkbox-cls" *ngIf="registrarStatus == 'Pending'">
+					<mat-checkbox #checkbox (change)="checkBoxChange(affidavit,checkbox.checked,$event)"></mat-checkbox>
+				</div>
+				<div class="table-row-cell-cls">
+					{{affidavit.isUploaded||affidavit.isCaseRelated?affidavit.customName:affidavit.temName}}
+				</div>
+				<div class="table-row-cell-cls">
+					{{affidavit.customName}}
+				</div>
+				<div class="table-row-cell-cls">
+					{{affidavit.email}}
+				</div>
+				<div class="table-row-cell-cls" style="flex:1;">
+					{{affidavit.userName}}
+				</div>
+				<div class="table-row-cell-cls" style="flex:1;">
+					{{affidavit.price}}
+				</div>
+				<div *ngIf="registrarStatus != 'Approved'" class="table-row-cell-cls" style="flex:0.5;">
+					{{affidavit.status}}
+				</div>
+				<div class="table-row-cell-cls" style="flex:0.5;">
+					<p style="color:orange " *ngIf="affidavit.registrarStatus == 'Pending'">
+						<mat-icon style="font-weight: 800;font-size: x-large; " matTooltip="Pending Registrar Approval">
+							warning</mat-icon>
+					</p>
+					<p style=" color:green;" *ngIf="affidavit.registrarStatus == 'Approved'">
+						<mat-icon style="font-weight: 800;font-size: x-large;cursor:pointer"
+							matTooltip="Marked Genuine by Registrar">done</mat-icon>
+					</p>
+					<p style=" color:red;" *ngIf="affidavit.registrarStatus == 'Rejected'">
+						<mat-icon style="font-weight: 800;font-size: x-large;cursor:pointer"
+							matTooltip="Rejected by Registrar">error</mat-icon>
+					</p>
+				</div>
+				<div *ngIf="registrarStatus == 'Approved' || registrarStatus == 'All'" class="table-row-cell-cls" style="flex:0.5;">
+					<p style="color: var(--custombgColor);
+					font-weight: 500; ">{{affidavit.registrarName}}</p>
+				</div>
+				<div *ngIf="registrarStatus == 'Scheduled'" class="table-row-cell-cls" style="flex:0.75;">
+					<p style="color: green;
+					font-weight: 500; " *ngIf="!affidavit.missedAppointment">No</p>
+					<p style="color: red;
+					font-weight: 500; " *ngIf="affidavit.missedAppointment">Yes</p>
+				</div>
+				<div class="table-row-cell-cls" style="padding-left:0px;margin-left: 0px; flex:1.25">
+					<div class="action-groups" *ngIf="!(registrarStatus == 'Scheduled' && affidavit.missedAppointment)&&(registrarStatus !== 'Approved')">
+						<button matTooltip="Preview user affidavit"
+							(click)="openAffidavitView(affidavit.userAffidavitId)" mat-raised-button style="margin:5px">
+							<mat-icon style="color:blue ;font-size: 16px ;">remove_red_eye</mat-icon>
+						</button>
+					</div>
+						<div class="action-groups" *ngIf="registrarStatus === 'Approved'">
+						<button matTooltip="download user affidavit"
+							(click)="downloadDocument(affidavit.userAffidavitId,affidavit.isUploaded || affidavit.isCaseRelated ?affidavit.customName:affidavit.temName)" mat-raised-button style="margin:5px">
+							<mat-icon style="color:blue ;font-size: 16px ;">download</mat-icon>
+						</button>
+					</div>
+					<div>
+						<button *ngIf="registrarStatus == 'Scheduled' && affidavit.missedAppointment"
+						style="margin:5px" mat-raised-button class="send-invite-button" (click)="addToPending(affidavit)">Add to Pending</button>
+					</div>
+				</div>
+
+			</mat-card>
+
+		</div>
+		<div class="footer">
+			<span style="flex-grow: initial;"></span>
+			<div class="paginator-cls">
+			<p style="color:var(--customgrey)">{{dataMessage}}</p>
+			<p style="color:var(--custombgColor)">Page: </p>
+			<button [disabled]="prevflag" (click)="previousPage()"
+				[ngClass]="(prevflag == true) ?'page-navigation-disabled-cls': 'page-navigation-cls'">
+				<mat-icon style="font-size: 27px;">navigate_before</mat-icon>
+			</button>
+			<p>{{page+1}}</p>
+			<button [disabled]="nextflag" (click)="nextPage()"
+				[ngClass]="(nextflag == true) ?'page-navigation-disabled-cls': 'page-navigation-cls'">
+				<mat-icon style="font-size: 27px;">navigate_next</mat-icon>
+			</button>
+			</div>
+		</div>
+	</div>
+  
+  </div>
+  

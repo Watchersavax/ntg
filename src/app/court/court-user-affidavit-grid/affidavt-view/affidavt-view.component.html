@@ -1,0 +1,26 @@
+<div class="dialogwrapper-cls">
+    <div class="header-cls">
+        <p style="font-size: x-large;
+        font-weight: 700;
+        margin-left: 10px;
+        margin-bottom: 2px;
+        margin-top: 2px;">Affidavit View</p>
+        <button mat-dialog-close="close">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <p *ngIf="errorflag" style="color:red;font-weight:800;margin:0px;">{{errormessage}}</p>
+    <p *ngIf="currentstatus == 'Approved'" style="width: 100%;text-align: center;margin:0px;color:red;font-weight: 800;"> *Document completed </p>
+    <div class="body-cls" id="templatePreview" *ngIf="!pdfData">
+    </div>
+    <div *ngIf="pdfData">
+        <pdf-viewer [src]="pdfData" [render-text]="true"
+        [original-size]="false" style="width: 400px; height: 500px"></pdf-viewer>
+    </div>
+    <div class="actionbar">
+        <form [formGroup]="registrarComments" class="form-cls">
+        <span style="padding:3px"></span>
+        </form>
+    </div>
+
+</div>

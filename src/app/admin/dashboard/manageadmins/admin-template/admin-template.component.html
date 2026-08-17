@@ -1,0 +1,134 @@
+<div class="tablewrapper">
+
+    <div class="tablelabel">
+  
+      <span style="padding: 0px; margin-bottom: 12px; font-weight: 500;font-size: large;">
+        <span>User:<a [routerLink]="['/admin','dashboard','admins']" class="breadcrumb-cls">{{userName}}</a>
+          <span style="font-size: large;margin: 5px;color: grey;font-size:larger"> / </span>
+        </span>
+        <span>Templates</span>
+      </span>
+  
+      <span style="margin-bottom: 12px;">
+		<input  id="searchbar" style="border: 0px;border-bottom: 2px solid #545859;outline: none;font-size: medium;width: 18vw;" (ngModelChange)="putValuesBackToDefault($event)" [(ngModel)]="categorytosearch" placeholder="Search template...">
+        <mat-icon style="color: #545859;">search</mat-icon>
+      </span>
+  
+    </div>
+
+  <div class="table-wrapper-cls">
+    <div class="table-header-cls"  matSort (matSortChange)="sortData($event)" style="border:1px solid black">
+      <div class="table-header-cell-cls" mat-sort-header="templateName" style="border-right: 1px solid #00000038;">
+        Template Name
+      </div>
+      <div class="table-header-cell-cls" mat-sort-header="templateCategory.templateCategoryName" style="    border-right: 1px solid #00000038;">
+        Template Category
+      </div>
+      <div class="table-header-cell-cls"  mat-sort-header="templatePrice"  style="   border-right: 1px solid #00000038;">
+        Template Price ( NGN )
+      </div>
+      <div class="table-header-cell-cls"  >
+        Actions
+      </div>
+    </div>
+    <div class="table-body-cls"  infinite-scroll
+    [infiniteScrollDistance]="scrollDistance"
+    [infiniteScrollUpDistance]="scrollUpDistance"
+    [infiniteScrollThrottle]="throttle"
+    (scrolled)="nextPage()"
+    [infiniteScrollDisabled] = "infinitescrolldisable"
+    [scrollWindow]="false">
+    <h2 *ngIf="sortedData.length<=0" style="color:red;text-align: center;">*Admin has not yet created any templates.</h2>
+      <mat-accordion>
+         <!-- | filter:categorytosearch -->
+        <!-- #matExpansionPanel -->
+        <!-- (click)="expandPanel(matExpansionPanel, $event)" -->
+
+        <mat-expansion-panel   *ngFor="let row of sortedData ;let i = index" [hideToggle]="row.isSystemGenerated">
+          <mat-expansion-panel-header  collapsedHeight="*" expandedHeight="*" [collapsedHeight]="'auto'" [expandedHeight]="'auto'" >
+            <div class="table-row-cell-cls">
+              {{row.templateName}}
+            </div>
+            <div class="table-row-cell-cls">
+              {{row.templateCategory.templateCategoryName}}
+            </div>
+            <div class="table-row-cell-cls">
+              {{row.templatePrice}}
+            </div>
+            <div class="table-row-cell-cls"  style="padding-left:0px;margin-left: 0px;">
+              <div class="action-groups">
+                <button matTooltip="Add template version" mat-raised-button style="margin:5px"
+                  (click)="addTemplateVersionEvent(row,$event)" *ngIf="!row.isSystemGenerated">
+                    <mat-icon style="font-size: 16px;">add</mat-icon>
+
+                </button>
+                <button matTooltip="Edit Template Details" mat-raised-button style="margin:5px"
+                  (click)="editTemplateEvent(row,$event)">
+                  <mat-icon style="color:var(--custombtnColor) ;font-size: 16px ;">edit</mat-icon>
+                </button>
+                <button matTooltip="Delete this version" mat-raised-button style="margin:5px"
+                (click)="deleteTemplateEvent(row,null,i,null)" *ngIf="row.templateVersion.length <= 0">
+                <mat-icon style="color: red ;font-size: 16px;">delete</mat-icon>
+              </button>
+              </div>
+            </div>
+          </mat-expansion-panel-header>
+          <!-- version table -->
+
+          <p *ngIf="row.templateVersion.length == 0" style="font-size:small;color:var(--custombgColor)">No Versions</p>
+          <div class="version-table-wrapper" *ngIf="row.templateVersion.length>0 && !row.isSystemGenerated">
+            <div class="version-table-header-cls">
+                  <div class="version-header-cell-cls" style="border-right:1px solid #00000036;">
+                    Version Name
+                  </div>
+                  <div class="version-header-cell-cls" style="border-right:1px solid #00000036;">
+                    Version Published
+                  </div>
+                  <div class="version-header-cell-cls">
+                    Actions
+                </div>
+            </div>
+
+            <div class="version-table-body-cls">
+              <div class="version-row-cls" *ngFor="let version of row.templateVersion;let j = index;">
+                <div class="version-table-row-cell-cls">
+                  {{version.templateVersionName}} 
+                </div>
+                <div class="version-table-row-cell-cls">
+                    <mat-slide-toggle *ngIf="check[row.templateId][j] === true" matTooltip="Unpublish this version" [(ngModel)]="check[row.templateId][j]" [checked]="check[row.templateId][j]" (change)="onSlide(i,j,row)"></mat-slide-toggle>
+                    <mat-slide-toggle *ngIf="check[row.templateId][j] === false" matTooltip="Publish this version" [(ngModel)]="check[row.templateId][j]" [checked]="check[row.templateId][j]" (change)="onSlide(i,j,row)"></mat-slide-toggle>
+                  </div>
+                <div class="version-table-row-cell-cls">
+                  <div class="action-groups">
+                    <button matTooltip="Edit template version design" mat-raised-button style="margin:5px"
+                      (click)="openTemplateVersionDesign(version,row)" *ngIf="check[row.templateId][j] === false">
+                      <mat-icon style="color:var(--custombtnColor); font-size: 16px;" >edit</mat-icon>
+                    </button>
+                    <button matTooltip="Preview this version" mat-raised-button style=" margin:5px"
+                      (click)="previewTemplateEvent(version)">
+                      <mat-icon style="color:green ; font-size:16px;">remove_red_eye</mat-icon>
+                    </button>
+                    <button matTooltip="Delete this version" mat-raised-button style="margin:5px"
+                    (click)="deleteTemplateEvent(row,version,i,j)" *ngIf="check[row.templateId][j] === false">
+                    <mat-icon style="color: red ;font-size: 16px;">delete</mat-icon>
+                  </button>
+                  <button matTooltip="Design description page" mat-raised-button style="margin:5px"
+                  (click)="desingDescriptionPage(version)" *ngIf="check[row.templateId][j] === false">
+                    <mat-icon style="color: blue ;font-size: 16px;">insert_drive_file</mat-icon>
+                  </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </mat-expansion-panel>
+
+      </mat-accordion>
+    </div>
+
+  </div>
+
+  </div>
+  

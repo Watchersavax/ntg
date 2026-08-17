@@ -1,0 +1,33 @@
+<div class="mt-4">
+    <span class="header-cls mt-2">
+    <div class="d-flex justify-content-center mb-2 text-dark">
+        <h3 *ngIf="!editFlag">Add Category</h3>
+        <h3 *ngIf="editFlag">Edit Category</h3>
+    </div>
+        <button (click)="close()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </span>
+</div>
+<div class="container-local" style="padding: 1rem 9rem 2rem 4rem;">
+    <div class="d-flex justify-content-center" *ngIf="errorFlag">
+        <p class="text-danger">*Please fill required fields</p>
+    </div>
+    <form>
+        <div class="form-group">
+            <label for="selectTitle">Title</label>
+            <input type='text' [(ngModel)]="templateCategoryName" class="form-control" id="templateCategoryName" [ngModelOptions]="{standalone: true}">
+        </div>
+    </form>
+    <div class="sub-container">
+        <div>
+            <button *ngIf="!editFlag" class="btn" mat-button mat-raised-button (click)="createCategory()" style="color: #FFFFFF;">
+                Submit
+            </button>
+
+            <button *ngIf="editFlag" class="btn" mat-button mat-raised-button (click)="editCategory()" style="color: #FFFFFF;">
+               Save
+            </button>
+        </div>
+    </div>
+</div>

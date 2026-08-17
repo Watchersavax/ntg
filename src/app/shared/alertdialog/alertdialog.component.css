@@ -1,0 +1,51 @@
+.maincontent {
+    /* height: 36vh; */
+    /* width: 40vw; */
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    max-width:36vw;
+    max-height:90vh;
+}
+
+.maincontent span {
+    width: 100%;
+}
+
+/* Preserve intentional line breaks in dialog messages (e.g. the reject reason details). */
+.maincontent p {
+    white-space: pre-line;
+}
+
+.actiongroup {
+    margin-top: 1vh;
+    margin-bottom:1vh;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+}
+
+@media only screen and (max-width:1024px) {
+    .maincontent {
+        /* width: 45vw; */
+        /* height: 42vh; */
+    }
+
+    .maincontent p {
+        padding: 10px;
+        font-size:small;
+    }
+
+    .maincontent h2{
+        font-size:medium;
+    }
+
+}
+@media only screen and (max-width:655px) {
+ .maincontent{
+    max-width: 87vw;
+    max-height: 44vh;
+ }
+
+}

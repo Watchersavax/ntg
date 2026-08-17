@@ -1,0 +1,47 @@
+<div class="dialogwrapper">
+    <mat-dialog-content class="mat-typography dialog-content" style="width: 100% !important;padding: 0px 3rem !important;">
+      <div class="errormessage" *ngIf="errorflag">{{errormessage}}</div>
+      <h2 class="text-header-class">Case-Related Affidavits</h2>
+      <div class="text-div">
+        <p>Please follow these steps to submit your case-related affidavit for the Commissioner of Oath's signature:</p>
+        <ul>
+            <li><span class="text-class">Upload Affidavit:</span> Upload your case-related affidavit in PDF format. Please ensure the file size does not exceed 5MB.</li>
+            <li><span  class="text-class">Sign Document:</span> Prior to uploading, ensure that you have signed the affidavit.</li>
+            <li><span  class="text-class">Make Payment:</span> Complete the required payment for the affidavit processing.</li>
+            <li><span class="text-class">Schedule Video Conference:</span> Schedule a video conference appointment with the Commissioner of Oaths.</li>
+            <li><span class="text-class">Commissioner's Signature:</span> The Commissioner of Oaths will review and sign your affidavit during the video conference.</li>
+            <li><span class="text-class">Receive Signed Affidavit:</span> Once signed, the affidavit will be sent to your email address and a copy will be saved on your profile page within the e-affidavit platform for future reference.</li>
+        </ul>
+        <p>If you have any further questions or require assistance, please do not hesitate to contact us at <br> +234 8035240802 (WhatsApp Only)</p>
+      </div>
+  
+      <form class="uploadform" [formGroup]="uploadForm">
+  
+        <mat-form-field style="width: 100%;" class="custom-form-field">
+          <button mat-icon-button class="custom-icon-button" (click)="fileInput.click()" matTooltip="Select a file">
+            <mat-icon>cloud_upload</mat-icon>
+          </button>
+          <input type="file" #fileInput hidden (change)="onFileSelected($event)" accept=".docx,.pdf"
+            formControlName="file">
+          <input matInput [value]="selectedFile?.name || 'Choose file'" readonly
+            style="border: none; color: #969696; flex-grow: 1;cursor: pointer;"  (click)="fileInput.click()">
+          <div class="message">Only DOCX, PDF max size of 5MB</div>
+  
+        </mat-form-field>
+      </form>
+  
+      <div class="actiongroup">
+        <button mat-button (click)="upload()" style="
+            font-size: small;
+            color: white;
+            margin-right: 20px;width: 30%; padding: 5px;
+          " [style.background-color]="errorflag ? '#545859' : '#006D3E'" [disabled]="errorflag">
+          Upload
+        </button>
+        <button mat-button mat-dialog-close="false"
+          style="background-color: #545859; font-size: small; color: white;width: 30%; margin-right: 10px;  padding: 5px;">
+          Cancel
+        </button>
+      </div>
+    </mat-dialog-content>
+  </div>

@@ -1,0 +1,23 @@
+<div id="message-box" [class.embedded-calendly]="embedded">
+  <span class="header-cls mt-2">
+    <h2 mat-dialog-title class="heading-class">
+      Schedule a Conference With The Commissioner
+    </h2>
+    <button (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </span>
+  <div class="my-4">
+    <div class="btn-toolbar" aria-label="Toolbar with button groups">
+      <div *ngFor="let session of sessions">
+        <button *ngIf="!session.select" type="button" class="btn btnNotSelected"
+          (click)="changeCalendly(session)">{{session.sessionName}}</button>
+        <button *ngIf="session.select" type="button" class="btn btnSelected"
+          (click)="changeCalendly(session)">{{session.sessionName}}</button>
+      </div>
+    </div>
+  </div>
+  <div class="showCalendly mb-4">
+    <div id="container" class="calendly-inline-widget" data-auto-load="false"></div>
+  </div>
+</div>

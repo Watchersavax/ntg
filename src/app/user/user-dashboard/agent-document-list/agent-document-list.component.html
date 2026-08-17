@@ -1,0 +1,221 @@
+<div class="documentlisting-cls">
+  <div class="searchbox-cls">
+    <span style="align-self: flex-end">
+      <input id="searchUserAffidavit" style="
+          border: 0px;
+          border-bottom: 2px solid #545859;
+          outline: none;
+          font-size: medium;
+          font-size: medium;
+        " [(ngModel)]="searchKeyword" (ngModelChange)="search()" placeholder="Search By Name..." />
+      <mat-icon style="color: #545859">search</mat-icon>
+    </span>
+
+    <div class="filteroptions">
+      <button (click)="onStatusChange('Pending')" style="cursor: pointer" [className]="
+          activeStatusTab['finalStatus'] == 'Pending'
+            ? 'active-filter-class'
+            : 'inactive-filter-cls'">
+        Draft
+      </button>
+      <button (click)="onStatusChange('Paid')" style="cursor: pointer" [className]="
+          activeStatusTab['finalStatus'] == 'Paid'
+            ? 'active-filter-class'
+            : 'inactive-filter-cls'">
+        Pending
+      </button>
+      <button (click)="onStatusChange('Verified')" style="cursor: pointer"
+        [className]="(activeStatusTab['finalStatus'] == 'Verified') ?
+         'active-filter-class' : 'inactive-filter-cls'">
+        Submit</button>
+      <button (click)="onStatusChange('Scheduled')" style="cursor: pointer" [className]="
+        activeStatusTab['finalStatus'] == 'Scheduled'
+          ? 'active-filter-class'
+          : 'inactive-filter-cls' ">
+          Meeting
+    </button>
+      <button (click)="onStatusChange('Approved')" style="cursor: pointer" [className]="
+          activeStatusTab['finalStatus'] == 'Approved'
+            ? 'active-filter-class'
+            : 'inactive-filter-cls' ">
+        Signed
+      </button>
+      <button (click)="onStatusChange('Rejected')" style="cursor: pointer" [className]="
+          activeStatusTab['finalStatus'] == 'Rejected'
+            ? 'active-filter-class'
+            : 'inactive-filter-cls' ">
+        Rejected
+      </button>
+
+    </div>
+
+    <div class="paginator-cls">
+      <p style="color: red">{{ dataMessage }}</p>
+      <p style="color: grey">Page no :</p>
+      <button [disabled]="prevflag" (click)="previousPage()" [ngClass]="
+          prevflag == true
+            ? 'page-navigation-disabled-cls'
+            : 'page-navigation-cls'
+        ">
+        <mat-icon style="font-size: 24px; margin-right: 0px">navigate_before</mat-icon>
+      </button>
+      <p>{{ pageParam.page + 1 }}</p>
+      <button [disabled]="nextflag" (click)="nextPage()" [ngClass]="
+          nextflag == true
+            ? 'page-navigation-disabled-cls'
+            : 'page-navigation-cls'
+        ">
+        <mat-icon style="font-size: 24px; margin-right: 0px">navigate_next</mat-icon>
+      </button>
+    </div>
+  </div>
+  <!-- Grid View -->
+
+  <div class="table-wrapper-cls">
+    <div class="table-header-cls" style="border: 1px solid black">
+      <div class="table-header-cell-cls no-sort-header" style="flex: 1; border-right: 1px solid #00000038">
+        Affidavit Name
+      </div>
+      <div class="table-header-cell-cls no-sort-header" style="flex: 1; border-right: 1px solid #00000038">
+        Deponent Name
+      </div>
+      <div class="table-header-cell-cls no-sort-header" style="flex: 1; border-right: 1px solid #00000038">
+        Email
+      </div>
+      <div class="table-header-cell-cls no-sort-header" style="flex: 1; border-right: 1px solid #00000038">
+        Phone Number
+      </div>
+      <div class="table-header-cell-cls no-sort-header" style="flex: 0.5; border-right: 1px solid #00000038"
+        *ngIf="activeStatusTab.registrarStatus !== 'Approved'">
+        Preview
+      </div>
+      <div class="table-header-cell-cls no-sort-header" style="flex: 0.5; border-right: 1px solid #00000038"
+        *ngIf="activeStatusTab.registrarStatus === 'Approved'">
+        Download
+      </div>
+      <div class="table-header-cell-cls no-sort-header" style="flex: 0.5; border-right: 1px solid #00000038"
+        *ngIf="activeStatusTab.status === 'Pending'">
+        Edit
+      </div>
+      <div class="table-header-cell-cls no-sort-header" style="flex: 0.5; border-right: 1px solid #00000038"
+        *ngIf="activeStatusTab.status === 'Pending'">
+        Delete
+      </div>
+      <div class="table-header-cell-cls no-sort-header" style="flex: 0.5; border-right: 1px solid #00000038"
+        *ngIf="activeStatusTab.status === 'Pending'">
+        Pay Now
+      </div>
+      <div class="table-header-cell-cls no-sort-header" style="flex: 0.5; border-right: 1px solid #00000038"
+      *ngIf="activeStatusTab.status === 'Paid' && activeStatusTab.registrarStatus !== 'Approved'">
+      Verify
+    </div>
+    <div class="table-header-cell-cls no-sort-header" style="flex: 0.5; border-right: 1px solid #00000038"
+      *ngIf="activeStatusTab.status === 'Verified' && activeStatusTab.registrarStatus !== 'Scheduled' && activeStatusTab.registrarStatus !== 'Approved' && activeStatusTab.registrarStatus !== 'Rejected'" >
+      Schedule
+      </div>
+      <div class="table-header-cell-cls no-sort-header" style="flex: 0.5; border-right: 1px solid #00000038"
+      *ngIf="activeStatusTab.registrarStatus === 'Scheduled'" >
+      Actions
+      </div>
+      <div class="table-header-cell-cls no-sort-header" style="flex: 0.5; border-right: 1px solid #00000038"
+      *ngIf="activeStatusTab.registrarStatus === 'Rejected'" >
+      Reject Reason
+      </div>
+    </div>
+    <div class="table-body-cls">
+      <mat-card *ngFor="let document of filteredList; let i = index" class="mat-card-list-cls">
+        <div class="table-row-cell-cls" style="flex: 1">
+          <p>{{document.isUploaded?document.userAffidavitCustomName:document.templateName }}</p>
+        </div>
+        <div class="table-row-cell-cls" style="flex: 1">
+          <p>{{ document.deponentFirstName }} {{ document.deponentLastName}}</p>
+        </div>
+        <div class="table-row-cell-cls" style="flex: 1">
+          <p>{{ document.deponentEmail }}</p>
+        </div>
+        <div class="table-row-cell-cls" style="flex: 1">
+          <p>{{ document.deponentMobile }}</p>
+        </div>
+        <div class="table-row-cell-cls" style="flex: 0.5" *ngIf="document.registrarStatus !== 'Approved'">
+          <button matTooltip="Preview affidavit" class="iconbutton" mat-raised-button style="margin: 5px"
+            (click)="openFinalPriview(document)" [disabled]="document.disablePreviewFlag">
+            <mat-icon style="color: blue; font-size: 16px">remove_red_eye</mat-icon>
+          </button>
+        </div>
+        <div class="table-row-cell-cls" style="flex: 0.5" *ngIf="document.registrarStatus === 'Approved'">
+          <button matTooltip="download affidavit" class="iconbutton" mat-raised-button style="margin: 5px"
+            (click)="downloadDocument(document)">
+            <mat-icon style="color: blue; font-size: 16px">download</mat-icon>
+          </button>
+        </div>
+        <div class="table-row-cell-cls" style="flex: 0.5" *ngIf="activeStatusTab.status === 'Pending'">
+          <button matTooltip="Edit affidavit" class="iconbutton" mat-raised-button style="margin: 5px"
+            (click)="editAffidavit(document)"
+            [ngClass]="(document.isUploaded === true) ? 'hide-button' : 'show-button'">
+            <mat-icon style="color: var(--custombtnColor); font-size: 16px">edit</mat-icon>
+          </button>
+        </div>
+        <div class="table-row-cell-cls" style="flex: 0.5" *ngIf="activeStatusTab.status === 'Pending'">
+          <button matTooltip="Delete affidavit" class="iconbutton" mat-raised-button style="margin: 5px"
+            (click)="deleteUserAffidavit(document)">
+            <mat-icon style="color: red; font-size: 16px">delete</mat-icon>
+          </button>
+        </div>
+        <div class="table-row-cell-cls" style="flex: 0.5" *ngIf="document.status === 'Verified' && document.registrarStatus !== 'Scheduled' && document.registrarStatus !== 'Approved' && document.registrarStatus !== 'Rejected'" >
+          <button matTooltip="Schedule affidavit" class="iconbutton" mat-raised-button style="margin: 5px"
+            (click)="scheduleDocument(document,'Verified')">
+            <mat-icon style="color: var(--custombtnColor); font-size: 16px">calendar_today</mat-icon>
+          </button>
+        </div>
+          <div class="table-row-cell-cls" style="flex: 0.5" *ngIf="document.registrarStatus === 'Scheduled' && document.canCancelAppointment" >
+          <button matTooltip="Cancel meeting" class="iconbutton" mat-raised-button style="margin: 5px"
+            (click)="cancelScheduledAppointment(document)">
+            <mat-icon style="color: red; font-size: 16px">cancel</mat-icon>
+          </button>
+        </div>
+        <div class="table-row-cell-cls" style="flex: 0.5" *ngIf="document.registrarStatus === 'Scheduled' && document.missedAppointment" >
+          <button matTooltip="Re-Schedule affidavit" class="iconbutton" mat-raised-button style="margin: 5px"
+            (click)="scheduleDocument(document,'Scheduled')">
+            <mat-icon style="color: var(--custombtnColor); font-size: 16px">calendar_today</mat-icon>
+          </button>
+        </div>
+        <div class="table-row-cell-cls" style="flex: 0.5" *ngIf="document.registrarStatus === 'Rejected'" >
+          <button *ngIf="canRecreateDocument(document)" matTooltip="Recreate affidavit" class="iconbutton" mat-raised-button style="margin: 5px"
+            (click)="recreateDocument(document)">
+            <mat-icon style="color: var(--custombtnColor); font-size: 16px">refresh</mat-icon>
+          </button>
+          <button matTooltip="Reject reason" class="iconbutton" mat-raised-button style="margin: 5px"
+            (click)="showRejectReason(document)">
+            <mat-icon style="color: red; font-size: 16px">info</mat-icon>
+          </button>
+        </div>
+        <div class="table-row-cell-cls" style="flex: 0.5" *ngIf="!document.missedAppointment && document.registrarStatus === 'Scheduled'" >
+          <button *ngIf="canSendToSignDocument(document)" matTooltip="Send document for signing" class="iconbutton"
+            mat-raised-button style="margin: 5px" [disabled]="document.disableSendToSign" (click)="sendToSign(document)">
+            <mat-icon style="color: var(--custombtnColor); font-size: 16px">send</mat-icon>
+          </button>
+        </div>
+        <div class="table-row-cell-cls" style="flex: 0.5" *ngIf="activeStatusTab.status === 'Pending'">
+          <button matTooltip="Pay Now" class="iconbutton" mat-raised-button style="margin: 5px">
+            
+            <app-payment-check [affidavitIdFromParent]="document.userAffidavitId"
+              [affidavitpriceFromParent]="document.price" [affidavitnameFromParent]="
+                !!document.userAffidavitCustomName
+                  ? document.userAffidavitCustomName
+                  : document.templateName
+              " [isAgentFromParent]="true" [isExpress]="document.isExpress" [isPriceDialogOpen]="shouldOpenPriceDialog"
+              [templatePrice]="document.templatePrice"
+              [templateFastTrackPrice]="document.templateFastTrackPrice" (someEvent)="eventTriggeredFromPaymentChild()"></app-payment-check>
+          </button>
+        </div>
+        <div class="table-row-cell-cls" style="flex: 0.5" *ngIf="activeStatusTab.status === 'Paid' && 
+        activeStatusTab.registrarStatus !== 'Approved'">
+          <button matTooltip="Verify affidavit" class="iconbutton" mat-raised-button style="margin: 5px"
+            (click)="verifyNINSign(document)">
+            <mat-icon style="color: var(--custombtnColor); font-size: 16px">verified</mat-icon>
+          </button>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

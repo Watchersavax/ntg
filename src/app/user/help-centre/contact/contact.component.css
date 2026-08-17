@@ -1,0 +1,89 @@
+.contact-container {
+  background: url('../../../../assets/how-it-work-background.svg');
+  background-position-x: 78%;
+  background-position-y: 10%;
+  padding: 0 2rem;
+  height: -moz-max-content;
+  height: max-content;
+  min-height: 100%;
+  margin-left: 2rem;
+  padding-top: 4rem;
+  font-family: system-ui;
+}
+
+.contact-container h2 {
+  color: var(--custombgColor);
+  font-size: xx-large;
+  font-weight: 500 !important;
+  line-height: 62.4px;
+  text-align: left;
+  margin-bottom: 0px;
+}
+
+.contact-container p {
+  color: rgba(10, 10, 10, 1);
+  font-size: large;
+  font-weight: 400;
+  line-height: 36px;
+  text-align: left;
+
+}
+
+.contact-details {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.enquiries {
+  border-left: 2px solid rgba(0, 0, 0, 0.2);
+  padding-left: 3rem !important;
+}
+
+.contact-details .location,
+.contact-details .enquiries {
+  flex: 1;
+  padding: 10px;
+}
+
+.contact-details .location h3,
+.contact-details .enquiries h3 {
+  font-size: large;
+  font-weight: 500 !important;
+  line-height: 38.4px;
+  text-align: left;
+
+  color: RGBA(10, 10, 10, 1);
+  ;
+}
+
+.contact-details .location p,
+.contact-details .enquiries p {
+  color: RGBA(10, 10, 10, 1);
+font-size: large;
+font-weight: 400 !important;
+line-height: 33.6px;
+letter-spacing: -0.02em;
+text-align: left;
+
+  margin: 5px 0;
+}
+
+.contact-details .enquiries p strong {
+  color: var(--custombgColor);
+}
+
+.contact-details .enquiries p strong.email {
+  color: RGBA(10, 10, 10, 1);
+  ;
+}
+
+.vertical-line {
+  width: 1px;
+  height: 60%;
+  background-color: rgba(0, 0, 0, 0.2);
+}

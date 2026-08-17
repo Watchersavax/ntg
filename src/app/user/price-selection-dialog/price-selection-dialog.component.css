@@ -1,0 +1,87 @@
+.card-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+    background-color: transparent;
+    width: 100% !important;
+}
+
+.card {
+    width: 28vw; 
+    height: 50vh;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #fff; /* White background for the price cards */
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin-right: 80px;
+}
+
+.card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+    color: #197B51;
+    margin-bottom: 10px;
+    font-size: 25px !important;
+    font-weight: 600 !important;
+    line-height: 38.73px !important;
+    letter-spacing: -0.02em !important;
+}
+
+.heading-1{
+    color: #5E5E5E;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 24.2px;
+}
+
+.card .price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #197B51;
+    margin: 15px 0;
+}
+
+.card .description {
+    color: #000000;
+    margin: 10px 20px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26.63px;
+    letter-spacing: -0.01em;
+    text-align: center;
+}
+
+.proceed-btn-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: auto;
+    margin-right: 10px;
+}
+
+.proceed-btn {
+    background-color: #197B51;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    width: 40%;
+    margin: 0;
+
+}
+
+.proceed-btn:hover {
+    background-color:#197B51;
+}
+
+.proceed-btn:focus {
+    outline: none;
+}

@@ -1,0 +1,129 @@
+<div class="tablewrapper">
+  <div class="tablelabel">
+    <h1 style="color:var(--customgrey);font-size: larger;">Transactions</h1>
+    <div class="paginator-cls">
+      
+      <p style="color:var(--custombgColor);">Page no :</p>
+      <button [disabled]="prevflag" (click)="previousPage()"
+        [ngClass]="(prevflag == true) ?'page-navigation-disabled-cls': 'page-navigation-cls'">
+        <mat-icon style="font-size: 27px;">navigate_before</mat-icon>
+      </button>
+      <p>{{currentpage+1}}</p>
+      <button [disabled]="nextflag" (click)="nextPage()"
+        [ngClass]="(nextflag == true) ?'page-navigation-disabled-cls': 'page-navigation-cls'">
+        <mat-icon style="font-size: 27px;">navigate_next</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="table-wrapper-cls">
+    <!-- (matSortChange)="sortData($event)" -->
+    
+    <div class="table-header-cls" matSort (matSortChange)="sortData($event)">
+      <div class="table-header-cell-cls" style="border-right: 1px solid  #ffffff7a;flex:0.5;">
+        <p>Transaction Id </p>
+      </div>
+      <div class="table-header-cell-cls" style="border-right: 1px solid  #ffffff7a;">
+        <p>Document Name</p>
+      </div>
+      <div class="table-header-cell-cls" style=" border-right:  1px solid #ffffff7a;">
+        <p>Transaction Ref </p>
+      </div>
+      <div class="table-header-cell-cls" style=" border-right:  1px solid #ffffff7a;">
+        <p>Flutterwave Ref </p>
+      </div>
+      <div class="table-header-cell-cls" style=" border-right:  1px solid #ffffff7a;">
+        <p>Affidavit Price (NGN)</p>
+      </div>
+      <div class="table-header-cell-cls" style=" border-right:  1px solid #ffffff7a;">
+        <p>Service Charges (NGN)</p>
+      </div>
+      <div class="table-header-cell-cls" mat-sort-header="chargedamount" style=" border-right:  1px solid #ffffff7a;">
+        <p>Total Amount (NGN) </p>
+      </div>
+      <div class="table-header-cell-cls" mat-sort-header="transactionDate" style=" border-right:  1px solid #ffffff7a;">
+        <p>Date </p>
+      </div>
+      <div class="table-header-cell-cls" mat-sort-header="status" style="flex:0.5; border-right: 1px solid #ffffff7a;">
+        <p>Status</p>
+      </div>
+    </div>
+    <div class="table-body-cls">
+      <!-- #matExpansionPanel -->
+      <!-- (click)="expandPanel(matExpansionPanel, $event)" -->
+
+      <mat-card *ngFor="let transaction of transactiondata ;let i = index" class="mat-card-list-cls">
+        <div class="table-row-cell-cls" style="flex:0.5;">
+          <p class="text-for-normalwidth-cls">{{transaction.paymentDetailId}}</p>
+          <p class="text-for-verysmallwidth-cls">{{transaction.paymentDetailId}}</p>
+        </div>
+        <div class="table-row-cell-cls">
+          <!-- affidavit name -->
+
+          <p class="text-for-normalwidth-cls"
+            *ngIf="(transaction.userAffidavitCustomName == null || transaction.userAffidavitCustomName == undefined) || transaction.userAffidavitCustomName == '' "
+            [matTooltip]="transaction.templateName">{{transaction.templateName}}</p>
+          <p class="text-for-verysmallwidth-cls"
+            *ngIf="(transaction.userAffidavitCustomName == null || transaction.userAffidavitCustomName == undefined) || transaction.userAffidavitCustomName.length == '' "
+            [matTooltip]="transaction.templateName">{{transaction.templateName}}</p>
+          <!-- affidavitcustomname -->
+          
+          <p class="text-for-normalwidth-cls"
+            *ngIf="(transaction.userAffidavitCustomName != null && transaction.userAffidavitCustomName != undefined && transaction.userAffidavitCustomName.length != '')"
+            [matTooltip]="transaction.userAffidavitCustomName">{{transaction.userAffidavitCustomName}}</p>
+          <p class="text-for-verysmallwidth-cls"
+            *ngIf="(transaction.userAffidavitCustomName != null && transaction.userAffidavitCustomName != undefined && transaction.userAffidavitCustomName.length != '')"
+            [matTooltip]="transaction.userAffidavitCustomName">{{transaction.userAffidavitCustomName}}</p>
+
+        </div>
+
+        <div class="table-row-cell-cls">
+          <p class="text-for-normalwidth-cls">{{transaction.transactionRef}}</p>
+          <p class="text-for-verysmallwidth-cls">{{transaction.transactionRef}}</p>
+
+        </div>
+        <div class="table-row-cell-cls">
+          <p class="text-for-normalwidth-cls" style="padding:0px;margin:0px ; ">{{transaction.flutterwaveRef}}</p>
+          <p class="text-for-verysmallwidth-cls" style="padding:0px;margin:0px ; ">{{transaction.flutterwaveRef}}</p>
+
+        </div>
+        <div class="table-row-cell-cls">
+          <p class="text-for-normalwidth-cls" style="padding:0px;margin:0px ; ">{{transaction.affidavitPrice}}</p>
+          <p class="text-for-verysmallwidth-cls" style="padding:0px;margin:0px ; ">{{transaction.affidavitPrice}}</p>
+          
+        </div>
+        <div class="table-row-cell-cls">
+          <p class="text-for-normalwidth-cls" style="padding:0px;margin:0px ; ">
+            {{transaction.chargedamount - transaction.affidavitPrice | number : '1.2-2'}}</p>
+          <p class="text-for-verysmallwidth-cls" style="padding:0px;margin:0px ; ">
+            {{transaction.chargedamount - transaction.affidavitPrice | number : '1.2-2'}}</p>
+          
+        </div>
+        <div class="table-row-cell-cls">
+          <p class="text-for-normalwidth-cls" style="padding:0px;margin:0px ; ">{{transaction.chargedamount}}</p>
+          <p class="text-for-verysmallwidth-cls" style="padding:0px;margin:0px ; ">{{transaction.chargedamount}}</p>
+          
+        </div>
+        <div class="table-row-cell-cls">
+          <p class="text-for-normalwidth-cls" style="padding:0px;margin:0px ; ">{{transaction.transactionDateString}}
+          </p>
+          <p class="text-for-verysmallwidth-cls" style="padding:0px;margin:0px ; ">{{transaction.transactionDateString}}
+          </p>
+
+        </div>
+        <div class="table-row-cell-cls" style="flex:0.5;">
+          <p *ngIf="transaction.status == 'successful'">
+            <mat-icon style="font-weight: bolder;color:green;">done</mat-icon>
+          </p>
+          <p [matTooltip]="transaction.status" *ngIf="transaction.status != 'successful'">
+            <mat-icon style="font-weight: bolder;color:red;">error</mat-icon>
+          </p>
+        </div>
+
+      </mat-card>
+
+    </div>
+    
+  </div>
+
+</div>

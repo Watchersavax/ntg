@@ -1,0 +1,53 @@
+<div class="dialogwrapper">
+    <span>
+        <h2 mat-dialog-title style="font-weight:600 !important">Upload Affidavit</h2>
+    </span>
+    <mat-dialog-content class="mat-typography">
+        <div class="errormessage" *ngIf="errorflag">{{errormessage}}</div>
+
+        <form class="uploadform" [formGroup]="uploadAffidavitAgentForm">
+            <span>
+                <h4 class="heading-title">Deponent Details</h4>
+            </span>
+            <div class="form-container">
+                <mat-form-field class="field">
+                    <input matInput matTooltip="Enter deponent First Name" formControlName="firstname"
+                        placeholder="First Name" />
+                </mat-form-field>
+                <mat-form-field class="field">
+                    <input matInput matTooltip="Enter deponent Last Name" formControlName="lastname"
+                        placeholder="Last Name" />
+                </mat-form-field>
+                <mat-form-field class="field">
+                    <input matInput matTooltip="Enter deponent email" formControlName="email" placeholder="E-mail Address" />
+                </mat-form-field>
+                <mat-form-field class="field">
+                    <input matInput matTooltip="Enter deponent Mobile" formControlName="mobile" placeholder="Mobile No."
+                        (keypress)="keyPressEvent($event)" pattern="[0-9]*" inputmode="numeric" maxlength="11" minlength="11"/>
+                </mat-form-field>
+                <span>
+                    <h4 class="heading-title">Template Details</h4>
+                </span>
+                
+                <mat-form-field class=" field custom-form-field">
+
+                <button mat-icon-button class="custom-icon-button" (click)="fileInput.click()" matTooltip="Select a file">
+                    <mat-icon>cloud_upload</mat-icon>
+                  </button>
+                  <input type="file" #fileInput hidden (change)="onFileSelected($event)" accept=".docx,.pdf"
+                    formControlName="file">
+                  <input matInput [value]="selectedFile?.name || 'Choose file'" readonly  (click)="fileInput.click()" style="border: 2px dashed lightgray !important;margin-top: 0px !important;color: #969696;cursor: pointer;">
+                  <div class="message">Only DOCX, PDF max size of 5MB</div>
+          
+                </mat-form-field>
+
+                <div class="actiongroup">
+                    <button mat-button (click)="upload()"
+                        style="background-color: var(--custombgColor);font-size:small;margin-right:20px;width: 30%; padding: 5px;" [style.color]="!errorflag? 'white': null" [disabled] = "errorflag">Upload</button>
+                    <button mat-button mat-dialog-close="false"
+                        style="background-color: #545859;font-size:small;color: white;margin-right:10px;width: 30%; padding: 5px;">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </mat-dialog-content>
+</div>

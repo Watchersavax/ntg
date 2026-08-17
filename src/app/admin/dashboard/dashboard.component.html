@@ -1,0 +1,96 @@
+<div class="pagewrapper">
+  <div class="header">
+
+    <div class="company-logo-cls">
+      <img src="assets/Notago_logo.png" alt="NotaGo logo" width="150px" />
+    </div>
+    <div class="header-container-1">
+
+      <button mat-button (click)="goToDashboard()">
+        <h3 style="font-family: Roboto !important;">Dashboard</h3>
+      </button>
+      <button mat-button [matMenuTriggerFor]="menus">
+        <h3 style="font-family: Roboto !important; ">My Account</h3>
+      </button>
+      <mat-menu #menus="matMenu">
+        <button mat-menu-item (click)="changePersonalDetails()">Personal Details</button>
+        <button mat-menu-item (click)="changePassword()">Change Password</button>
+        <button mat-menu-item (click)="logout()">Logout</button>
+      </mat-menu>
+
+    </div>
+
+  </div>
+  <div class="sidebar">
+    <div class="sidebarcontent">
+      <mat-list role="list">
+        <div class="companybrand">
+          <img *ngIf="!admindata.profilePic" src="assets/mritunjay.jpeg" alt="afrilight logo " />
+          <img *ngIf="!!admindata.profilePic" [src]="'data:image/png;base64,' + admindata.profilePic" />
+        </div>
+        <div class="containavatar"
+          style="padding: 0px;margin: 2px;border-bottom: 2px solid #bfbfbf;padding-bottom: 11px;margin-bottom: 19px;">
+          
+          <div class="adminname" style="padding:0px;margin:0px;color:white;">
+            <p>{{admindisplayname}}</p>
+          </div>
+        </div>
+        <div class="sidebar-navigation-cls">
+
+          <mat-list-item role="listitem" style="padding-left: 0px;padding-right: 0px;" *ngIf="templateManagement">
+            <button [routerLink]='"templates"' routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}"
+              mat-button class="navbutton">
+
+              <span>Manage Templates</span>
+              
+            </button>
+          </mat-list-item>
+          <mat-list-item role="listitem" style="padding-left: 0px;padding-right: 0px;" *ngIf="categoriesManagement">
+            <button [routerLink]='"categories"' routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}"
+              mat-button class="navbutton">
+
+              <span>Manage Categories</span>
+              
+            </button>
+          </mat-list-item>
+          <mat-list-item role="listitem" *ngIf="userManagement">
+            <button [routerLink]='"users"' routerLinkActive="active" mat-button class="navbutton">
+
+              <span>Manage Users</span>
+              
+            </button></mat-list-item>
+          <mat-list-item role="listitem" *ngIf="adminManagement">
+            <button [routerLink]='"admins"' routerLinkActive="active" mat-button class="navbutton">
+
+              <span>Manage Admins</span>
+              
+            </button></mat-list-item>
+
+          <mat-list-item role="listitem" *ngIf="registrarManagement">
+            <button [routerLink]='"registrars"' routerLinkActive="active" mat-button class="navbutton">
+
+              <span>Manage Registrars</span>
+              
+            </button></mat-list-item>
+
+          <mat-list-item role="listitem"><button [routerLink]='"manageapp"' routerLinkActive="active" mat-button
+              class="navbutton">
+
+              <span>Manage FAQs</span>
+              
+            </button></mat-list-item>
+          <mat-list-item role="listitem"><button [routerLink]='"tickets"' routerLinkActive="active" mat-button
+              class="navbutton">
+
+              <span>Manage Tickets</span>
+              
+            </button></mat-list-item>
+        </div>
+      </mat-list>
+    </div>
+  </div>
+  <div class="container-local">
+    <router-outlet></router-outlet>
+
+  </div>
+</div>

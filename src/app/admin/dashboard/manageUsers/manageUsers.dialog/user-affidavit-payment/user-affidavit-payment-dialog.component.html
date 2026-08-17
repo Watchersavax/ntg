@@ -1,0 +1,43 @@
+<div class="dialogwrapper">
+  
+  <span>
+    <h2 mat-dialog-title>User Affidavit Payment</h2>
+  </span>
+  <mat-dialog-content class="mat-typography">
+    <div class="error-message" *ngIf="errorFlag">{{errorMessage}}</div>
+
+    <form [formGroup]="userAffidavitPayment" class="editform" (keydown)="keyDownFunction($event)">
+
+      <div>
+          <span style="color: #545859;">Template Name</span> : 
+          <span style="color: black;"> {{userAffidavit.templateName}} </span>
+      </div>  
+      <div>
+          <span style="color: #545859;">Affidavit Custom Name</span> : 
+          <span style="color: black;">{{userAffidavit.userAffidavitCustomName}}</span>
+      </div>
+
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <input matInput placeholder="Affidavit Price" formControlName="affidavitPrice">
+      </mat-form-field>
+      
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <input matInput placeholder="FlutterWave Reference" formControlName="flutterwaveRef">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <input matInput placeholder="Transaction Reference" formControlName="transactionRef">
+      </mat-form-field>
+
+    </form>
+
+    <div class="actiongroup">
+      <button mat-button style="background-color: var(--custombtnColor);font-size:small;color: white;;margin-right:20px;"
+        (click)="onSubmit()">Submit</button>
+      <button mat-button mat-dialog-close="false"
+        style="background-color: #545859;font-size:small;color: white;">Cancel</button>
+    </div>
+
+  </mat-dialog-content>
+  
+</div>

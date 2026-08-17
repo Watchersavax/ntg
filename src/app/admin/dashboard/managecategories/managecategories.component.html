@@ -1,0 +1,62 @@
+  <div class="tablewrapper">
+    <div class="tablelabel" style="min-height: 55px;">
+  
+      <span style="margin-bottom: 12px;">
+      </span>
+  
+      <button  class="optional" matTooltip="Add New Category" 
+      (click)="addNewCategories()" mat-raised-button >
+      New Category
+      </button>
+    </div>
+  
+    <div class="table-wrapper-cls">
+  
+      <div class="table-header-cls" matSort (matSortChange)="sortData($event)" style="border:1px solid black">
+          <div class="table-header-cell-cls" mat-sort-header="title" style="border-right: 1px solid #00000038;">
+              Title
+          </div>
+          <div class="table-header-cell-cls" mat-sort-header="status" style="    border-right: 1px solid #00000038;">
+              Status
+          </div>
+          <div class="table-header-cell-cls no-sort-header"  >
+            Actions
+          </div>
+      </div>
+      
+      <div class="table-body-cls" infinite-scroll
+            [infiniteScrollDistance]="scrollDistance"
+            [infiniteScrollUpDistance]="scrollUpDistance"
+            [infiniteScrollThrottle]="throttle"
+            (scrolled)="nextPage()"
+            [infiniteScrollDisabled] = "infinitescrolldisable"
+            [scrollWindow]="false">
+          
+          <mat-card *ngFor="let category of categoriesList; let i = index" class="mat-card-list-cls">
+            
+            <div class="table-row-cell-cls" >
+              {{category.templateCategoryName}}
+            </div>
+            
+            <div class="table-row-cell-cls">                                                
+              <mat-slide-toggle [checked]="category.active" (change)="onSlide(category)" ></mat-slide-toggle>
+            </div>
+
+            <div class="table-row-cell-cls">
+              <div class="action-groups">
+                
+                <button matTooltip="Edit Category Details" mat-raised-button style="margin:5px" (click)="editCategory(category)">
+                  <mat-icon style="color:var(--custombtnColor) ;font-size: 16px;">edit</mat-icon>
+                </button>
+                <button matTooltip="Add SubCategory" mat-raised-button style="margin:5px" (click)="addNewSubCategories(category)">
+                <mat-icon style="color:var(--custombtnColor) ;font-size: 16px;">add </mat-icon>
+                </button>
+                <button matTooltip="View SubCategories" mat-raised-button style="margin:5px" (click)="getSubCategory(category)">
+              <mat-icon  style="color:var(--custombtnColor) ;font-size: 16px;"> visibility</mat-icon>
+               </button>
+              </div>
+            </div>
+  
+          </mat-card>
+      </div>
+  </div>

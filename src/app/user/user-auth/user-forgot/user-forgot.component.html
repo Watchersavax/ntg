@@ -1,0 +1,29 @@
+<div class="pagewrapper">
+        <div class="loginbox">
+           <div style="width: 100%;">
+               <h1 style="padding: 0px;
+               margin: 5px 0px 5px 0px;
+               color: var(--customgrey);">Forgot password</h1>
+           </div>
+          
+              <div class="form-container">
+                    <form [formGroup]="forgotformgroup" (keydown)="keyDownFunction($event)">
+                            <div class="form-container">
+                              
+                              <mat-form-field class="field">
+                                <input matInput (keypress)="keyPress($event)"  matTooltip="Enter your registered Email id" formControlName="email" placeholder="Email">
+                              </mat-form-field>
+                              <div class="errormessage" *ngIf="errorflag" (click)="toggle('')">
+                                  <span style="margin-left: 10px;">{{errormessage}}</span>
+                                </div>
+                        
+                              <button mat-button class="subminbutton" (click)="onSubmit()">Send Me Email</button>
+                           
+                              <div class="field" style="text-align:center;margin-top:15px "><a [routerLink]="['/user','home']">I remember my Password</a></div>
+                            </div>
+                          </form>
+                          <h4 *ngIf="success" style="text-align:center">Please check your email to reset password.</h4>
+                          </div>
+                  </div>
+            </div>
+   

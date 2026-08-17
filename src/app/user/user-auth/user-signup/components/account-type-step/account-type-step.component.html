@@ -1,0 +1,31 @@
+<section class="auth-state">
+  <h2>Choose your account type</h2>
+  <p class="auth-state-subtitle">
+    Select the option that best describes you to get started.
+  </p>
+
+  <div class="account-card-list">
+    <button
+      type="button"
+      class="account-card"
+      *ngFor="let option of options"
+      (click)="select.emit(option)"
+    >
+      <span class="account-card__icon">
+        <mat-icon>{{ option.icon }}</mat-icon>
+      </span>
+      <span class="account-card__body">
+        <span class="account-card__title">{{ option.label }}</span>
+        <span class="account-card__description">
+          {{ option.description }}
+        </span>
+      </span>
+      <mat-icon class="account-card__chevron">chevron_right</mat-icon>
+    </button>
+  </div>
+
+  <p class="auth-switch-copy">
+    Already have an account?
+    <button type="button" (click)="login.emit()">Log in</button>
+  </p>
+</section>

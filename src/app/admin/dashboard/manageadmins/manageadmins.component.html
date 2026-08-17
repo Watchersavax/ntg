@@ -1,0 +1,93 @@
+<div class="tablewrapper">
+    <div class="tablelabel" style="min-height: 55px;">
+
+      <span style="margin-bottom: 12px;">
+        <input  id="searchUser" style="border: 0px;border-bottom: 2px solid #545859;outline: none;font-size: medium;width: 18vw;"
+                [(ngModel)]="keyword" (ngModelChange)="keywordUpdate.next($event)" placeholder="Search Admin...">
+        <mat-icon style="color: #545859;">search</mat-icon>
+      </span>
+  
+      <button  class="optional" matTooltip="Add Admin" 
+              (click)="createNewUser()" mat-raised-button >
+        New Admin
+      </button>
+    </div>
+  
+    <div class="table-wrapper-cls">
+  
+      <div class="table-header-cls" matSort (matSortChange)="sortData($event)" style="border:1px solid black">
+        
+        <div class="table-header-cell-cls" mat-sort-header="firstName" style="border-right: 1px solid #00000038;">
+          Name
+        </div>
+  
+        <div class="table-header-cell-cls" mat-sort-header="userName" style="border-right: 1px solid #00000038;">
+          User Name
+        </div>
+  
+        <div class="table-header-cell-cls" mat-sort-header="email" style="border-right: 1px solid #00000038;">
+          Email
+        </div>
+  
+        <div class="table-header-cell-cls no-sort-header" style="border-right: 1px solid #00000038;">
+          Phone Number
+        </div>
+        <div class="table-header-cell-cls no-sort-header" style="border-right: 1px solid #00000038; flex:1;">
+          Status
+        </div>
+        
+        <div class="table-header-cell-cls no-sort-header">
+          Actions
+        </div>
+  
+      </div>
+
+      <div class="table-body-cls" infinite-scroll
+            [infiniteScrollDistance]="scrollDistance"
+            [infiniteScrollUpDistance]="scrollUpDistance"
+            [infiniteScrollThrottle]="throttle"
+            (scrolled)="nextPage()"
+            [infiniteScrollDisabled] = "infinitescrolldisable"
+            [scrollWindow]="false">
+          
+          <mat-card *ngFor="let user of userList; let i = index" class="mat-card-list-cls">
+            
+            <div class="table-row-cell-cls">
+              <p>{{user.firstName}} {{user.lastName}}</p>
+            </div>
+  
+            <div class="table-row-cell-cls">
+              <p>{{user.userName}}</p>
+            </div>
+  
+            <div class="table-row-cell-cls">
+              <p>{{user.email}}</p>
+            </div>
+  
+            <div class="table-row-cell-cls">
+              <p>{{user.contact}}</p>
+            </div>
+
+            <div class="table-row-cell-cls" style="flex: 1">                                                
+              <mat-slide-toggle [checked]="user.active" (change)="onSlide(user)" ></mat-slide-toggle>
+            </div>
+
+            <div class="table-row-cell-cls">
+              <div class="action-groups">
+  
+                <p *ngIf="activeRole.roleName !== 'ROLE_STATE_ADMIN'" (click)="OnTemplateClick(user)" matTooltip="View Templates" style="cursor: pointer; margin-right: 5px;">
+                  <mat-icon style="color:blue;">open_in_new</mat-icon>
+                </p>
+                
+                <button matTooltip="Edit Admin Details" mat-raised-button style="margin:5px" (click)="editUser(user)">
+                  <mat-icon style="color:var(--custombtnColor) ;font-size: 16px;">edit</mat-icon>
+                </button>
+                <button *ngIf="user.userId != admindata.userId" matTooltip="Delete User Details" mat-raised-button style="margin:5px" (click)="deleteUser(user)">
+                  <mat-icon style="color:red ;font-size: 16px;">delete</mat-icon>
+                </button>
+              </div>
+            </div>
+  
+          </mat-card>
+      </div>
+  </div>

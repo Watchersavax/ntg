@@ -1,0 +1,76 @@
+
+<div class="video-call-layout d-flex p-2" [ngClass]="signingViewState().compact ? 'video-call-compact' : 'video-call-wide'">
+  <div class="list-container">
+    
+    <div class="heading">
+      <span>
+        <h3>Meetings</h3>
+      </span>
+      <div class="time">{{meetingTiming}}</div>
+    </div>
+    <div class="list">
+      
+      <div [ngClass]="user.selected?'item-selected':'item'" *ngFor="let user of videoCallUsers" (click)="selectMeeting(user)">
+        <div class="user-affidavit-id">
+          <span>{{user.userAffidavitId}}</span>
+        </div>
+        <div class="information">
+          <div class="details">
+            <span>{{user.requesterName}} </span>
+            <span>{{ user.isUploaded || user.isCaseRelated ? user.userAffidavitCustomName : user.templateName }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="dialogwrapper-cls">
+    
+    <div>
+      
+      <p class="custom-heading-class">
+        <!-- Affidavit Name  -->
+        
+        <span> {{ isUploaded || isCaseRelated ? userAffidavitName : templateName }} </span>
+      </p>
+      
+      <div *ngIf="signingViewState().mode === 'failed'"
+        class="body-cls shadow-sm bg-white rounded signing-info signing-error">
+        <mat-icon class="info-icon">{{ signingViewState().icon }}</mat-icon>
+        <p>{{ signingViewState().message }}</p>
+      </div>
+      <div *ngIf="signingViewState().mode === 'finished'"
+        class="body-cls shadow-sm bg-white rounded signing-info signing-completed">
+        <mat-icon class="info-icon">{{ signingViewState().icon }}</mat-icon>
+        <p>{{ signingViewState().message }}</p>
+      </div>
+      <div *ngIf="signingViewState().canLoadRegistrarUrl && (loadingRegistrarSigningUrl || registrarSigningUrl)" class="registrar-signing-embed">
+        <mat-spinner *ngIf="loadingRegistrarSigningUrl" diameter="36"></mat-spinner>
+        <app-documenso-signing-embed
+          *ngIf="registrarSigningUrl"
+          [signingUrl]="registrarSigningUrl"
+          [allowDocumentRejection]="true"
+          (documentCompleted)="onRegistrarDocumentFinished(SigningStatus.COMPLETED)"
+          (documentRejected)="onRegistrarDocumentFinished(SigningStatus.REJECTED)"
+        ></app-documenso-signing-embed>
+      </div>
+      <div *ngIf="signingViewState().mode === 'waiting-user'" class="body-cls shadow-sm bg-white rounded signing-info signing-error">
+        <mat-icon class="info-icon">{{ signingViewState().icon }}</mat-icon>
+        <p>{{ signingViewState().message }}</p>
+        <button mat-button [disabled]="refreshing" (click)="refreshUserSigned()">
+          <mat-icon>refresh</mat-icon> {{ refreshing ? 'Refreshing...' : 'Refresh' }}
+        </button>
+      </div>
+      <div class="d-flex justify-content-end align-items-center w-100 mt-4">
+        <div><button class="btn button-cls" (click)="onClosePopup()" style="background-color: var(--customgrey);"
+            mat-raised-button>Close</button></div>
+        <div *ngIf="canCompleteMeeting()"><button class="btn button-cls" (click)="completeMeeting()" style="background-color: #2e7d32;"
+            mat-raised-button>Complete</button></div>
+        <div><button (click)="joinMeeting()" class="btn button-cls" style="background-color: var(--custombtnColor);"
+            mat-raised-button>
+            Join Meeting
+          </button></div>
+      </div>
+    </div>
+  </div>
+</div>

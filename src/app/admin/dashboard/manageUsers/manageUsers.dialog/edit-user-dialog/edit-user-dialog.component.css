@@ -1,0 +1,80 @@
+.dialogwrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    margin: 1rem 2rem;
+  }
+  
+  .dialogwrapper span {
+    width: 100%;
+  }
+  .title {
+    padding: 5px !important;
+    font-size: medium;
+    text-align: center;
+    font-weight: 400;
+    font-size: 20px;
+  }
+  .actiongroup {
+    margin: 1rem 0rem;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+  }
+  
+  .editform {
+    /* height:34vh; */
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+  
+  }
+  
+  .errormessage{
+    color:red;
+    margin-bottom:1vh;
+    font-weight:500;
+  }
+  
+  
+  @media only screen and (max-width:1024px) {
+  
+    .maincontent {
+      /* height: 55vh; */
+    }
+  
+    .dialogwrapper h2{
+      font-size:medium;
+  }
+  
+    .actiongroup {
+      margin-top: 1vh;
+      margin-bottom:1vh;
+    }
+    .mat-button {
+      width:120px;
+      font-size: larger;
+    }
+  }
+
+   /* Adjust the margin and alignment for the permission groups */
+.permission-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Style the label and checkbox layout */
+.checkbox-with-label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px; /* Add margin between permission groups */
+}
+
+/* Adjust spacing between label text and checkbox */
+.checkbox-with-label span {
+  margin-right: 15px;
+  font-size: 15px;
+  font-family: Roboto;
+}

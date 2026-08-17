@@ -1,0 +1,30 @@
+<div class="userdashboard-cls">
+  <div [ngClass]="(toggledrawer == true ) ? 'userdashboard-sidebar-mobile-cls' : 'userdashboard-sidebar-cls'" (clickElsewhere)="closeDrawer()">
+    <div class="sidebar-user-avatar-cls">
+      <div style="height:112px;display:flex;flex-flow:row wrap;justify-content: center;align-items: center;">
+        <img *ngIf="!userData.profilePic"  src="../assets/mritunjay.jpeg" alt="user image" />
+        <img *ngIf="!!userData.profilePic" [src]="'data:image/png;base64,' + userData.profilePic" />
+      </div>
+      <h4 style="color:white;margin:8px;font-size: medium; font-weight: 400;">{{username}}</h4>
+      <p  class="user-text-class">{{useremail}}</p>
+    </div>
+    <div class="sidebar-navigation-cls">
+      <button class="mybutton" *ngIf="!isAgent" [routerLink]='"/user/myaccount/documents"' routerLinkActive="myactive" [routerLinkActiveOptions]="{exact : true}">Documents</button>
+      <button class="mybutton" *ngIf="isAgent" [routerLink]='"/user/myaccount/agent/documents"' routerLinkActive="myactive" [routerLinkActiveOptions]="{exact : true}">Documents</button>
+      <button class="mybutton" (click)="openUploadDialog()">Upload Document</button>
+      <button class="mybutton" [routerLink]='"/user/myaccount/personal"' routerLinkActive="myactive" [routerLinkActiveOptions]="{exact : true}">Personal Information</button>
+      <button class="mybutton" [routerLink]='"/user/myaccount/password"' routerLinkActive="myactive" [routerLinkActiveOptions]="{exact : true}">Change Password</button>
+      <button class="mybutton" [routerLink]='"/user/myaccount/transaction"' routerLinkActive="myactive" [routerLinkActiveOptions]="{exact : true}">Transactions</button>
+      <button class="mybutton" [routerLink]='"/user/myaccount/appointments"' routerLinkActive="myactive" [routerLinkActiveOptions]="{exact : true}">
+        
+        Appointments
+      </button>
+      <button class="mybutton" (click)="logout()">Logout</button>
+    </div>
+
+  </div>
+
+  <div class="userdashboard-body-cls" >
+    <router-outlet></router-outlet>
+  </div>  
+</div>

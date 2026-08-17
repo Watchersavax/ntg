@@ -1,0 +1,254 @@
+<div [ngClass]="contactusflag ? 'table-wrapper-cls' : 'table-wrapper-alone-cls'">
+    <div class="content">
+        
+        <h2 *ngIf="!contactusflag">Tickets</h2>
+        <div class="paginator-cls">
+            
+            <p style="color:var(--custombgColor);">Page no :</p>
+            <button [disabled]="prevflag" (click)="previousPage()" [ngClass]="(prevflag == true) ?'page-navigation-disabled-cls': 'page-navigation-cls'">
+                <mat-icon style="font-size: 27px;">navigate_before</mat-icon>
+            </button>
+            <p>{{currentpage+1}}</p>
+            <button [disabled]="nextflag" (click)="nextPage()"  [ngClass]="(nextflag == true) ?'page-navigation-disabled-cls': 'page-navigation-cls'">
+                <mat-icon style="font-size: 27px;">navigate_next</mat-icon>
+            </button>
+        </div>
+        <div class="filteroptions">
+            <button (click)="onStatusChange('Assigned')" style="cursor: pointer"
+                [className]="(activeStatusTab == 'Assigned') ? 'active-filter-class' : 'inactive-filter-cls'">Assigned</button>
+            <button (click)="onStatusChange('Pending')" style="cursor: pointer"
+                [className]="(activeStatusTab == 'Pending') ? 'active-filter-class' : 'inactive-filter-cls'">Pending</button>
+            <button (click)="onStatusChange('Resolved')" style="cursor: pointer"
+                [className]="(activeStatusTab == 'Resolved') ? 'active-filter-class' : 'inactive-filter-cls'">Completed</button>
+        </div>
+    </div>
+
+    <div class="table-header-cls" matSort (matSortChange)="sortData($event)" style="border:1px solid black">
+        <div class="table-header-cell-cls no-sort-header" style="flex:0.5;border-right: 1px solid #00000038;">
+            Ticket Id ({{ticketList.length}})
+        </div>
+        <div class="table-header-cell-cls no-sort-header" style="border-right:1px solid #00000036;">
+            Owner
+        </div>
+        <div class="table-header-cell-cls" mat-sort-header="ticketCategory.ticketCategoryName"
+            style="border-right: 1px solid #00000038;">
+            Ticket Category
+        </div>
+        <div class="table-header-cell-cls no-sort-header" mat-sort-header="ticketCreationdate"
+            style="border-right: 1px solid #00000038;">
+            Created On (dd-mm-yyyy)
+        </div>
+        <div class="table-header-cell-cls no-sort-header" style="border-right: 1px solid #00000038;">
+            Ticket Status
+        </div>
+    </div>
+
+    <div class="table-body-cls">
+        <h2 *ngIf="notickets && userdata.roleId == 2" style="color:red;text-align: center;">*No tickets</h2>
+        <h2 *ngIf="notickets && userdata.roleId != 2" style="color:red;text-align: center;">*No tickets
+        </h2>
+        <mat-accordion *ngIf="!notickets">
+            <!-- | filter:categorytosearch -->
+
+            <mat-expansion-panel *ngFor="let ticket of ticketList ;let i = index">
+                <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*" [collapsedHeight]="'auto'"
+                    [expandedHeight]="'auto'">
+                    <div class="table-row-cell-cls" style="flex:0.5">
+                        {{ticket.tiId}}
+                    </div>
+                    <div class="table-row-cell-cls">
+                        {{(ticket.tiOwDe != null && ticket.tiOwDe.userId == userdata.userId)?"You": ticket.tiOwDe.userName}}
+                    </div>
+                    <div class="table-row-cell-cls">
+                        {{ticket.tiCa.tcaName}}
+                    </div>
+                    <div class="table-row-cell-cls">
+                        {{ticket.tiCrdast}}
+                    </div>
+                    <div class="table-row-cell-cls">
+                        <p *ngIf="(ticket.ticketStatus == 'ASSIGNED' || ticket.ticketStatus == 'CREATED') && 
+                        (ticket.tiAcLi != null && ticket.tiAcLi.length > 0 && ticket.tiAcLi[ticket.tiAcLi.length-1].tiAssTo != userdata.userId) && ticket.tiAr == false"
+                            style="color:var(--custombgColor);font-weight: 500;">
+                            Pending</p>
+
+                        <p *ngIf="ticket.ticketStatus == 'ASSIGNED' && 
+                        (ticket.tiAcLi != null && ticket.tiAcLi.length > 0 && ticket.tiAcLi[ticket.tiAcLi.length-1].tiAssTo == userdata.userId) && ticket.tiAr == false"
+                            style="color:rgb(4, 23, 255);font-weight: 500;">{{ticket.ticketStatus}}</p>
+
+                        <p *ngIf="ticket.ticketStatus == 'DONE' || ticket.tiAr == true"
+                            style="color:green;font-weight: 500;">
+                            Resolved
+                        </p>
+                    </div>
+                </mat-expansion-panel-header>
+                <!-- TicketAction table -->
+
+                <p *ngIf="ticket.tiAcLi.length == 0" style="font-size:small;color:var(--custombgColor)">No Details</p>
+                <div class="version-table-wrapper" *ngIf="ticket.tiAcLi.length>0">
+                    <div class="version-table-header-cls">
+                        <div class="version-header-cell-cls" style="border-right:1px solid #00000036;">
+                            <p>Assigned by</p>
+                            
+                        </div>
+                        <div class="version-header-cell-cls" style="border-right:1px solid #00000036;">
+                            <p>Assigned To</p>
+                        </div>
+                        <div class="version-header-cell-cls" style="border-right:1px solid #00000036;">
+                            <p>Action Date</p>
+                        </div>
+                        <div class="version-header-cell-cls" style="border-right:1px solid #00000036;">
+                            <p>Action Message</p>
+                        </div>
+                        <div class="version-header-cell-cls">
+                            <p>Actions</p>
+                        </div>
+                    </div>
+
+                    <div class="version-table-body-cls">
+                        <div class="version-row-cls" *ngFor="let action of ticket.tiAcLi;let j = index;">
+                            <!-- Assigned By -->
+                            
+                            <div class="version-table-row-cell-cls" style="justify-content: space-evenly;">
+                                <p style="color:darkblue;font-weight:500;">
+                                    {{(action.tiAssByDe.userId != userdata.userId)? action.tiAssByDe.userName :"You"}}
+                                </p>
+                            </div>
+                            <!-- Assigned to -->
+
+                            <div class="version-table-row-cell-cls">
+                                <p style="color:var(--custombgColor);font-weight:500;">
+                                    {{(action.tiAssTo != null && action.tiAssTo == userdata.userId)?"You": (action.tiAssTo != null) ? action.tiAssToDe.userName : "System"}}
+                                </p>
+                            </div>
+                            <!-- Action date -->
+
+                            <div class="version-table-row-cell-cls">
+                                <p style="color: var(--customgrey);font-weight: 500;">{{action.tiAcDateSt}} </p>
+                            </div>
+                            <!-- Action message -->
+
+                            <div class="version-table-row-cell-cls">
+                                <p style="color: var(--customgrey);font-weight: 500;" *ngIf="action.tiActTy != 3">
+                                    {{action.tiMes}} </p>
+                                <p style="color: green;font-weight: 500;" *ngIf="action.tiActTy == 3">{{action.tiMes}}
+                                </p>
+                            </div>
+                            <!-- And needed admin input -->
+                            <!-- When super admin logged in into the system -->
+                            <!-- Actions -->
+
+                            <div class="version-table-row-cell-cls"
+                                *ngIf="userdata.roleId == 1 && action.tiActTy != 3  && j == ticket.tiAcLi.length-1 && (action.tiAssTo == null || action.tiAssTo == userdata.userId)">
+
+                                <div class="action-groups">
+                                    <button matTooltip="Give inputs " mat-raised-button *ngIf="contactusflag">
+                                        <mat-icon style="color:var(--custombtnColor); font-size: 20px;"
+                                            (click)="takeActionOnTicket(0,action,ticket)">
+                                            edit</mat-icon>
+                                    </button>
+                                    <button matTooltip="Assign back to owner" mat-raised-button *ngIf="!contactusflag">
+                                        <mat-icon style="color:var(--custombtnColor); font-size: 20px;"
+                                            (click)="takeActionOnTicket(1,action,ticket)">
+                                            reply</mat-icon>
+                                    </button>
+                                    <button matTooltip="Assign back to Assignee" mat-raised-button
+                                        *ngIf="!contactusflag && action.tiAssBy != ticket.tiOwId">
+                                        <mat-icon style="color:blue; font-size: 20px;"
+                                            (click)="takeActionOnTicket(2,action,ticket)">
+                                            reply_all</mat-icon>
+                                    </button>
+                                    <button matTooltip="Assign to other user" mat-raised-button *ngIf="!contactusflag">
+                                        <mat-icon style="color:darkblue; font-size: 20px;"
+                                            (click)="takeActionOnTicket(3,action,ticket)">
+                                            send</mat-icon>
+                                    </button>
+                                    <button matTooltip="Mark the ticket as resolved" mat-raised-button
+                                        *ngIf="!contactusflag">
+                                        <mat-icon style="color:green; font-size: 20px;font-weight:bolder;"
+                                            (click)="takeActionOnTicket(4,action,ticket)">
+                                            done</mat-icon>
+                                    </button>
+
+                                </div>
+
+                            </div>
+                            <!-- And admin can assign ticket to someone else like editing transaction -->
+                            <!-- Admin always got to edit last transaction in the flow if its not done yet -->
+
+                            <div class="version-table-row-cell-cls"
+                                *ngIf="userdata.roleId == 1 && action.tiActTy != 3  && j == ticket.tiAcLi.length-1 && (action.tiAssTo != null && action.tiAssTo != userdata.userId)">
+
+                                <div class="action-groups">
+
+                                    <button matTooltip="Assign to other user" mat-raised-button *ngIf="!contactusflag">
+                                        <mat-icon style="color:darkblue; font-size: 20px;"
+                                            (click)="takeActionOnTicket(3,action,ticket)">
+                                            edit</mat-icon>
+                                    </button>
+
+                                </div>
+
+                            </div>
+                            <!-- And needed User input  -->
+                            <!-- When other users logged in into the systemm -->
+
+                            <div class="version-table-row-cell-cls"
+                                *ngIf="userdata.roleId != 1 && action.tiActTy != 3 
+                                                                && j == ticket.tiAcLi.length-1 && (action.tiAssTo == userdata.userId)">
+                                <div class="action-groups">
+                                    <button matTooltip="Give inputs " mat-raised-button *ngIf="contactusflag">
+                                        <mat-icon style="color:var(--custombtnColor); font-size: 20px;"
+                                            (click)="takeActionOnTicket(0,action,ticket)">
+                                            edit</mat-icon>
+                                    </button>
+                                    <button matTooltip="Assign back to owner" mat-raised-button *ngIf="!contactusflag">
+                                        <mat-icon style="color:var(--custombtnColor); font-size: 20px;"
+                                            (click)="takeActionOnTicket(1,action,ticket)">
+                                            reply</mat-icon>
+                                    </button>
+                                    <button matTooltip="Assign back to Assignee" mat-raised-button
+                                        *ngIf="!contactusflag && action.tiAssBy != ticket.tiOwId">
+                                        <mat-icon style="color:blue; font-size: 20px;"
+                                            (click)="takeActionOnTicket(2,action,ticket)">
+                                            reply_all</mat-icon>
+                                    </button>
+                                    <button matTooltip="Assign to other user" mat-raised-button *ngIf="!contactusflag">
+                                        <mat-icon style="color:darkblue; font-size: 20px;"
+                                            (click)="takeActionOnTicket(3,action,ticket)">
+                                            send</mat-icon>
+                                    </button>
+                                    <button matTooltip="Mark the ticket as resolved" mat-raised-button
+                                        *ngIf="!contactusflag">
+                                        <mat-icon style="color:green; font-size: 20px;font-weight:bolder;"
+                                            (click)="takeActionOnTicket(4,action,ticket)">
+                                            done</mat-icon>
+                                    </button>
+
+                                </div>
+                            </div>
+                            <!-- Dont need any input -->
+
+                            <div class="version-table-row-cell-cls"
+                                *ngIf="action.tiActTy != 3 && j != ticket.tiAcLi.length-1">
+                                <p style="color:blue">DONE</p>
+                            </div>
+                            <div class="version-table-row-cell-cls"
+                                *ngIf="userdata.roleId != 1 && action.tiActTy != 3 && j == ticket.tiAcLi.length-1 && (action.tiAssTo != userdata.userId)">
+                                <p style="color:var(--custombgColor)">Pending</p>
+                            </div>
+
+                            <div class="version-table-row-cell-cls"
+                                *ngIf="action.tiActTy == 3 && j == ticket.tiAcLi.length-1">
+                                <p style="color:green">Resolved</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </mat-expansion-panel>
+
+        </mat-accordion>
+    </div>
+
+</div>

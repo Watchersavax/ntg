@@ -1,0 +1,169 @@
+<div class="tablewrapper">
+    <div class="container-class">
+        <div class="mb-4">
+            <span class="heading-class">Income</span>
+        </div>
+        <mat-grid-list [cols]="mybreakpoint" rowHeight="131px" gutterSize="50px" class="row">
+            <mat-grid-tile colspan="1" rowspan="1" style="background-color: #5883D6;" class="custom-tile">
+              <div class="tile-content">
+                <p class="label" style="color: #FFFFFF;">Today</p>
+                <p class="box-class" style="color: #FFFFFF;">{{ formatCurrency(dashboardData?.data?.todayIncome) }}</p>
+              </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1" style="background-color: #D68336;" class="custom-tile">
+              <div class="tile-content">
+                <p class="label" style="color: #FFFFFF;">This Week</p>
+                <p class="box-class" style="color: #FFFFFF;">{{ formatCurrency(dashboardData?.data?.weekIncome) }}</p>
+              </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1" style="background-color: #92AD58;" class="custom-tile">
+              <div class="tile-content">
+                <p class="label" style="color: #FFFFFF;">This Month</p>
+                <p class="box-class" style="color: #FFFFFF;">{{ formatCurrency(dashboardData?.data?.monthIncome) }}</p>
+              </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1" style="background-color: #3E3E3E ; border: 2px solid #0000001A;" class="custom-tile">
+                <div class="tile-content">
+                  <p class="label" style="color: #FFFFFF;">Total</p>
+                  <p class="box-class" style="color: #FFFFFF;">{{ formatCurrency(dashboardData?.data?.totalIncome) }}</p>
+                </div>
+              </mat-grid-tile>
+          </mat-grid-list>
+    </div>
+    <div class="container-class">
+        <div class="mb-4">
+            <span class="heading-class">Signed Affidavits</span>
+        </div>
+        <mat-grid-list [cols]="mybreakpoint" rowHeight="131px" gutterSize="50px" class="row mt-3">
+            <mat-grid-tile colspan="1" rowspan="1" style="background-color: #FFFFFF; border: 2px solid #00000033;" class="custom-tile">
+              <div class="tile-content">
+                <p class="label"  style="color: #3E3E3E;">Today</p>
+                <p class="box-class" style="color: #5883D6;">{{dashboardData?.data?.todaySignedAff}}</p>
+              </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1" style="background-color: #FFFFFF; border: 2px solid #00000033;" class="custom-tile">
+              <div class="tile-content">
+                <p class="label"  style="color: #3E3E3E;">This Week</p>
+                <p class="box-class" style="color: #D68336;">{{dashboardData?.data?.weekSignedAff}}</p>
+              </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1" style="background-color: #FFFFFF; border: 2px solid #00000033;" class="custom-tile">
+              <div class="tile-content">
+                <p class="label"  style="color: #3E3E3E;">This Month</p>
+                <p class="box-class" style="color: #92AD58;">{{dashboardData?.data?.monthSignedAff}}</p>
+              </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1" style="background-color: #3E3E3E; border: 2px solid #0000001A;" class="custom-tile">
+                <div class="tile-content" >
+                  <p class="label" style="color: #FFFFFF;">Total</p>
+                  <p class="box-class" style="color: #FFFFFF;">{{dashboardData?.data?.totalSignedAff}}</p>
+                </div>
+              </mat-grid-tile>
+          </mat-grid-list>
+    </div>
+   
+      <div class="table-wrapper">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <span class="heading-class" style="font-size: 24px !important;">Grid Report</span>
+        </div>
+        
+        <div class="filter">
+            <div class="filter-search">
+              <div>
+                <div class="label-and-select">
+                    <span class="label-and-select-span">Filter By:</span>
+                    <div class="view-dropdown-filter">
+                      <select [(ngModel)]="selectedFilter" (ngModelChange)="onFilterChange($event)">
+                        <option value="0">Select</option>
+                        <option value="1">This Week</option>
+                        <option value="2">Last Week</option>
+                        <option value="3">Last Month</option>
+                      </select>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="search-cls">
+              <input id="searchUser" class="form-control search-box-input" placeholder="Search" [(ngModel)]="keyword" (ngModelChange)="onKeywordChange($event)">
+              <mat-icon style="color: #545859;" class="search-icon position-absolute">search</mat-icon>
+            </div>
+              <div class="dateFld-1" style="margin-right: 10px;">
+                  <div class="datepicker-cls">
+                      <p class="from-cls">From</p>
+                     
+                      <input class="date-picker-input datepicker-1"  matInput [matDatepicker]="picker1" [value]="startDate" [(ngModel)]="startDate" [max]="maxDate" placeholder="Select minimum date"  (dateChange)="filterData($event)">
+                      <mat-datepicker-toggle matSuffix [for]="picker1">
+                        <img class="datepicker-img" matDatepickerToggleIcon src="../../../assets/date_picker.png" />
+                      </mat-datepicker-toggle>
+                      <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+                  </div>
+              </div>
+             <div  class="dateFld-2">
+                  <div class="datepicker-cls">
+                      <p>To</p>
+                      
+                      <input class="date-picker-input datepicker-2"  matInput [matDatepicker]="picker2" [value]="endDate" [(ngModel)]="endDate" [max]="maxDate" placeholder="Select maximum date"  (dateChange)="filterData($event)">
+                      <mat-datepicker-toggle matSuffix [for]="picker2">
+                        <img class="datepicker-img" matDatepickerToggleIcon src="../../../assets/date_picker.png" />
+                      </mat-datepicker-toggle>
+                      <mat-datepicker #picker2 disabled="false"></mat-datepicker>
+                  </div>
+             </div>
+             
+          </div>
+        <div class="container-table mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSort >
+
+                <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="center-align"> Date </th>
+                    <td mat-cell *matCellDef="let element">{{element.date | date: "dd/MM/yyyy"}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="affidavitName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Signed Affidavit </th>
+                    <td mat-cell *matCellDef="let element">  {{ element.affidavitType ? element.userAffidavitCustomName : element.affidavitName }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="affidavitType">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Affidavit Type </th>
+                    <td mat-cell *matCellDef="let element">{{element.affidavitType?"Uploaded":"System"}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="serialNumber">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Serial Number </th>
+                    <td mat-cell *matCellDef="let element"> {{element.serialNumber}}  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="revenue">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Income </th>
+                    <td mat-cell *matCellDef="let element"> {{element.revenue}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns; "
+                    [ngClass]="{'alternate-row': i % 2 == 1 }"></tr>
+            </table>
+            <table class="tablecls">
+                <tr *ngIf="!dataSource.data.length">
+                  <td style="text-align: center;height: 50px;"  [attr.colspan]="displayedColumns.length">
+                    No data available
+                  </td>
+                </tr>
+            </table>
+        </div>
+        <div class="paginator-cls">
+            <p style="color:var(--customgrey)">{{dataMessage}}</p>
+            <p style="color:var(--custombgColor)">Page: </p>
+            <button (click)="previousPage()"
+                [ngClass]="(prevflag == true) ?'page-navigation-disabled-cls': 'page-navigation-cls'">
+                <mat-icon style="font-size: 27px;">navigate_before</mat-icon>
+            </button>
+            <p>{{page+1}}</p>
+            <button (click)="nextPage()"
+                [ngClass]="(nextflag == true) ?'page-navigation-disabled-cls': 'page-navigation-cls'">
+                <mat-icon style="font-size: 27px;">navigate_next</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
+      

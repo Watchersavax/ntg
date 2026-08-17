@@ -1,0 +1,26 @@
+.main {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+body {
+    background-color: var(--custombtnColor);
+    font-weight: 500;
+}
+
+.paynow-button {    
+    margin: 0px;
+    padding: 2px !important;
+    background-color: var(--custombtnColor);
+    color: white;
+    font-size: medium;
+    font-weight: 500;
+    width: 48%;
+    float: left;
+    margin-left: 2%;
+}
+
+button:hover {
+    background-color: var(--custombgColor);
+}

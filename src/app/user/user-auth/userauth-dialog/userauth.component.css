@@ -1,0 +1,625 @@
+.pagewrapper-login-cls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 44vw;
+  height: 70vh;
+  background-color: transparent;
+}
+
+.pagewrapper-login-cls {
+  animation: animationinandout 0.7s ease;
+}
+
+.loginbox-login-cls {
+  min-width: 35vw;
+  background-color: white;
+  display: flex;
+  flex-flow: column nowrap;
+  align-content: space-around;
+  align-items: flex-end;
+  padding: 10px;
+  border-radius: 5px;
+  border: 0.125rem solid #0AAA65;
+}
+
+.loginbox-login-cls>button {
+  background-color: var(--custombgColor);
+  border: 0px;
+  color: white;
+  width: 10%;
+  height: 5%;
+  outline: none;
+  cursor: pointer;
+  border-radius: 26px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px 1px #0000005e;
+  z-index: 1000;
+}
+
+.loginbox-login-cls>button:active {
+  box-shadow: none;
+}
+
+.loginbox-login-cls button>mat-icon {
+  font-size: 21px;
+  font-weight: 600;
+}
+
+.companyname-login-cls {
+  display: flex;
+  justify-content: center;
+}
+
+.companynamepvt-login-cls {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.companynamepvt-login-cls h3 {
+  letter-spacing: 11px;
+  margin-top: -7px;
+  margin-bottom: -15px;
+}
+
+.content-login-cls {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  /* background-color: black; */
+}
+
+.content-login-cls img {
+  margin-bottom: 0px;
+  height: 10vh;
+  /* width: 16vw; */
+}
+
+.form-container-login-cls {
+  display: flex;
+  flex-flow: column wrap;
+  margin-top: 2vh;
+  /* background-color: grey; */
+}
+
+.maincontent-cls-login-cls {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+form {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.field-login-cls {
+  margin: 5px;
+  padding: 5px;
+}
+
+.subminbutton-login-cls {
+  margin: 5px;
+  padding: 2px;
+  background-color: var(--custombtnColor);
+  color: white;
+  font-size: medium;
+  font-weight: 500;
+}
+
+.errormessage-login-cls {
+  background-color: rgba(228, 108, 99, 0);
+  color: red;
+  width: 100%;
+  height: 3vh;
+  display: flex;
+  font-weight: 600;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: medium;
+}
+
+.field-login-cls>button {
+  background-color: transparent;
+  border: 0px;
+  /* border-bottom: 1px solid blue; */
+  color: #41419f;
+  font-size: 17px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 1024px) {
+  .pagewrapper-login-cls {
+    width: 58vw;
+    height: 68vh;
+  }
+
+  .loginbox-login-cls {
+    width: 58vw;
+    height: 68vh;
+  }
+}
+
+/* register components ***********************/
+.pagewrapper-register-cls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 46vw;
+  height: 93vh;
+  background-color: transparent;
+}
+
+.pagewrapper-register-cls {
+  animation: animationinandout 0.7s ease;
+}
+
+.loginbox-register-cls {
+  min-width: 35%;
+  background-color: white;
+  display: flex;
+  flex-flow: column nowrap;
+  align-content: space-around;
+  align-items: flex-end;
+  padding: 0.625rem;
+  border: 0.125rem solid #0AAA65;
+}
+
+.loginbox-register-cls>button {
+  background-color: var(--custombgColor);
+  border: 0px;
+  color: white;
+  width: 10%;
+  height: 5%;
+  outline: none;
+  cursor: pointer;
+  border-radius: 26px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px 1px #0000005e;
+  z-index: 1000;
+}
+
+.loginbox-register-cls>button>mat-icon {
+  font-size: 21px;
+  font-weight: 600;
+}
+
+.maincontent-cls-register-cls {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  flex-flow: column nowrap;
+  align-content: space-around;
+  align-items: space-around;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.companyname-register-cls {
+  display: flex;
+  justify-content: center;
+}
+
+.companynamepvt-register-cls {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.companynamepvt-register-cls h3 {
+  letter-spacing: 11px;
+  margin-top: -7px;
+  margin-bottom: -15px;
+}
+
+.content-register-cls {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  /* background-color: black; */
+}
+
+.content-register-cls img {
+  margin-bottom: 0px;
+  /* height: 18vh; */
+  width: 10vw;
+  /* width: 16vw; */
+}
+
+.form-container-register-cls {
+  display: flex;
+  flex-flow: column wrap;
+  margin-top: 0vh;
+  /* background-color: grey; */
+}
+
+form {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.field-register-cls {
+  margin: 0px;
+  padding: 0px;
+}
+
+.field-register-cls>button {
+  background-color: transparent;
+  border: 0px;
+  /* border-bottom: 1px solid blue; */
+  color: #41419f;
+  font-size: 17px;
+  font-weight: 400;
+  cursor: pointer;
+  margin: 0px;
+  padding: 0px;
+}
+
+.subminbutton-register-cls {
+  margin: 0px;
+  padding: 2px;
+  background-color: var(--custombtnColor);
+  color: white;
+  font-size: medium;
+  font-weight: 500;
+}
+
+.edit-register-cls {
+  margin: 0px;
+  padding: 2px;
+  background-color: var(--custombtnColor);
+  color: white;
+  font-size: medium;
+  font-weight: 500;
+  width: 48%;
+  float: left;
+  margin-right: 2%;
+}
+
+.disable-toggle {
+  pointer-events: none;
+}
+
+.errormessage-register-cls {
+  background-color: rgba(228, 108, 99, 0);
+  color: red;
+  width: 100%;
+  height: 2vh;
+  display: flex;
+  font-weight: 500;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: small;
+}
+
+/* for forgot password component *************************/
+
+.pagewrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 39vw;
+  height: 64vh;
+  /* background: linear-gradient(to bottom, #008e52 0%, #000000 100%); */
+  /* background: linear-gradient(to bottom, #be3a34 0%, #545859 100%); */
+  background-color: transparent;
+}
+
+.pagewrapper {
+  animation: animationinandout 0.7s ease;
+}
+
+.loginbox {
+  min-width: 35vw;
+  background-color: white;
+  display: flex;
+  flex-flow: column nowrap;
+  align-content: space-around;
+  align-items: flex-end;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 1px 20px 13px #00000078;
+}
+
+.maincontent-cls-forgot-cls {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  flex-flow: column nowrap;
+  align-content: space-around;
+  align-items: space-around;
+}
+
+.loginbox>button {
+  background-color: var(--custombgColor);
+  border: 0px;
+  color: white;
+  width: 12%;
+  height: 7%;
+  outline: none;
+  cursor: pointer;
+  border-radius: 26px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px 1px #0000005e;
+  z-index: 1000;
+}
+
+.loginbox>button>mat-icon {
+  font-size: 21px;
+  font-weight: 600;
+}
+
+.companyname {
+  display: flex;
+  justify-content: center;
+}
+
+.companynamepvt {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.companynamepvt h3 {
+  letter-spacing: 11px;
+  margin-top: -7px;
+  margin-bottom: -15px;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  /* background-color: black; */
+}
+
+.content img {
+  margin-bottom: 9px;
+  height: 21vh;
+}
+
+.form-container {
+  display: flex;
+  flex-flow: column wrap;
+  margin-top: 0vh;
+  /* background-color: grey; */
+}
+
+.field {
+  margin: 5px;
+  padding: 5px;
+}
+
+.field>button {
+  background-color: transparent;
+  border: 0px;
+  /* border-bottom: 1px solid blue; */
+  color: #41419f;
+  font-size: 17px;
+  font-weight: 400;
+  cursor: pointer;
+  margin: 0px;
+  padding: 0px;
+}
+
+.subminbutton {
+  margin: 5px;
+  padding: 2px;
+  background-color: var(--custombtnColor);
+  color: white;
+  font-size: medium;
+  font-weight: 500;
+}
+
+.errormessage {
+  background-color: rgba(228, 108, 99, 0);
+  color: red;
+  width: 100%;
+  height: 2vh;
+  display: flex;
+  font-weight: 500;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: medium;
+}
+
+.verifybutton {
+  margin-left: 10px;
+  margin-bottom: 20px;
+  background-color: var(--custombtnColor);
+  color: white;
+  font-size: medium;
+  font-weight: 500;
+  width: 100px;
+}
+
+.verifycontent {
+  margin: 10px;
+}
+
+.field-resend-cls {
+  margin: 20px;
+  padding: 5px;
+}
+
+.field-resend-timer {
+  color: rgb(175, 163, 163);
+  margin: 20px;
+  padding: 5px;
+}
+
+.field-resend-cls>button {
+  background-color: transparent;
+  border: 0px;
+  /* border-bottom: 1px solid blue; */
+  color: #41419f;
+  font-size: 17px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.editIconbutton {
+  height: 25px;
+  border-radius: 50%;
+  background: white;
+  margin-right: 5px;
+}
+
+.field-login-cls {
+  margin: 0 !important;
+  padding: 0px 10px !important;
+}
+
+@keyframes animationinandout {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 435px) {
+  .loginbox-login-cls {
+    width: 88vw;
+    height: 73vh;
+  }
+
+  .loginbox-register-cls {
+    min-width: 80vw;
+  }
+}
+
+.header-cls {
+  width: 100%;
+  height: 3vh;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  /* background-color: #4C4D51; */
+  color: white
+}
+
+.header-cls button {
+  background-color: var(--custombgColor);
+  outline: none;
+  border: 0px;
+  color: white;
+  /* border-radius: 26px; */
+  width: 6%;
+  margin-right: 2rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 8px 2px #00000061;
+  cursor: pointer;
+}
+
+.header-cls button:active {
+  box-shadow: none;
+}
+
+.header-cls button mat-icon {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+@media only screen and (max-width:768px) {
+
+  .header-cls button mat-icon {
+    font-size: 19px;
+    font-weight: bold;
+  }
+
+  .header-cls button {
+    width: 8%;
+  }
+
+
+}
+
+.status-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.indicator {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #0FA958;
+  border-radius: 50%;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.inner-indicator {
+  width: 10px;
+  height: 10px;
+  border: 1px solid #0FA958;
+  border-radius: 50%;
+}
+
+.page-container {
+  background: url(../../../../assets/background.png);
+  background-size: cover;
+  background-position-y: 85%;
+  text-align: center;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: max-content;
+  min-height: 100%;
+}
+
+.mat-form-field-label {
+  font-size: small !important;
+}
+
+.back-btn {
+  display: flex;
+  gap: 1rem;
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  font-size: medium;
+  cursor: pointer;
+}
+
+.back-btn img {
+  width: 1rem;
+}
+
+.back-btn p {
+  color: rgba(255, 255, 255, 1);
+  margin-bottom: 0px !important;
+}

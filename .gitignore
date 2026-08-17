@@ -1,0 +1,5 @@
+node_modules
+dist
+.local
+src/environments/environment.cloudflare.ts
+src/environments/environment.local.ts

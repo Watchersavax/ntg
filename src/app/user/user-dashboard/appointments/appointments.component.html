@@ -1,0 +1,63 @@
+<div class="tablewrapper">
+	<div class="table-wrapper-cls">
+		<div class="table-header-cls" style="border:1px solid black">
+			<div class="table-header-cell-cls no-sort-header" style="flex:0.5; border-right: 1px solid #00000038;">
+				Meeting Id
+			</div>
+
+			<div class="table-header-cell-cls no-sort-header" style="flex:0.5; border-right: 1px solid #00000038;">
+				Affidavit Name
+			</div>
+			<div class="table-header-cell-cls no-sort-header" style="flex:0.5; border-right: 1px solid #00000038;">
+				Meeting On
+			</div>
+			<div class="table-header-cell-cls no-sort-header" style="flex:0.5; border-right: 1px solid #00000038;">
+				Meeting Status
+			</div>
+		</div>
+		<div class="table-body-cls">
+
+			<div *ngIf="appointmentsDetails?.length">
+				<mat-card *ngFor="let attendee of appointmentsDetails;let i = index" class="mat-card-list-cls">
+					<div class="table-row-cell-cls">
+						<p>{{attendee.appointmentDto.appointmentId}}</p>
+					</div>
+					<div class="table-row-cell-cls">
+						<p>{{attendee.userAffidavit.isUploaded || attendee.userAffidavit.isCaseRelated?attendee.userAffidavit.userAffidavitCustomName:attendee.userAffidavit.templateName}}
+						</p>
+					</div>
+					<div class="table-row-cell-cls">
+						<p>{{attendee.appointmentDto.formattedDate}}</p>
+					</div>
+					<div class="table-row-cell-cls">
+						<!-- *ngIf ="attendee.btnValue == 'Completed'" -->
+						
+						<button mat-raised-button [disabled]="attendee.isBtnDisable"
+							[ngClass]="attendee.isBtnDisable ?'button-cls-disabled': 'button-cls'"
+							(click)="openVideoDialog(attendee)">{{attendee.btnValue}}</button>
+					</div>
+				</mat-card>
+			</div>
+			<div *ngIf="!appointmentsDetails?.length" class="empty-msg">
+				<div>
+					<h2>
+						*No Appointment
+					</h2>
+				</div>
+			</div>
+		</div>
+		<div class="paginator-cls">
+			<p style="color:var(--customgrey)">{{dataMessage}}</p>
+			<p style="color:var(--custombgColor)">Page: </p>
+			<button (click)="previousPage()"
+				[ngClass]="(prevflag == true) ?'page-navigation-disabled-cls': 'page-navigation-cls'">
+				<mat-icon style="font-size: 27px;">navigate_before</mat-icon>
+			</button>
+			<p>{{page+1}}</p>
+			<button (click)="nextPage()"
+				[ngClass]="(nextflag == true) ?'page-navigation-disabled-cls': 'page-navigation-cls'">
+				<mat-icon style="font-size: 27px;">navigate_next</mat-icon>
+			</button>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,85 @@
+<div class="dialogwrapper" id="myip">
+  <div class="maincontent">
+    <span style="width:100%;display: flex;flex-flow: row nowrap;justify-content: space-between;background-color: var(--custombgColor);">
+      <h2 mat-dialog-title style="margin:0px;">Add new template</h2>
+      <button (click)="close()" style="background-color: transparent;outline:none;border: 0px;"><mat-icon style="color: white;font-size: 24px;">close</mat-icon></button>
+    </span>
+    <div class="mat-tab-group-container-cls">
+      <mat-dialog-content class="mat-typography">
+        <mat-tab-group [(selectedIndex)]="selectedIndex" (selectedTabChange)="tabChanged($event)">
+          <mat-tab label="Template Properties">
+            <div class="new-template-form-cls">
+            <div class="errormessage" *ngIf="errorflag">{{errormessage}}</div>
+            <form [formGroup]="editformgroup" class="editform" (keydown)="keyDownFunction($event)">
+
+              <mat-form-field class="example-full-width" style="width: 100%;">
+                <input matInput placeholder="Template Name" formControlName="name">
+              </mat-form-field>
+
+              <div class="category">
+                <mat-form-field  style="width:50%">
+                  <mat-label>Category</mat-label>
+                  <mat-select formControlName="category" (selectionChange)="onCategoryChange($event)">
+                    <mat-option [value]="null" disabled>Select</mat-option>
+                    <mat-option *ngFor="let category of categories" [value]="category.templateCategoryId">
+                      {{ category.templateCategoryName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                
+                  <mat-form-field  style="width:50%">
+                    <mat-label>Subcategory</mat-label>
+                    <mat-select formControlName="subcategory">
+                      <mat-option [value]="null" disabled>Select</mat-option>
+                      <mat-option *ngFor="let subcategory of subcategories" [value]="subcategory.templateSubCategoryId">
+                        {{subcategory.templateSubCategoryName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+              </div>
+
+              <mat-form-field class="example-full-width" style="width: 100%;" *ngIf="subcategory">
+                <input matInput type="text" placeholder="Subcategory" formControlName="subcategory">
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width" style="width: 100%;">
+                <input matInput type="textbox" placeholder="Template Price" formControlName="price"
+                  appTwoDigitDecimaNumber autocomplete="off" >
+              </mat-form-field>
+              <mat-form-field class="example-full-width" style="width: 100%;">
+                <input matInput type="textbox" placeholder="Template Fast-Track Price (%)" formControlName="fastTrackPercentage"
+                  appTwoDigitDecimaNumber autocomplete="off" min="0" max="100" step="0.01">
+              </mat-form-field>
+
+              <mat-form-field *ngIf="storeselectedIndex === 0" class="example-full-width" style="width: 100%;">
+                <input matInput placeholder="Template Version" formControlName="version">
+              </mat-form-field>
+              <div class="verification-types-section">
+                <label class="verification-title">Template Verification Type</label>
+                <div formArrayName="verificationTypesArray">
+                  <div *ngFor="let control of verificationTypesArray.controls; let i = index">
+                    <mat-checkbox [formControlName]="i" [disabled]="!verificationTypes[i].isActivated">
+                      {{ verificationTypes[i].verificationName }}
+                    </mat-checkbox>
+                  </div>
+                </div>
+              </div>
+              
+            </form>
+            <div class="actiongroup">
+              <button mat-button style="background-color: var(--custombgColor);color: white;margin-right:20px;"
+                (click)="onSubmit()">Next</button>
+              <button mat-button mat-dialog-close="false"
+                style="background-color: var(--customgrey);color: white;">Cancel</button>
+            </div>
+          </div>
+          </mat-tab>
+          <mat-tab label="Design Template" [disabled]='designactive'>
+              <ng-template matTabContent><app-designtemplate [parentdialogref]="dialogref" [data]="rowelement" [createtemplateflag]="createnewflag"></app-designtemplate></ng-template>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-dialog-content>
+    </div>
+  </div>
+  
+</div>

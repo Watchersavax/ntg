@@ -1,0 +1,92 @@
+<div class="dialogwrapper" *ngIf="!showCalendly">
+  <span>
+    <h2 mat-dialog-title>Validate Your Identity</h2>
+  </span>
+  <mat-dialog-content class="mat-typography">
+    <div class="errormessage" *ngIf="errorFlag">{{ errorMessage }}</div>
+    <form class="validateNIN" [formGroup]="validateNIN">
+      <mat-form-field style="width: 100%" class="custom-form-field">
+        <mat-label style="font-size: small !important"
+          >Verification Type</mat-label
+        >
+        <mat-select formControlName="verificationType">
+          <mat-option
+            *ngFor="let type of verificationTypes"
+            [value]="type.verificationCode"
+          >
+            {{ type.verificationName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field style="width: 100%" class="custom-form-field">
+        <mat-label style="font-size: small !important">
+          {{
+            getLabelForVerificationType(
+              validateNIN.get("verificationType").value
+            )
+          }}</mat-label
+        >
+        
+        <input
+          #verificationtypeInput
+          matInput
+          (keypress)="keyPressEvent($event)"
+          formControlName="idNumber"
+          type="text"
+          [attr.pattern]="
+            validateNIN.get('verificationType').value === 'NIN'
+              ? '[0-9]*'
+              : '[0-9a-zA-Z]*'
+          "
+          inputmode="numeric"
+          [attr.maxlength]="
+            getMaxLengthForVerificationType(
+              validateNIN.get('verificationType').value
+            )
+          "
+          [attr.minlength]="
+            getMinLengthForVerificationType(
+              validateNIN.get('verificationType').value
+            )
+          "
+        />
+      </mat-form-field>
+    </form>
+
+    <div class="actiongroup">
+      <button
+        mat-button
+        (click)="validate()"
+        style="
+          background-color: var(--custombgColor);
+          font-size: small;
+          color: white;
+          margin-right: 20px;
+        "
+      >
+        Validate
+      </button>
+      <button
+        mat-button
+        (click)="close()"
+        style="background-color: #545859; font-size: small; color: white"
+      >
+        Close
+      </button>
+    </div>
+  </mat-dialog-content>
+</div>
+<div
+  id="calendly-dialogwrapper"
+  class="dialogwrapper calendly-dialogwrapper"
+  *ngIf="showCalendly"
+>
+  <app-calendly-appointment-dialog
+    [affidavitId]="ninValidation.affidavitId"
+    [isExpress]="data.isExpress"
+    [name]="data.name || userData.displayName"
+    [email]="data.email || userData.email"
+    [embedded]="true"
+    (onClose)="modalClosed($event)"
+  ></app-calendly-appointment-dialog>
+</div>

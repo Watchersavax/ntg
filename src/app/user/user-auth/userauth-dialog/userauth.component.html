@@ -1,0 +1,25 @@
+<div class="loginbox-register-cls">
+  <div class="maincontent-cls-register-cls">
+      <div class="content-register-cls">
+          <img src="../../../../assets/Notago_logo.png" alt="NotaGo logo" width="150px" />
+          <span>
+              <h5 style="color: #197B51; font-weight: 600;">Welcome</h5>
+          </span>
+          <span>
+              <h5 style="color: rgba(8, 8, 8, 1)">Choose An Account type</h5>
+          </span>
+      </div>
+      <div class="status-container">
+          <a role="button" class="text-decoration-none" *ngFor="let table of tables" (click)="showForm(table)">
+              <div class="status-item">
+                  <div class="indicator">
+                      <div class="inner-indicator"
+                          [ngStyle]="table.selected ? {'background' : '#0FA958'} : {'background': '#FFFFFF'}">
+                      </div>
+                  </div>
+                  <span class="text-body">{{table.name}}</span>
+              </div>
+          </a>
+      </div>
+  </div>
+</div>

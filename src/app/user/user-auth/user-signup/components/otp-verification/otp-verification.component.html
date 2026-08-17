@@ -1,0 +1,59 @@
+<section class="auth-state">
+  <h2>OTP Verification</h2>
+  <p class="auth-state-subtitle">
+    Enter OTP sent on email {{ email }}
+    <button type="button" class="auth-inline-icon" (click)="edit.emit()">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </p>
+
+  <form
+    class="auth-form"
+    [formGroup]="formGroup"
+    (keydown)="onKeyDown($event)"
+  >
+    <div class="auth-field-group">
+      <label class="auth-field-label" for="otp-email">Email OTP</label>
+      <mat-form-field appearance="outline" class="auth-field">
+        <input
+          id="otp-email"
+          matInput
+          placeholder="Email OTP"
+          formControlName="emailOtp"
+          pattern="[0-9]*"
+          inputmode="numeric"
+          maxlength="6"
+          minlength="6"
+          (keypress)="keyPressEvent($event)"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="auth-resend-row">
+      <button
+        type="button"
+        class="auth-link"
+        [disabled]="!resendEnabled"
+        (click)="resend.emit()"
+      >
+        Resend OTP
+      </button>
+      <span *ngIf="!resendEnabled && resendTimer > 0">
+        Resend OTP enables in {{ resendTimer }}s
+      </span>
+    </div>
+
+    <div class="auth-error" *ngIf="errorFlag">
+      {{ errorMessage }}
+    </div>
+
+    <button
+      type="button"
+      mat-button
+      class="auth-primary-button"
+      (click)="submitForm.emit()"
+    >
+      Verify
+    </button>
+  </form>
+</section>

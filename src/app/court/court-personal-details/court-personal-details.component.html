@@ -1,0 +1,51 @@
+<div class="persondetails-form-cls">
+    <form [formGroup]="detailsupdateform">
+        <div class="namedata-cls">
+            <h2>Personal Information</h2>
+            <div class="inputfields-cls">
+                <mat-form-field>
+                    <input matInput placeholder="First Name" formControlName="firstName"
+                        [(ngModel)]="userdetails.firstName">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Last Name" formControlName="lastName"
+                        [(ngModel)]="userdetails.lastName">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="namedata-cls">
+            <h2>Contact & Address</h2>
+            <div class="inputfields-address-cls">
+                <!-- contactnumbervalidator -->
+
+                <mat-form-field style="width:70%;">
+                    <input (keypress)="keyPress($event)" pattern="[0-9]*" matInput placeholder="Phone Number"
+                        inputmode="numeric" maxlength="11" formControlName="contact" [(ngModel)]="userdetails.contact">
+                </mat-form-field>
+                <mat-form-field style="width: 70%;">
+                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                        cdkAutosizeMaxRows="5" placeholder="Address" formControlName="address"
+                        [(ngModel)]="userdetails.address"></textarea>
+                </mat-form-field>
+            </div>
+
+            <div *ngIf="userdetails.state != null && userdetails.state != undefined">
+                <h2>State</h2>
+                <p> {{userdetails.state.stateName}} </p>
+            </div>
+
+            <div *ngIf="!!userdetails.courtName">
+                <h2>Court</h2>
+                <p>{{userdetails.courtName}}</p>
+            </div>
+
+            <button mat-button class="submitbutton" (click)="onSubmit()">Submit</button>
+        </div>
+
+        <div class="errormessage" *ngIf="errorflag" (click)="toggle()">
+            <span style="margin-left: 10px;">{{errormessage}}</span>
+        </div>
+
+    </form>
+</div>

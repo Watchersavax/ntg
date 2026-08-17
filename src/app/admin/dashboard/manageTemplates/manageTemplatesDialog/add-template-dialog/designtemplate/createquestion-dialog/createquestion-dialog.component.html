@@ -1,0 +1,306 @@
+                <!-- when input type selected is datefield and textbox -->
+                <!-- when input type selected id combobox  -->
+<div class="dialogwrapper">
+    <div class="maincontent my-app-color">
+      <span>
+        <h2 mat-dialog-title>{{headerText}}</h2>
+      </span>
+      <div class="questionForm">
+        <mat-tab-group [selectedIndex]="selectedTab">
+          <mat-tab label="Question Properties">
+            <form [formGroup]="createquestionformgroup">
+              <div class="sub-row">
+                <div class="label-section">
+                  <span>Question Text</span><span style="color:red">*</span>
+                </div>
+                <div class="input-section">
+                  <mat-form-field class="questionInputField">
+                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" formControlName="questionDesc"></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="sub-row">
+                <div class="label-section">
+                  <span>Group</span><span style="color:red">*</span>
+                </div>
+                <div class="input-section">
+                  <mat-form-field class="input-field">
+                    <input matInput formControlName="groupName" [matAutocomplete]="groupAuto">
+                    <mat-autocomplete #groupAuto="matAutocomplete">
+                      <mat-option *ngFor="let group of filteredGroups | async" [value]="group.description">
+                        <span>{{group.description}}</span>
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="sub-row">
+                <div class="label-section">
+                  <span>Attribute</span><span style="color:red">*</span>
+                </div>
+                <div class="input-section">
+                  <mat-form-field  class="input-field">
+                    <input *ngIf="!canteditattribute" matInput formControlName="attribute" 
+                    [matAutocomplete]="attributeAuto" [ngStyle]="{'color':(canteditattribute == true)?'grey':'black'}" (focusout)="onSetAttributeVal()" (input)="fillAllOptionDataOnInputChange($event)" [readonly]="canteditattribute">
+                    <input *ngIf="canteditattribute" matTooltipPosition="right" matTooltip="You can't edit this question attribute because it is either used in Question Mapping or Question visibility conditions or Paragraph visibility conditions ." matInput formControlName="attribute" 
+                    [matAutocomplete]="attributeAuto" [ngStyle]="{'color':(canteditattribute == true)?'grey':'black'}" (focusout)="onSetAttributeVal()" (input)="fillAllOptionDataOnInputChange($event)" [readonly]="canteditattribute">
+                    <mat-autocomplete #attributeAuto="matAutocomplete">
+                      <mat-option *ngFor="let attribute of filteredAttributeList | async" [value]="attribute.attributeName">
+                        <span>{{attribute.attributeName}}</span>
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="sub-row">
+                <div class="label-section">
+                  <span>Sequence</span><span style="color:red">*</span>
+                </div>
+                <div class="input-section">
+                    <mat-form-field class="input-field">
+                        <input matInput type="number" formControlName="sequenceNumber" min="0">
+                      </mat-form-field>
+                </div>
+              </div>
+              
+              <div class="sub-row">
+                <div class="label-section">
+                  <span>Input Type</span><span style="color:red">*</span>
+                </div>
+                <div class="input-section">
+                    <mat-form-field class="input-field">
+                    <mat-select (selectionChange)="toggleOptionsSection()"  formControlName="inputType">
+                        <mat-option value="comboBox">Combobox</mat-option>
+                        <mat-option value="textfield">Text</mat-option>
+                        <mat-option value="checkBox">Checkbox</mat-option>
+                        <mat-option value="datefield">Date Field</mat-option>
+                        <mat-option value="radio">Radio</mat-option>
+                      </mat-select>
+                      </mat-form-field>
+                </div>
+              </div>
+              <div class="sub-row" >
+                <div class="label-section">
+                  <span>Default Value</span>
+                </div>
+                
+                <div class="input-section" *ngIf="(createquestionformgroup.controls['inputType'].value === 'comboBox' || createquestionformgroup.controls['inputType'].value === 'checkBox' || createquestionformgroup.controls['inputType'].value === 'radio');else other_content">
+                
+                  <mat-form-field>
+                    <mat-label>Select default option</mat-label>
+                    <mat-select [(value)]="selected" (ngModelChange)="changeShouldSubmitFormFlag($event)" formControlName="defaultValue">
+                      <mat-option *ngFor="let value of defaultValueList" [value]="value" >
+                        <span>{{value}}</span>
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                
+                </div>
+
+                <ng-template #other_content>
+                <div class="input-section" >
+                    <mat-form-field class="input-field">
+                        <input matInput [disabled]="createquestionformgroup.controls['inputType'].value == 'datefield'" formControlName="defaultValue" >
+                      </mat-form-field>
+
+                </div>
+                </ng-template>
+
+              </div>
+
+              <div class="sub-row" *ngIf="showOptions && createquestionformgroup.controls['inputType'].value != 'datefield'">
+                <div class="label-section">
+                  <span>Input Options</span>
+                </div>
+                <div class="input-section">
+                  <mat-accordion>
+                    <mat-expansion-panel  *ngFor="let option of questionOptions; let in=index" #matExpansionPanel 
+                    style="border: 1px solid var(--custombtnColor);margin-bottom: 10px;">
+                      <mat-expansion-panel-header (keydown.Space)="checkforkey($event)" (click)="expandPanel(matExpansionPanel, $event)">
+                        <mat-panel-title>
+                            <div style="display: flex;flex-flow: row wrap;">
+                                
+                                <div style="display: flex;flex-flow: column wrap;justify-content: flex-start">
+                                    <mat-form-field class="input-field"> 
+                                        <input matInput name="{{option.optionValue}}{{in}}" [(ngModel)]="option.optionValue" 
+                                        [ngModelOptions]="{standalone: true}" [disabled]="isOptionDisabled"
+                                        (focusout)="onSetOptionVal(option)"  (ngModelChange)="removeDataFromDefaultValue($event)">
+                                       </mat-form-field> 
+                                </div>
+                                <div class="action-groups" style="display: flex;flex-flow: column wrap;justify-content: flex-end">
+                                    <button matTooltip="Delete Option" mat-raised-button style="margin:5px"
+                                    (click)="deleteOptions(in)" >
+                                    <mat-icon style="color: red">delete</mat-icon>
+                                  </button> 
+                                    </div>
+                              </div>
+          
+                        </mat-panel-title>
+                        <mat-panel-description> 
+                          
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                  
+                      <table>
+                        <thead>
+                            <tr class="table100-head">
+                                <td>Attribute</td>
+                                <td>Value</td>
+                                <td></td>
+                              </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let action of option.questionOptionActionDto; let i = index">
+                              <td><mat-form-field class="input-field">
+                                <input matInput name="{{option.optionValue}}{{action.attribute.attributeName}}{{i}}" [(ngModel)]="action.attribute.attributeName" [ngModelOptions]="{standalone: true}"
+                                 (ngModelChange)="_filterSubAttributeList(action.attribute.attributeName)"
+                                 [disabled]="i == 0" [matAutocomplete]="attributeAuto2" (focusout)="onSetSubAttributeVal(action.attribute)"
+                                 (focusin)="_filterSubAttributeList('')" [readonly]="canteditattribute && action.newflag == false" >
+                                </mat-form-field>
+                                <mat-autocomplete #attributeAuto2="matAutocomplete">
+                                    <mat-option *ngFor="let attribute of subAttributeList" [value]="attribute.attributeName">
+                                      <span>{{attribute.attributeName}}</span>
+                                    </mat-option>
+                                  </mat-autocomplete>
+                              </td>
+                              <td><mat-form-field class="input-field">
+                                <input matInput name="{{option.optionValue}}{{action.value}}{{i}}" 
+                                [(ngModel)]="action.value" [ngModelOptions]="{standalone: true}"
+                                [disabled]="i==0"  >
+                                </mat-form-field></td>
+                              <td>
+                                  <div class="action-groups">
+                                      <button matTooltip="Add a Key" mat-raised-button style="margin:5px"
+                                        (click)="addKey(option.questionOptionActionDto)">
+                                        <mat-icon>add</mat-icon>
+                                      </button>
+                                      
+                                      <button matTooltip="Delete a Key" mat-raised-button style="margin:5px" *ngIf="i != 0"
+                                        (click)="deleteKey(i,option.questionOptionActionDto)" >
+                                        <mat-icon style="color: red">delete</mat-icon>
+                                      </button>
+                                      
+                                    </div>
+                              </td>
+                          </tr>
+                        </tbody>
+                          
+                      </table>
+                      
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                  <div class="option-button"><button class="addoption" mat-raised-button *ngIf="this.createquestionformgroup.controls['inputType'].value != 'checkBox'" (click)="addOptions('','','')"><span style="padding:3px;padding-left:10px;padding-right:10px;">Add
+                      Option</span></button>
+                  </div>  
+                  
+                </div>
+              </div>
+              <div class="actiongroup">
+                <div class="error-wrapper">
+                  <div class="errormessage" *ngIf="errorflag">{{errormessage}}</div>
+                </div>
+                <button mat-button style="background-color: var(--custombtnColor);color: white;margin-right:20px;" (click)="nextTab()">Next</button> 
+              </div>
+            </form>
+            
+          </mat-tab>
+          <mat-tab label="Add Conditions">
+            
+                <div  style="width: 100%">
+                <h2 mat-dialog-title>Question Condition (Please define condition for visibility of this question)</h2>
+                
+              <div *ngFor="let condition of questionConditions;let in=index" style="width: 100%">
+                <table>
+                    <thead>
+                          <tr class="table100-head">
+                            <td>Attribute</td>
+                            <td>Comparator</td>
+                            <td>Value</td>
+                            <td>Operator</td>
+                            <td></td>
+                          </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let subCondition of condition.subconditionDtos; let i = index">
+                          <td><mat-form-field class="input-field">
+                              <input matInput name="{{subCondition.attribute.attributeName}}{{i}}" [(ngModel)]="subCondition.attribute.attributeName"
+                               [ngModelOptions]="{standalone: true}"  (ngModelChange)="_filterSubAttributeList(subCondition.attribute.attributeName)"
+                                [matAutocomplete]="attributeAuto3" (focusout)="onSetSubAttributeVal(subCondition.attribute)"
+                               (focusin)="_filterSubAttributeList('')" >
+                            </mat-form-field>
+                            <mat-autocomplete #attributeAuto3="matAutocomplete">
+                              <mat-option *ngFor="let attribute of subAttributeList" [value]="attribute.attributeName">
+                                <span>{{attribute.attributeName}}</span>
+                              </mat-option>
+                          </mat-autocomplete>
+                        </td>
+                          <td>
+                              <mat-form-field class="input-field">
+                                  <mat-select  [(ngModel)]="subCondition.operatorType" [ngModelOptions]="{standalone: true}">
+                                    <mat-option value="==">==</mat-option>
+                                    <mat-option value="!=">!=</mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                          </td>  
+                          <td>
+                              <mat-form-field class="input-field">
+                                  <input matInput name="{{subCondition.value}}{{i}}" [(ngModel)]="subCondition.value" [ngModelOptions]="{standalone: true}">
+                                </mat-form-field>
+                          </td>
+                          <td>
+                            
+                              <mat-form-field class="input-field" *ngIf="i != (condition.subconditionDtos.length-1)">
+                                
+                                  <mat-select  [(ngModel)]="subCondition.conditionType" [ngModelOptions]="{standalone: true}">
+                                    <mat-option value="AND">AND</mat-option>
+                                    <mat-option value="OR">OR</mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                          </td>
+                          <td>
+                              <div class="action-groups">
+
+                                  <button matTooltip="Delete a Sub Condition" mat-raised-button style="margin:5px"
+                                    (click)="deleteSubCondition(i,condition.subconditionDtos)" >
+                                    <mat-icon style="color: red">delete</mat-icon>
+                                  </button>
+                                  
+                                </div> 
+                          </td>
+                      </tr>
+                    </tbody>
+                      
+                  </table>
+                  <div style="display: flex;flex-flow: column wrap;">
+                  <div style="display: flex;flex-flow: row wrap;justify-content: flex-end">
+                      <button class="delete-condition" mat-raised-button (click)="deleteCondition(in)"><span style="padding:3px;padding-left:10px;padding-right:10px;">Delete
+                          Condition</span></button>
+                  <button class="addoption" mat-raised-button (click)="addSubCondition(condition.subconditionDtos)"><span style="padding:3px;padding-left:10px;padding-right:10px;">Add
+                      Key & Value</span></button>
+                  </div>
+                  <div style="display: flex;flex-flow: row wrap;justify-content: flex-start">
+                  <mat-form-field class="input-field" *ngIf="showConditionValue(in)">
+                      <mat-select  [(ngModel)]="condition.conditionType" [ngModelOptions]="{standalone: true}">
+                          <mat-option value="AND">AND</mat-option>
+                          <mat-option value="OR">OR</mat-option>
+                        </mat-select>
+                  </mat-form-field>
+                  </div>
+                </div>
+                </div>
+              </div>
+                <div class="actiongroup">
+                  <button class="add-condition" mat-raised-button (click)="addCondition(operator)"><span style="padding:3px;padding-left:10px;padding-right:10px;">Add
+                        Condition</span></button>
+                  <button mat-button style="background-color: var(--custombtnColor);color: white;margin-right:20px;" (click)="onSubmit()">Save</button>
+                  <button mat-button style="background-color: grey;color: white;margin-right:20px;" mat-dialog-close >Cancel</button>
+              </div>
+            
+          </mat-tab>
+  
+        </mat-tab-group>
+      </div>
+  
+    </div>
+   
+  </div>

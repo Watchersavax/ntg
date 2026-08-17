@@ -1,0 +1,59 @@
+<div class="dialogwrapper">
+  
+  <span>
+    <h2 mat-dialog-title>Edit Template</h2>
+  </span>
+  <mat-dialog-content class="mat-typography">
+      <div class="errormessage" *ngIf="errorflag">{{errormessage}}</div>
+    <form [formGroup]="editformgroup"  class="editform" (keydown)="keyDownFunction($event)">
+
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <input matInput placeholder="Template Name" formControlName="templateName" [value]="this.tablerow.templateName">
+      </mat-form-field>
+
+      <mat-form-field  style="width: 100%;">
+        <mat-label>Category Name</mat-label>
+        <mat-select formControlName="templateCategory"  [disabled]="this.tablerow.isSystemGenerated || this.tablerow.isCaseRelated" (selectionChange)="onCategoryChange($event)">
+          <mat-option *ngFor="let category of categories" [value]="category.templateCategoryId">
+            {{category.templateCategoryName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field style="width: 100%;" *ngIf="!this.tablerow.isSystemGenerated && !this.tablerow.isCaseRelated">
+        <mat-label>Subcategory Name</mat-label>
+        <mat-select formControlName="templateSubCategory" [disabled]="this.tablerow.isSystemGenerated || this.tablerow.isCaseRelated">
+          <mat-option *ngFor="let subcategory of subcategories" [value]="subcategory.templateSubCategoryId">
+            {{subcategory.templateSubCategoryName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <input matInput placeholder="Template Price" type="textbox" formControlName="templatePrice"
+          [value]="this.tablerow.templatePrice" appTwoDigitDecimaNumber autocomplete="off" min="0">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" style="width: 100%;">
+        <input matInput placeholder="Template Fast-Track Price (%)" type="textbox" formControlName="fastTrackPercentage"
+          [value]="this.tablerow.fastTrackPercentage" appTwoDigitDecimaNumber autocomplete="off" min="0" max="100" step="0.01">
+      </mat-form-field>
+
+      <div class="verification-types-section"  *ngIf="!this.tablerow.isSystemGenerated && !this.tablerow.isCaseRelated">
+        <label class="verification-title">Template Verification Type</label>
+        <div formArrayName="verificationTypesArray">
+          <div *ngFor="let control of verificationTypesArray.controls; let i = index">
+            <mat-checkbox [formControlName]="i">
+              {{ verificationTypes[i]?.verificationName }}
+            </mat-checkbox>
+          </div>
+        </div>
+      </div>
+      
+    </form>
+    <div class="actiongroup">
+      <button mat-button 
+        style="background-color: var(--custombtnColor);color: white;;margin-right:20px;" (click)="onSubmit()">Submit</button>
+      <button mat-button mat-dialog-close="false" style="background-color: #545859;color: white;">Cancel</button>
+    </div>
+  </mat-dialog-content>
+
+</div>

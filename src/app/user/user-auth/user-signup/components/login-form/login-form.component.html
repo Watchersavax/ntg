@@ -1,0 +1,53 @@
+<section class="auth-state auth-state--centered">
+  <h2>Welcome back</h2>
+  <p class="auth-state-subtitle">
+    Log in to continue to your NotaGo dashboard.
+  </p>
+
+  <form
+    class="auth-form"
+    [formGroup]="formGroup"
+    (keydown)="onKeyDown($event)"
+  >
+    <div class="auth-field-group">
+      <label class="auth-field-label" for="login-username">E-mail address / Username</label>
+      <mat-form-field appearance="outline" class="auth-field">
+        <input
+          id="login-username"
+          matInput
+          placeholder="you@example.com"
+          formControlName="username"
+        />
+      </mat-form-field>
+    </div>
+
+    <app-password-field
+      inputId="login-password"
+      label="Password"
+      placeholder="Enter your password"
+      [control]="passwordControl"
+    ></app-password-field>
+
+    <div class="auth-error" *ngIf="errorFlag" (click)="clearError.emit()">
+      {{ errorMessage }}
+    </div>
+
+    <button type="button" class="auth-link auth-link--right" (click)="forgot.emit()">
+      Forgot your password?
+    </button>
+
+    <button
+      type="button"
+      mat-button
+      class="auth-primary-button"
+      (click)="submitForm.emit()"
+    >
+      Log in
+    </button>
+
+    <p class="auth-switch-copy">
+      Don't have an account yet?
+      <button type="button" (click)="signup.emit()">Sign up</button>
+    </p>
+  </form>
+</section>

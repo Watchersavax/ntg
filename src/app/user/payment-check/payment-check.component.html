@@ -1,0 +1,30 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+
+<body style="display: flex;
+flex-flow: row wrap;
+align-items: center;">
+
+        <div class="container-local">
+
+                <button mat-raised-button *ngIf="!isAgent" angular-rave (click)="madePayment()" [autoClose]="true"
+                        style="background-color:  var(--custombgColor);
+                                color: white;
+                                width: 150px;
+                                border: 0px;
+                                outline: none;
+                                cursor: pointer;
+                                font-size: medium;
+                                height: 38px;
+                                font-weight: 700;box-shadow:none;">Pay Now</button>
+                <button *ngIf="isAgent" angular-rave (click)="madePayment()" [autoClose]="true" style="background-color: #2d814b00;
+                                color: black;
+                                width: 25px !important;
+                                height: 25px;
+                                border-radius: 50%;
+                                border: none;
+                                margin-left: -5px;"> <mat-icon style="color: green; font-size: 16px" style="height: 24px !important;
+                                width: 24px !important;
+                                margin-right: 0px !important;">payment</mat-icon></button>
+        </div>
+
+</body>

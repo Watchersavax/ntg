@@ -1,0 +1,115 @@
+.tablewrapper {
+    width: 80vw;
+    border: 1px solid #00000038;
+    padding: 15px;
+    background-color: white;
+    border-radius: 10px;
+    margin-left: 12px;
+    margin-top: 12px;
+    margin-bottom: 0px;
+    height: 83vh;
+  }
+  .table-wrapper-cls {
+    display: flex;
+    flex-flow: column nowrap;
+    height: 77vh;
+  }
+  
+  .table-header-cls {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    background-color: var(--customgrey);
+    color: white;
+    font-size: small;
+    font-weight: 700;
+    border-radius: 7px 5px 0px 0px;
+  }
+  
+  .table-header-cell-cls {
+    flex: 2;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: baseline;
+    height: 100%;
+    min-width: 60px;
+  }
+  .table-row-cell-cls {
+    flex: 2;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+    /* border-right: 1px solid #00000014; */
+    font-size: small;
+    word-break: break-all;
+    padding-left: 10px;
+    min-width: 60px;
+  }
+  .table-body-cls {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    overflow-y: scroll;
+    height: 100%;
+    padding: 1px;
+    width: 100%;
+  }
+  .mat-card-list-cls {
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 0px !important;
+    box-shadow: 0 2px 6px -1px rgba(0, 0, 0, 0.48),
+      0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    min-height: 45px;
+  }
+  .paginator-cls {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    height: 7%;
+  }
+  
+  .paginator-cls p {
+    margin: 5px 0px 0px 5px;
+  }
+  
+  .paginator-cls .page-navigation-cls {
+    height: 25px;
+    background-color: transparent;
+    border: 0px;
+    outline: none;
+    color: var(--custombgColor);
+    cursor: pointer;
+  }
+  
+  .paginator-cls .page-navigation-disabled-cls {
+    height: 25px;
+    background-color: transparent;
+    border: 0px;
+    outline: none;
+    color: var(--customgrey);
+    cursor: pointer;
+    pointer-events: none;
+  }
+  .button-cls{
+      width: 7vw;
+      background-color: var(--custombgColor);
+      color: white;
+  }
+  .mat-icon{
+      background-color: white !important;
+      color: black;
+  }
+ .table-row-cell-cls .button-cls-disabled{
+    background-color:grey;
+    color: white;
+    box-shadow: none;
+    width: 7vw;
+  }
+
+  .empty-msg {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: red;
+  }

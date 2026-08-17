@@ -1,0 +1,120 @@
+.dialogwrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  margin: 1rem 2rem;
+}
+
+.dialogwrapper span {
+  width: 100%;
+}
+
+.import-dialogWrapper {
+ margin: 2rem 4rem;
+}
+.import-dialogWrapper {
+ & div {
+   & img {
+    border-radius: 50%;
+   }
+ }
+}
+.title {
+  padding: 5px !important;
+  font-size: medium;
+  text-align: center;
+  font-weight: 400;
+  font-size: 20px;
+}
+.actiongroup {
+  margin: 1rem 0rem;
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+
+.editform {
+  /* height:34vh; */
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+}
+
+.errormessage{
+  color:red;
+  margin-bottom:1vh;
+  font-weight:500;
+}
+
+
+@media only screen and (max-width:1024px) {
+  .maincontent {
+    /* height: 55vh; */
+  }
+
+  .dialogwrapper h2{
+    font-size:medium;
+}
+
+  .actiongroup {
+    margin-top: 1vh;
+    margin-bottom:1vh;
+  }
+  .mat-button {
+    width:120px;
+    font-size: larger;
+  }
+}
+
+.header-cls{
+  width:100%;
+  height:6vh;
+  display:flex;
+  flex-flow:row nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  /* background-color: #4C4D51; */
+  color:white
+}
+
+.header-cls button{
+  background-color: var(--custombgColor);
+  outline: none;
+  border: 0px;
+  color: white;
+  /* border-radius: 26px; */
+  width: 6%;
+  margin-right: 2rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 8px 2px #00000061;
+  cursor:pointer;
+}
+
+.header-cls button:active{
+  box-shadow: none;
+}
+
+.header-cls button mat-icon {
+  font-size:25px;
+  font-weight:bold;
+}
+
+@media only screen and (max-width:768px) {
+
+  .header-cls button mat-icon {
+      font-size:19px;
+      font-weight:bold;
+  }
+
+  .header-cls button{
+      width:8%;
+  }
+  
+
+}

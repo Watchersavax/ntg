@@ -1,0 +1,115 @@
+.dialogwrapper-cls{
+    display:flex;
+    flex-flow:column nowrap;
+    /* width:75vw; */
+    /* height:70vh; */
+    align-items:flex-end;
+    padding:10px;
+    height: 96vh;
+}
+
+.header-cls{
+    width:100%;
+    height:6vh;
+    display:flex;
+    flex-flow:row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: #4C4D51; */
+    color:white
+}
+
+.body-cls{
+    width:100%;
+    height:90%;
+    overflow-y: auto;
+    /* margin-left:10px */
+}
+
+.header-cls button{
+    background-color: var(--custombgColor);
+    outline: none;
+    border: 0px;
+    color: white;
+    /* border-radius: 26px; */
+    width: 6%;
+    margin: 5px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 8px 2px #00000061;
+    cursor:pointer;
+}
+
+.header-cls button:active{
+    box-shadow: none;
+}
+
+.header-cls button mat-icon {
+    font-size:25px;
+    font-weight:bold;
+}
+.actionbar{
+    
+    /* height: 6.0vh; */
+    margin-left: 0vh;
+    z-index: 13;
+    display: flex;
+    /* -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal; */
+    flex-flow: row wrap;
+    /* -webkit-box-pack: justify; */
+    justify-content: center;
+    margin-top: 10px;
+    align-items: center;
+    /* background-color: #4C4D51; */
+
+  }
+
+ 
+  .actionbar button {
+    width: 11vw;
+    background-color: var(--custombgColor);
+    font-size: medium;
+    margin: 3px;
+  }
+
+@media only screen and (max-width:768px) {
+
+    .header-cls button mat-icon {
+        font-size:19px;
+        font-weight:bold;
+    }
+
+    .header-cls button{
+        width:8%;
+    }
+    
+
+  }
+
+@media only screen and (max-width:655px){
+    .dialogwrapper-cls{
+        width:97vw;
+        height:90vh;
+        
+    }
+    .actionbar button{
+        width:28vw;
+    }
+}
+
+
+.container-local {
+    position: absolute;
+    left: 250px;
+  }
+  
+ 
+  
+  @media screen and (max-width: 768px) {
+    .container-local {
+      left: 50px; /* adjust the left position for smaller screens */
+    }
+  }

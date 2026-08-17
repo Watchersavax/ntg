@@ -1,0 +1,30 @@
+.documenso-signing-dialog {
+  position: relative;
+  width: 86vw;
+  height: 86vh;
+  max-width: 1180px;
+  min-width: 320px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.close-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.62);
+  cursor: pointer;
+}
+
+app-documenso-signing-embed {
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,198 @@
+<button
+  type="button"
+  class="auth-back"
+  (click)="back.emit()"
+>
+  <mat-icon>chevron_left</mat-icon>
+  <span>Back</span>
+</button>
+
+<section class="auth-state">
+  <div class="auth-account-pill">
+    <span>
+      <mat-icon>{{ selectedAccountType.icon }}</mat-icon>
+      {{ selectedAccountType.pillLabel }}
+    </span>
+  </div>
+
+  <h2>Create your account</h2>
+  <p class="auth-state-subtitle">{{ selectedAccountType.formSubtitle }}</p>
+
+  <div class="auth-error" *ngIf="errorFlag" (click)="clearError.emit()">
+    {{ errorMessage }}
+  </div>
+
+  <form
+    class="auth-form"
+    [formGroup]="formGroup"
+    (keydown)="onKeyDown($event)"
+  >
+    <div class="auth-form-row" *ngIf="formType !== 1">
+      <div class="auth-field-group">
+        <label class="auth-field-label" for="signup-firstname">First name</label>
+        <mat-form-field appearance="outline" class="auth-field">
+          <input
+            id="signup-firstname"
+            matInput
+            placeholder="Adaeze"
+            formControlName="firstname"
+            [attr.disabled]="proceedToPayment ? true : null"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="auth-field-group">
+        <label class="auth-field-label" for="signup-lastname">Last name</label>
+        <mat-form-field appearance="outline" class="auth-field">
+          <input
+            id="signup-lastname"
+            matInput
+            placeholder="Okafor"
+            formControlName="lastname"
+            [attr.disabled]="proceedToPayment ? true : null"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="auth-field-group" *ngIf="formType === 1">
+      <label class="auth-field-label" for="signup-company">Company name</label>
+      <mat-form-field appearance="outline" class="auth-field">
+        <input
+          id="signup-company"
+          matInput
+          placeholder="Lumora Holdings Ltd."
+          formControlName="corporateInfo"
+          [attr.disabled]="proceedToPayment ? true : null"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="auth-field-group" *ngIf="formType === 1">
+      <label class="auth-field-label" for="cac">CAC registration no.</label>
+      <mat-form-field appearance="outline" class="auth-field">
+        <input
+          id="cac"
+          matInput
+          placeholder="RC1234567"
+          pattern="[A-Za-z0-9]*"
+          inputmode="text"
+          minlength="8"
+          [type]="'text'"
+          formControlName="cac"
+          (keypress)="keyPressEvent($event)"
+          (paste)="handlePasteEvent($event)"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="auth-field-group">
+      <label class="auth-field-label" for="signup-username">Username</label>
+      <mat-form-field appearance="outline" class="auth-field">
+        <input
+          id="signup-username"
+          matInput
+          placeholder="Choose a username"
+          formControlName="username"
+          [attr.disabled]="proceedToPayment ? true : null"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="auth-field-group">
+      <label class="auth-field-label" for="signup-email">E-mail address</label>
+      <mat-form-field appearance="outline" class="auth-field">
+        <input
+          id="signup-email"
+          matInput
+          placeholder="you@example.com"
+          formControlName="email"
+          [attr.disabled]="proceedToPayment ? true : null"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="auth-field-group">
+      <label class="auth-field-label" for="signup-phone">Phone Number</label>
+      <mat-form-field appearance="outline" class="auth-field auth-field--phone">
+        <span matPrefix class="auth-phone-prefix">+234</span>
+        <input
+          id="signup-phone"
+          matInput
+          placeholder="8012345678"
+          formControlName="mobile"
+          inputmode="numeric"
+          maxlength="10"
+          [attr.disabled]="proceedToPayment ? true : null"
+          (keypress)="phoneKeyPress($event)"
+        />
+      </mat-form-field>
+    </div>
+
+    <app-password-field
+      inputId="signup-password"
+      label="Password"
+      placeholder="Create a password"
+      hint="Use at least 6 characters."
+      [control]="passwordControl"
+      [disabled]="proceedToPayment"
+      [showStrength]="true"
+    ></app-password-field>
+
+    <app-password-field
+      inputId="signup-repassword"
+      label="Confirm password"
+      placeholder="Re-enter your password"
+      [control]="repasswordControl"
+      [disabled]="proceedToPayment"
+    ></app-password-field>
+
+    <button
+      *ngIf="!proceedToPayment"
+      type="button"
+      mat-button
+      class="auth-primary-button"
+      (click)="submitForm.emit()"
+      [disabled]="!formGroup.valid"
+    >
+      Sign up
+    </button>
+
+    <div class="auth-payment-step" *ngIf="proceedToPayment">
+      <button
+        type="button"
+        (click)="editDetails.emit()"
+        mat-button
+        class="auth-secondary-button"
+      >
+        Edit Details
+        <mat-icon>edit</mat-icon>
+      </button>
+      <app-registration-payment
+        [registerModel]="registerRequestModel"
+        (registerEvent)="registerEvent.emit($event)"
+      >
+      </app-registration-payment>
+    </div>
+
+    <p class="auth-legal-copy">
+      By signing up, you agree to NotaGo's
+      <a
+        href="/terms-of-service"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Terms of Service
+      </a>
+      and
+      <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
+        Privacy Policy
+      </a>.
+    </p>
+
+    <p class="auth-switch-copy">
+      Already have an account?
+      <button type="button" (click)="login.emit()">Log in</button>
+    </p>
+  </form>
+</section>

@@ -1,0 +1,19 @@
+<div class="maincontent">
+    <span>
+        <h2 mat-dialog-title>{{actionname}}</h2>
+    </span>
+    <p style="margin:20px;margin-bottom:5px;">{{message}}</p>
+    <p style="margin:20px;margin-top:5px;"><b *ngIf="!!secondmessage">{{secondmessage}}</b></p>
+    <div *ngIf="showcourtflag">
+        <mat-card *ngFor = "let court of fetchcourtnamelist" style="font-size: small;
+        border-left: 5px solid var(--custombgColor);"> {{court}}</mat-card>
+    </div>
+    <div class="actiongroup">
+        <button *ngIf="!onlycloseaction" mat-button mat-dialog-close mat-dialog-close="Yes" 
+            style="background-color: var(--custombtnColor); font-size:small;    font-weight: 600; color: white;margin-right:20px;">Yes</button>
+            <button *ngIf="onlycloseaction" mat-button mat-dialog-close mat-dialog-close="Yes" 
+            style="background-color: var(--custombtnColor); font-size:small;     font-weight: 600;color: white;margin-right:20px;font-size:medium">Close</button>
+        <button *ngIf="!onlycloseaction" mat-button mat-dialog-close mat-dialog-close="No"
+            style="background-color: #545859; font-size:small;    font-weight: 600; color: white;margin-right:17px;">No</button>
+    </div>
+</div>

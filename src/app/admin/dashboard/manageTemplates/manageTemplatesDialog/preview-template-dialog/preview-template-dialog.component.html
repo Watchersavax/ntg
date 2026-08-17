@@ -1,0 +1,36 @@
+<div class="previewwrapper">
+
+    <div class="maincontent">
+        <div class="dialoglabel" style="width:100%">
+            <h2 mat-dialog-title>
+                <div class="labeldescription">
+                    <span style="flex:1">Preview Template</span>
+                    
+                </div>
+            </h2>
+        </div>
+
+        <div class="pdfcontent">
+        <span>
+            <div *ngIf="isLoaded" style="text-align: right;">
+                <button (click)="prevPage()" [disabled]="page === 1">Prev</button>
+                <span style="margin-left: 2px;margin-right: 2px;">{{ page }} / {{ totalPages }}</span>
+                <button (click)="nextPage()" [disabled]="page === totalPages">Next</button>
+             </div>
+            <pdf-viewer
+              [src]="pdfSource"
+              [original-size]="false"
+              [show-all]="false"
+              (after-load-complete)="callBackFn($event)"
+              [page]="page"
+            ></pdf-viewer>
+          </span>
+        
+         </div>
+        <div class="actiongroup">
+            <button mat-button (click)="downloadPDF()" style="background-color: var(--custombtnColor);font-size:small;color: white; margin-right: 10px;">Download</button>
+            <button mat-button mat-dialog-close="false" style="background-color: #545859;font-size:small;color: white;">Cancel</button>
+        </div>
+    </div>
+
+</div>

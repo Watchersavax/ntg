@@ -1,0 +1,63 @@
+<div class="deponentbox-deponent-cls">
+  <button (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <div class="maincontent-cls-login-cls">
+    <div class="content">
+      <h2>Deponent Details</h2>
+    </div>
+
+    <form [formGroup]="deponentFormGroup">
+      <div class="form-container">
+        <mat-form-field class="field">
+          <input
+            matInput
+            matTooltip="Enter deponent First Name"
+            formControlName="firstname"
+            placeholder="First Name"
+          />
+        </mat-form-field>
+        <mat-form-field class="field">
+          <input
+            matInput
+            matTooltip="Enter deponent Last Name"
+            formControlName="lastname"
+            placeholder="Last Name"
+          />
+        </mat-form-field>
+        <mat-form-field class="field">
+          <input
+            matInput
+            matTooltip="Enter deponent email"
+            formControlName="email"
+            placeholder="Email"
+          />
+        </mat-form-field>
+        <mat-form-field class="field">
+          <input
+            matInput
+            matTooltip="Enter deponent Mobile"
+            formControlName="mobile"
+            placeholder="Mobile"
+            (keypress)="keyPressEvent($event)"
+            pattern="[0-9]*"
+            inputmode="numeric"
+            maxlength="11"
+            minlength="11"
+          />
+        </mat-form-field>
+        <div
+          class="errormessage"
+          *ngIf="errorFlag"
+          (click)="togglewithmessage('')"
+        >
+          <span style="margin-left: 10px">{{ errorMessage }}</span>
+        </div>
+
+        <button mat-button class="submitbutton" (click)="onSubmit()">
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

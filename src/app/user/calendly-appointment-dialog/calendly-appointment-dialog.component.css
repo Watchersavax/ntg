@@ -1,0 +1,170 @@
+#message-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+}
+
+.heading-class {
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 25px;
+    line-height: 41.02px;
+    text-align: center;
+    background-color: white !important;
+    color: #000000 !important;
+}
+
+.container-local {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem;
+    font-family: 'Inter';
+}
+
+.sub-container {
+    display: flex;
+    margin-bottom: 2rem;
+    justify-content: space-between;
+    width: 100%;
+
+}
+
+.next-btn-container {
+    display: flex;
+    margin-top: 1rem;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.btn {
+    font-size: small;
+    margin-right: 20px;
+}
+
+.btnNotSelected {
+    /* background-color: var(--custombgColor) !important; */
+    color: var(--custombgColor);
+    border: 1px solid var(--custombgColor);
+    ;
+}
+
+.btnSelected {
+    background-color: var(--custombgColor);
+    color: white;
+}
+
+.showCalendly {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.calendly-inline-widget {
+    min-width: 320px;
+    width: 65rem;
+    max-width: calc(100vw - 48px);
+    height: 45rem;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+#message-box.embedded-calendly {
+    width: 100%;
+}
+
+#message-box.embedded-calendly .showCalendly {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+#message-box.embedded-calendly .calendly-inline-widget {
+    width: 100% !important;
+    max-width: 65rem;
+    margin: 0 auto !important;
+}
+
+.notShowCalendly {
+    display: none;
+}
+
+.header-cls {
+    width: 100%;
+    height: 6vh;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    /* background-color: #4C4D51; */
+    color: white;
+    position: relative;
+}
+
+.header-cls h2 {
+    flex-grow: 1;
+    text-align: center;
+    margin: 0;
+}
+
+.header-cls button {
+    background-color: var(--custombgColor);
+    outline: none;
+    border: 0px;
+    color: white;
+    /* border-radius: 26px; */
+    width: 6%;
+    margin-right: 2rem;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 8px 2px #00000061;
+    cursor: pointer;
+    position: absolute;
+    right: 1rem;
+}
+
+.header-cls button:active {
+    box-shadow: none;
+}
+
+.header-cls button mat-icon {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+@media only screen and (max-width:768px) {
+
+    .header-cls button mat-icon {
+        font-size: 19px;
+        font-weight: bold;
+    }
+
+    .header-cls button {
+        width: 8%;
+    }
+
+
+}
+
+.error-cls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: 400 !important;
+    font-size: 20px;
+    line-height: 41.02px;
+    color: red !important;
+}
+
+.back-btn-container {
+    display: flex;
+    margin-top: 1rem;
+    justify-content: center;
+    width: 100%;
+}

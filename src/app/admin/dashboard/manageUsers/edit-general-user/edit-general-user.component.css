@@ -1,0 +1,62 @@
+.dialogwrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    margin: 1rem 2rem;
+  }
+  
+  .dialogwrapper span {
+    width: 100%;
+  }
+  .title {
+    padding: 5px !important;
+    font-size: medium;
+    text-align: center;
+    font-weight: 400;
+    font-size: 20px;
+  }
+  .actiongroup {
+    margin: 1rem 0rem;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+  }
+  
+  .editform {
+    /* height:34vh; */
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+  
+  }
+  
+  .errormessage{
+    color:red;
+    margin-bottom:1vh;
+    font-weight:500;
+  }
+  
+  
+  @media only screen and (max-width:1024px) {
+  
+    .maincontent {
+      /* height: 55vh; */
+    }
+  
+    .dialogwrapper h2{
+      font-size:medium;
+  }
+  
+    .actiongroup {
+      margin-top: 1vh;
+      margin-bottom:1vh;
+    }
+    .mat-button {
+      width:120px;
+      font-size: larger;
+    }
+  }
+
+  

@@ -1,0 +1,126 @@
+.dialogwrapper {
+    /* width: 40vw; */
+    /* height: 55vh; */
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    border-radius: 10px;
+    /* box-shadow: 0px 1px 20px 13px #00000078; */
+  }
+  
+  .dialogwrapper span {
+    width: 100%;
+  }
+  
+  .mat-dialog-content {
+    width: 80% !important;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+  }
+
+  .template-details{
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 29.05px;
+    text-align: left;
+    padding: auto;
+    margin-bottom: 10px !important;
+  }
+
+  .mat-input-element, .mat-select {
+    border: 2px dashed lightgray !important;
+    border-radius: 5px !important;
+    padding: 10px !important;
+}
+
+  .message {
+    color: gray;
+    text-align: right;
+    font-size: small;
+    margin-top: 5px;
+    margin-right: 20px;
+  }
+
+  input.mat-input-element {
+    margin-top: 1.2rem !important;
+}
+  
+  .actiongroup {
+    margin-top:5vh;
+    margin-bottom:6vh;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+  }
+  
+  .uploadform {
+    /* height:34vh; */
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 1vh;
+  }
+  
+  .errormessage{
+    color:red;
+    margin-bottom:1vh;
+    font-weight:500;
+    margin-top: 2vh;
+  }
+  .text-div{
+    line-height: 18.75px;
+    font-family: Roboto;
+}
+.text-header-class{
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold !important;
+}
+.text-class{
+    margin-bottom:10px ;
+    line-height: 18.75px;
+    font-size: 16px;
+}
+  
+  @media only screen and (max-width:1024px) {
+    .dialogwrapper {
+      width: 37vw;
+      /* height: 55vh; */
+    }
+  
+    .dialogwrapper h2{
+      font-size:medium;
+  }
+  
+    .actiongroup {
+      margin-top: 1vh;
+      margin-bottom:1vh;
+    }
+    .mat-button {
+      width:120px;
+      font-size: larger;
+    }
+  }
+  
+  
+.mat-form-field .mat-input-element {
+    padding-left: 50px !important; /* Ensures space for the icon */
+    padding-top:12px !important;
+}
+
+.custom-form-field .custom-icon-button .mat-icon {
+  font-size: 24px;
+  color: #969696; 
+} 
+
+.custom-icon-button {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}

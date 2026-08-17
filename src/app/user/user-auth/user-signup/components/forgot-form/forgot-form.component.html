@@ -1,0 +1,46 @@
+<section class="auth-state auth-state--centered">
+  <h2>Forgot Password</h2>
+  <p class="auth-state-subtitle">
+    Enter your registered email address to reset your password.
+  </p>
+
+  <form
+    class="auth-form"
+    [formGroup]="formGroup"
+    (keydown)="onKeyDown($event)"
+  >
+    <div class="auth-field-group">
+      <label class="auth-field-label" for="forgot-email">Email</label>
+      <mat-form-field appearance="outline" class="auth-field">
+        <input
+          id="forgot-email"
+          matInput
+          placeholder="you@example.com"
+          formControlName="email"
+          (keypress)="keyPress.emit()"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="auth-error" *ngIf="errorFlag" (click)="clearError.emit()">
+      {{ errorMessage }}
+    </div>
+
+    <button
+      type="button"
+      mat-button
+      class="auth-primary-button"
+      (click)="submitForm.emit()"
+    >
+      Send Me Email
+    </button>
+
+    <p class="auth-success" *ngIf="success">
+      Please check your email to reset password.
+    </p>
+
+    <p class="auth-switch-copy">
+      <button type="button" (click)="login.emit()">I remember my Password</button>
+    </p>
+  </form>
+</section>

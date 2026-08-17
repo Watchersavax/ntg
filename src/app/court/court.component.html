@@ -1,0 +1,90 @@
+<div class="pagewrapper">
+  <div class="header">
+
+    <div class="company-logo-cls">
+      <img src="assets/Notago_logo.png" alt="NotaGo logo" width="150px" />
+    </div>
+    <div class="header-container-1">
+      <button mat-button (click)="goToDashboard()">
+        <h3 style="font-family: Roboto !important;">Dashboard</h3>
+      </button>
+      <button mat-button [matMenuTriggerFor]="menus">
+        <h3 style="font-family: Roboto !important;">My Account</h3>
+      </button>
+      <mat-menu #menus="matMenu">
+        <button mat-menu-item (click)="editPersonalDetials()">Personal Details</button>
+        <button mat-menu-item (click)="changePassword()">Change Password</button>
+        <button mat-menu-item (click)="logout()">Logout</button>
+      </mat-menu>
+
+      <button mat-button>
+        <h3 style="font-family: Roboto !important;" (click)="goToContactus()">Contact Us</h3>
+      </button>
+      
+    </div>
+
+  </div>
+  <div class="sidebar">
+    <div class="sidebarcontent">
+      <mat-list role="list">
+        <div class="companybrand">
+          <img *ngIf="!userData.profilePic" src="assets/mritunjay.jpeg" alt="afrilight logo " />
+          <img *ngIf="!!userData.profilePic" [src]="'data:image/png;base64,' + userData.profilePic" />
+        </div>
+        <div class="containavatar"
+          style="padding: 0px;margin: 2px;border-bottom: 2px solid #bfbfbf;padding-bottom: 11px;margin-bottom: 19px;">
+          
+          <div class="adminname" style="padding:0px;margin:0px;color:white;">
+            <p>{{displayname}}</p>
+          </div>
+        </div>
+        <div class="sidebar-navigation-cls">
+          <mat-list-item role="listitem" *ngIf="roleId == 3">
+            <button [routerLink]='"registrars"' routerLinkActive="active" mat-button class="navbutton">
+              
+              <span>Manage Registrars</span>
+              
+            </button></mat-list-item>
+          <mat-list-item role="listitem" *ngIf="roleId == 3"><button [routerLink]='"registrartickets"'
+              routerLinkActive="active" mat-button class="navbutton">
+              
+              <span>Manage Tickets</span>
+              
+            </button>
+          </mat-list-item>
+          <mat-list-item role="listitem" *ngIf="roleId == 4">
+            <button [routerLink]='"dashboard"' routerLinkActive="active" mat-button class="navbutton">
+              
+              <span>Analytics</span>
+              
+            </button></mat-list-item>
+          <mat-list-item role="listitem" *ngIf="roleId == 4">
+            <button [routerLink]='"courtaffidavit"' routerLinkActive="active" mat-button class="navbutton">
+              
+              <span>Manage Affidavits</span>
+              
+            </button></mat-list-item>
+          <mat-list-item role="listitem" *ngIf="roleId == 4">
+            <button [routerLink]='"courtaffidavittickets"' routerLinkActive="active" mat-button class="navbutton">
+              
+              <span>Manage Tickets</span>
+              
+            </button>
+          </mat-list-item>
+          <mat-list-item role="listitem" *ngIf="roleId == 4">
+            <button [routerLink]='"appointments"' routerLinkActive="active" mat-button class="navbutton">
+              
+              <span>Appointments</span>
+              
+            </button></mat-list-item>
+
+        </div>
+
+      </mat-list>
+    </div>
+  </div>
+  <div class="container-local">
+    <router-outlet></router-outlet>
+
+  </div>
+</div>

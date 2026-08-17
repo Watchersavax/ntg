@@ -1,0 +1,47 @@
+.datatable-cls{
+    padding: 5px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+.datatable-sidenav-cls{
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    font-size: large;
+}
+
+
+.datatable-body-cls{
+    background-color:white;
+    border:1px dashed black;
+    padding: 16px;
+    width:85%;
+    margin: 5px;
+    border-radius:3px;
+    animation:moving 0.7s ease;
+}
+
+@keyframes moving{
+    from {opacity:0}
+    to {opacity:1}
+}
+
+
+.datatable-body-cls{
+    transition:1s ease all;
+}
+
+.datatable-body-cls mat-tree{
+    background-color:transparent;
+}
+
+.datatable-body-cls mat-tree-node{
+    color:black;
+}
+
+.example-tree-progress-bar {
+    margin-left: 30px;
+  }

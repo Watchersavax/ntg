@@ -1,0 +1,100 @@
+<div class="containerwrapper">
+  <div class="actionbar">
+      <button mat-raised-button (click)="saveTemplateData($event,false)">Save As Draft</button>
+      <button mat-raised-button (click)="saveTemplateData($event,true)">Save and Close</button>
+    <button mat-raised-button (click)="clearTemplateData($event)" >Reset</button>
+    
+  </div>
+  <!-- Question Section -->
+  
+  <div class="questionsection">
+      <div class="loading-screen-wrapper-cls"  *ngIf="sectionloader">
+          <img src="assets/nn.svg"  style="width:9vw;"/>
+    </div>  
+    <div class="sectionheading" style="justify-content: space-around;" *ngIf="!sectionloader">
+      <h4>Question Section</h4>
+    </div>
+    <div class="sectionbody" *ngIf="!sectionloader">
+        <mat-accordion cdkDropList  (cdkDropListDropped)="drop($event)"> 
+            <mat-expansion-panel  *ngFor="let group of questionGroups;let in = index;" #matExpansionPanel 
+            style="border: 1px solid var(--custombtnColor);margin-bottom: 10px;" cdkDragLockAxis="y" [cdkDragDisabled]="group.disabled" cdkDrag>
+              <mat-expansion-panel-header (click)="expandPanel(matExpansionPanel, $event)" >
+                <mat-panel-title>
+                    <div style="display: flex;flex-flow: row wrap;">
+                        
+                        <div style="display: flex;flex-flow: column wrap;justify-content: flex-start;padding-left:5px;">
+                            <span>{{group.description}}</span> 
+                        </div>
+                       
+                      </div>
+  
+                </mat-panel-title>
+                <mat-panel-description> 
+                  
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+          
+              <p *ngIf="group.templateQuestionDtos.length === 0" style="text-align: center;
+              font-size: small;
+              color: darkred;
+              padding: 0px;
+              margin: 0px;">No questions to display</p>
+              <div class="questions-cls" *ngIf="group.templateQuestionDtos.length>0">
+                  
+                <mat-card draggable=true (mouseover)="group.disabled=true" (mouseleave)="group.disabled=false" (dragstart)="onQuestionDragEvent(question)" *ngFor="let question of group.templateQuestionDtos;let j = index " id={{question.attributeDto.attributeName}} class="mat-card-body-cls">
+                  
+                  <div class="questiontext-cls">
+                    <p>{{question.description}}</p>
+                    <button mat-button [matMenuTriggerFor]="menu"
+                      style="background-color: transparent;color: black;box-shadow: none;">
+                      <mat-icon style="font-size: medium;">menu</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu" style="padding:0px">
+                      <button mat-menu-item (click)="editQuestion(group.description,question)"
+                        style="font-size: x-small;height: 6vh;">Edit</button>
+                      <button mat-menu-item (click)="deleteQuestion(group,question)"
+                        style="font-size: x-small;height: 6vh;">Delete</button>
+                      <button mat-menu-item (click)="openProperties(question.description)"
+                        style="font-size: x-small;height: 6vh;">Properties</button>
+                    </mat-menu>
+                  </div>
+                 
+                  <div class="questionproperties-cls" *ngIf="questionid === question.description">
+                    <h4 >Group Name</h4>
+                    <p >{{group.description}}</p>
+                    <h4>Attribute Attached</h4>
+                    <p >{{question.attributeDto.attributeName}}</p>
+                    <h4>Input Type</h4>
+                    <p >{{question.inputType}}</p>
+                    
+                    <div *ngIf="question.questionOptionDto != null && question.questionOptionDto.length >0">
+                        <h4>Input Option</h4>
+                        <p  *ngFor="let option of question.questionOptionDto">{{option.optionValue}}</p>
+                    </div>
+
+                    <h4>Sequence Number</h4>
+                    <p >{{question.sequence}}</p>
+                  </div>
+                </mat-card>
+              </div>
+              
+            </mat-expansion-panel>
+          </mat-accordion>
+
+    </div>
+    <div class="footerbutton" *ngIf="!sectionloader">
+      <button class="addquestion" mat-raised-button (click)="addQuestion()"><span style="padding:3px">Add
+          Question</span></button>
+    </div>
+  </div>
+  <!-- Design Section -->
+
+  <div class="designsection">
+    <div class="sectionheading">
+      <h4>Design Section</h4>
+    </div>
+    <div class="sectionbody1">
+        <div  id="gjs"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+.legal-footer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.legal-footer__link {
+  text-decoration: none;
+}
+
+.legal-footer__link:hover,
+.legal-footer__link:focus {
+  text-decoration: underline;
+}
+
+/* auth variant — sits inside the signup/login content panel */
+.legal-footer--auth {
+  justify-content: center;
+  gap: 0.85rem 1.25rem;
+  border-top: 1px solid #e3e9e6;
+  margin-top: 1.75rem;
+  padding-top: 1.2rem;
+}
+
+.legal-footer--auth .legal-footer__copy {
+  color: #8a9393;
+  font-size: 0.8rem;
+}
+
+.legal-footer--auth .legal-footer__link {
+  color: #3f8f76;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* shell variant — user application footer bar */
+.legal-footer--shell {
+  min-height: 4rem;
+  justify-content: center;
+  gap: 0.75rem 1.25rem;
+  padding: 1rem 1.5rem;
+  background: #ffffff;
+  border-top: 1px solid #e7ecef;
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+.legal-footer--shell .legal-footer__link {
+  color: #347a63;
+  font-weight: 600;
+}
+
+/* page variant — legal placeholder page footer */
+.legal-footer--page {
+  width: min(100%, 72rem);
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid #e7ecef;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.legal-footer--page .legal-footer__link {
+  color: #347a63;
+  font-weight: 600;
+}
+
+@media only screen and (max-width: 640px) {
+  .legal-footer--page {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.25rem;
+  }
+}
