@@ -1,23 +1,45 @@
 .usertemplatefilling-wrapper-cls{
     display:flex;
     flex-flow:column nowrap;
-    width:100vw;
-    height:85vh;
+    width:100%;
+    min-height:85vh;
     align-items: center;
-    overflow-x: hidden !important;
-    overflow-y: hidden;
+    box-sizing: border-box;
 }
 
 .usertemplatefilling-header-cls{
-    /* background-color:black; */
     display:flex;
-    height:7%;
-    width:80vw;
-    flex-flow: row nowrap;
+    width:90%;
+    max-width: 1400px;
+    flex-flow: row wrap;
     justify-content: space-between;
     align-items: center;
-    padding-top: 3rem;
-    padding-bottom: 1rem;
+    gap: 12px;
+    padding-top: 2rem;
+    box-sizing: border-box;
+}
+
+.mobile-preview-toggle-cls{
+    display: none;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--custombgColor);
+    color: white;
+    border: 0;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.mobile-preview-toggle-cls mat-icon{
+    font-size: 18px;
+    height: 18px;
+    width: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -31,25 +53,27 @@
 
 .usertemplatefilling-body-cls{
     display:flex;
-    height:90%;
-    /* background-color:blue; */
-    min-width:100vw;
+    width: 90%;
+    max-width: 1400px;
     flex-flow: row nowrap;
     justify-content: center;
+    align-items: stretch;
+    gap: 16px;
     margin-top: 10px;
+    box-sizing: border-box;
 }
 
 .questionsection-cls{
     display:flex;
     flex-flow:column nowrap;
-    /* justify-content: flex-end; */
     align-items: flex-start;
-    border-radius:2px ;
-    min-width:300px;
-    height:64vh;
-    background-color: #f3f3f3fa;
-    border: 1px solid #bc2e2b6b;
-    margin-right:10px;
+    border-radius:6px ;
+    flex: 1 1 360px;
+    max-width: 420px;
+    height:70vh;
+    background-color: #f7f7f7;
+    border: 1px solid #e0e0e0;
+    box-sizing: border-box;
 }
 
 ::ng-deep .questiondescription-cls .mat-calendar{
@@ -66,38 +90,49 @@
 }
 
 .templatesection-cls{
-    display:flex;
-    height:99%;
-    min-width: 900px;
+    height:70vh;
+    flex: 2 1 500px;
     max-width: 900px;
     background-color:white;
-    border-radius:2px ;
-    border:1px solid #c6c6c6;
+    border-radius:6px ;
+    border:1px solid #e0e0e0;
     overflow-y:auto;
-    box-shadow: 0 0 7px 0px #00000052;
+    box-shadow: 0 2px 10px 0px #00000025;
     display:flex;
     flex-flow:column nowrap;
     justify-content: flex-start;
     align-items: center;
-    margin-right:10px;
     padding: 2rem;
+    box-sizing: border-box;
+    position: relative;
 }
 
-.templatesection-cls .templatesection-header-cls{
-    height:4%;
-    
-}
-
-.templatesection-cls .templatesection-header-cls p{
-    padding: 0px;
-    margin: 4px;
-    font-size: smaller;
-    font-weight: 400;
-    color: var(--customgrey);
+/* "Document Preview" used to be a full-width block sitting above the
+   content, pushing everything down. Since the document's own title lives
+   inside admin-authored HTML we don't control from here, we can't merge
+   them onto one literal line — instead this reads as a small label
+   anchored beside where that title typically sits, without eating vertical
+   space or duplicating a header row. */
+.templatesection-badge-cls{
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255,255,255,0.92);
+    color: var(--custombgColor);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px 0 #00000025;
+    z-index: 2;
+    pointer-events: none;
 }
 
 .templatesection-cls .templatesection-body-cls{
-    height:96%;
+    height:100%;
     width:100%;
 }
 
@@ -108,7 +143,8 @@
     height:80%;
     overflow:auto;
     padding: 8px;
-    width:26.8vw;
+    width:100%;
+    box-sizing: border-box;
 }
 
 .actionbar-cls{
@@ -181,61 +217,57 @@
     cursor: pointer;
 }
 
-.templatefillingloader-cls{
-    width: 25vw;
-    /* background-color: var(--customgrey); */
-    height: 2vh;
-    display:flex;
-    flex-flow:row nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    border-radius:50px;
-    background-color: #E2E2E2;
-    /* box-shadow: inset 0 0 12px 1px #000000b8; */
-
-}
-
 .progress-text {
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--custombgColor);
   }
 
+/* ---- Full-width progress bar, percentage rendered inside the fill ---- */
+.progressbar-wrapper-cls{
+    display:flex;
+    flex-flow:column;
+    width: 90%;
+    max-width: 1400px;
+    box-sizing: border-box;
+    margin: 10px 0 18px;
+}
+
+.templatefillingloader-cls{
+    position: relative;
+    width: 100%;
+    height: 26px;
+    display:flex;
+    flex-flow:row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 50px;
+    background-color: #e9e9e9;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px 0 #00000020;
+}
+
 .templatefillingloader-cls .loadingprogress-cls{
-    /* width: 20%; */
-    height: 2vh;
-    /* background-image: linear-gradient( 45deg, var(--custombgColor) 25%, #ffffff 25%, #fcfcfc 50%, var(--custombgColor) 50%, var(--custombgColor) 75%, white 75%, white); */
-    /* background-image: linear-gradient( 45deg, blue 25%, lightblue 25%, lightblue 50%, blue 50%, blue 75%, lightblue 75%, lightblue); */
-    border-radius: 13px;
+    height: 100%;
+    min-width: 26px;
+    border-radius: 50px;
     display:flex;
     flex-flow:row nowrap;
     justify-content: center;
     align-items: center;
-    background-color: var(--custombgColor);
+    background: linear-gradient(90deg, var(--custombgColor) 0%, var(--customDarkgreen, #065634) 100%);
+    transition: 0.5s ease width;
 }
 
-.templatefillingloader-cls .loadingprogress-cls{
-    transition:0.8s ease all;
-}
-
-.templatefillingloader-cls .loadingprogress-cls p{
-    transition:1s ease all;
-}
-
-.progressbar-wrapper-cls{
-    display:flex;
-    flex-flow:column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    margin-bottom: 20px;
-    margin-top: 10px;
-}
-
-
-.progressbar-wrapper-cls p{
-    font-size:small;
-    letter-spacing: 0px;
-    color:var(--customgrey);
+.progress-text-inline-cls {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #2a2a2a;
+    letter-spacing: 0.02em;
 }
 
 .questiondescription-cls{
@@ -383,101 +415,93 @@
     font-weight: 500;
 }
 
-@media only screen and (max-width:1500px) and (min-width:1143px){
-    .questions-cls{
-        min-width: 298px;
-    }
-    .questionsection-cls{
-        margin-left: 90px;
-    }
-}
-
-@media only screen and (max-width:1142px) and (min-width:1026px){
-    .questions-cls{
-        min-width: 298px;
-    }
-    .questionsection-cls{
-        margin-left: 140px;
-    }
-}
-
-@media only screen and (max-width:1025px) and (min-width:768px){
-    .questions-cls{
-        min-width: 298px;
-    }
-    .questionsection-cls{
-        margin-left: 505px;
-    }
-}
-
-@media only screen  and (max-width:768px) and (min-width:656px){
-    .questions-cls{
-        min-width: 298px;
-    }
-    .questionsection-cls{
-        margin-left: 520px;
-    }
-}
-
-@media only screen  and (max-width:655px){
-
+/* ---------- Tablet & below: stack the form above the preview instead of
+   squeezing two fixed-width panels side by side (that's what caused the
+   four magic-number margin-left hacks and the invisible overflow before) ---------- */
+@media only screen and (max-width: 1100px){
+    /* Below this point there isn't room for both panes side by side.
+       Single-pane mode kicks in immediately here (not further down at a
+       second, smaller breakpoint) — whichever pane is active fills the
+       remaining viewport height via flex, so it uses the full page length
+       before it ever needs to scroll internally, instead of being capped
+       at an arbitrary vh fraction. */
     .usertemplatefilling-wrapper-cls{
-        width: 100vw;
-        height: auto;
+        min-height: 0;
+        height: 100vh;
     }
 
     .usertemplatefilling-header-cls{
-        width:95vw;
+        width: 92%;
+        padding-top: 1.25rem;
     }
 
     .usertemplatefilling-header-cls p{
         font-size:medium;
     }
 
-    .usertemplatefilling-body-cls{
-        flex-flow: column nowrap;
-        width: 100%;
-        height: 77vh;
-        margin-right: 0px;
-        align-items: center;
-    }
-    
-    .questionsection-cls{
-        width: 95%;
-    height: 77vh;
-    margin-right: 0px;
+    .progressbar-wrapper-cls{
+        width: 92%;
+        margin: 8px 0 14px;
     }
 
-    .questions-cls{
-        width:100%;
+    .mobile-preview-toggle-cls{
+        display: flex;
+    }
+
+    .usertemplatefilling-body-cls{
+        flex-flow: column nowrap;
+        align-items: center;
+        width: 92%;
+        flex: 1;
+        min-height: 0;
+    }
+
+    .questionsection-cls{
+        width: 100%;
+        max-width: none;
+        height: auto;
+        flex: 1;
+        min-height: 0;
+    }
+
+    /* Preview stays mounted in the DOM at all times (it's populated via
+       direct DOM writes elsewhere), just visually hidden until the person
+       taps "View Preview" — a usable alternative to losing it outright. */
+    .templatesection-cls{
+        display: none;
+        width: 100%;
+        max-width: none;
+        height: auto;
+        flex: 1;
+        min-height: 0;
+        padding: 1.25rem 1rem;
+    }
+
+    .usertemplatefilling-body-cls.mobile-preview-open .questionsection-cls{
+        display: none;
+    }
+
+    .usertemplatefilling-body-cls.mobile-preview-open .templatesection-cls{
+        display: flex;
+    }
+
+    /* The injected document HTML has its own fixed, print-style internal
+       layout (set by whoever authored the template) — forcing it to
+       reflow to phone width is what broke it visually before. Scaling it
+       down as a whole (like a zoom) keeps that internal layout intact;
+       overflow-x is a safety net for any template wider than expected. */
+    .templatesection-cls .templatesection-body-cls{
+        width: fit-content;
+        min-width: 100%;
     }
 
     .templatesection-cls{
-        display:none;
-        height: 100%;
-        width: 95vw;
-        margin-top: 4vh;
-    }
-    .progressbar-wrapper-cls{
-        font-size: x-small;
-        margin: 0px;
-        padding: 0px;
-    }
-
-    .progressbar-wrapper-cls p{
-        font-size:x-small;
-    }
-
-    .templatefillingloader-cls{
-        width:35vw;
-        height:4vh;
-    }
-
-    .templatefillingloader-cls .loadingprogress-cls{
-        height:3vh;
-    }
-
-    .actionbutton-cls button mat-icon{
-        align-items: baseline;
+        overflow-x: auto;
+        overflow-y: auto;
+        align-items: flex-start;
     }
 }
+
+/* Fine fit for the preview content is computed dynamically in TS
+   (fitPreviewToDevice / MutationObserver), since a fixed CSS scale
+   factor can't account for different templates' natural widths. */

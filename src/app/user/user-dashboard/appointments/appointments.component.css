@@ -113,3 +113,28 @@
     justify-content: center;
     color: red;
   }
+/* ---------- Responsive ---------- */
+@media only screen and (max-width: 700px) {
+  .tablewrapper {
+    width: 94vw;
+    margin-left: 8px;
+    padding: 10px;
+  }
+
+  .table-wrapper-cls {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-header-cls,
+  .mat-card-list-cls {
+    min-width: 620px; /* keeps the 4 columns legible; scrolls instead of crushing */
+  }
+
+  .button-cls,
+  .table-row-cell-cls .button-cls-disabled {
+    width: auto;
+    min-width: 84px;
+    padding: 0 10px;
+  }
+}

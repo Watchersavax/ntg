@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { TableRows } from 'src/app/shared/models/TableRows';
 import { UserdataService } from '../userservices/userdata.service';
@@ -42,12 +42,44 @@ export const MY_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
 })
-export class FillTemplateComponent implements OnInit {
+export class FillTemplateComponent implements OnInit, OnDestroy {
 
   selectedTemplateobj = new TableRows();
   template: string = '';
   progress: number = 0;
   progresstyle = this.progress + '';
+  showMobilePreview = false;
+  /* Display-only progress, based on how many visible questions actually have
+     an answer. This is separate from `progress`/`submitflag` above (which
+     drive real navigation/purchase-button logic and must not change) — this
+     one only feeds the progress bar UI, since group-based progress could
+     jump straight to 100% for single-group templates even with nothing filled. */
+  answeredProgressPercent = 0;
+
+  toggleMobilePreview() {
+    this.showMobilePreview = !this.showMobilePreview;
+    if (this.showMobilePreview) {
+      // The preview pane is display:none while hidden, so its dimensions
+      // read as zero until it's actually visible — refit once it is.
+      setTimeout(() => { this.fitPreviewToDevice(); }, 50);
+    }
+  }
+
+  updateAnsweredProgress() {
+    const visibleQuestions = (this.questionlist || []).filter(q => q && q['visible'] === true);
+    if (visibleQuestions.length === 0) {
+      this.answeredProgressPercent = 0;
+      return;
+    }
+    const answeredCount = visibleQuestions.filter(q => {
+      const attrName = q['attributeDto'] ? q['attributeDto']['attributeName'] : undefined;
+      const liveVal = attrName ? this.globalattributestates[attrName] : undefined;
+      const fallbackVal = q['defaultValue'];
+      const val = (liveVal !== undefined && liveVal !== null && ('' + liveVal).trim() !== '') ? liveVal : fallbackVal;
+      return val !== undefined && val !== null && ('' + val).trim() !== '' && ('' + val).trim() !== '___________';
+    }).length;
+    this.answeredProgressPercent = Math.round((answeredCount / visibleQuestions.length) * 100);
+  }
   questionlist = [];
   globalattributestates = {};
   currentgroupid = 0;
@@ -84,12 +116,80 @@ export class FillTemplateComponent implements OnInit {
               private templateHtmlSanitizer: TemplateHtmlSanitizerService) {
   }
 
+  previewObserver: MutationObserver;
+
   ngOnInit() {
     let userSubscription: Subscription;
     userSubscription = this.route.params.subscribe(
       (params: Params) => {
         this.dataInitialization();
       });
+    this.setupPreviewAutoFit();
+  }
+
+  ngOnDestroy() {
+    if (this.previewObserver) {
+      this.previewObserver.disconnect();
+    }
+  }
+
+  @HostListener('window:resize')
+  onWindowResize() {
+    this.fitPreviewToDevice();
+  }
+
+  setupPreviewAutoFit() {
+    // The preview's content is written via direct DOM/innerHTML updates in
+    // many places elsewhere in this file (not Angular bindings), so rather
+    // than hook every single call site, this watches the container itself
+    // and re-fits automatically whenever its content actually changes.
+    setTimeout(() => {
+      const container = document.getElementById('templatecontainer');
+      if (!container) {
+        return;
+      }
+      this.previewObserver = new MutationObserver(() => {
+        this.fitPreviewToDevice();
+      });
+      this.previewObserver.observe(container, { childList: true, subtree: true, characterData: true });
+      this.fitPreviewToDevice();
+    }, 500);
+  }
+
+  fitPreviewToDevice() {
+    const container = document.getElementById('templatecontainer');
+    const wrapper = container ? container.parentElement : null;
+    if (!container || !wrapper) {
+      return;
+    }
+
+    if (window.innerWidth > 655) {
+      // Desktop/tablet: full size, no scaling needed.
+      container.style.transform = '';
+      container.style.marginBottom = '';
+      container.style.marginRight = '';
+      return;
+    }
+
+    // Measure the content at its natural (unscaled) size first.
+    container.style.transform = 'none';
+    const naturalWidth = container.scrollWidth;
+    const naturalHeight = container.scrollHeight;
+    const availableWidth = wrapper.clientWidth - 8;
+
+    if (naturalWidth <= 0 || availableWidth <= 0) {
+      return;
+    }
+
+    const scale = Math.min(1, availableWidth / naturalWidth);
+    container.style.transform = `scale(${scale})`;
+    container.style.transformOrigin = 'top left';
+    // Transforms don't shrink the space an element reserves in normal flow,
+    // so without this the scaled-down preview leaves a large blank gap
+    // below/right of it. Pulling that reserved space back in with a
+    // negative margin keeps the layout tight around the visibly smaller content.
+    container.style.marginBottom = `${(naturalHeight * scale) - naturalHeight}px`;
+    container.style.marginRight = `${(naturalWidth * scale) - naturalWidth}px`;
   }
 
   dataInitialization() {
@@ -168,6 +268,7 @@ export class FillTemplateComponent implements OnInit {
       if (this.questionlist.length === 0){
         this.submitflag = true;
       }
+      this.updateAnsweredProgress();
           this.populatingData(this.selectedTemplateobj.publishedTemplateVersion.templateVersionId, true);
         }, () => {
           
@@ -854,6 +955,7 @@ export class FillTemplateComponent implements OnInit {
         }
       }
     }
+    this.updateAnsweredProgress();
   }
 
   // functions written for date input events start
@@ -900,6 +1002,7 @@ export class FillTemplateComponent implements OnInit {
         }
       }
     }
+    this.updateAnsweredProgress();
   }
 
   // method to capture checkbox  value change event 
@@ -977,6 +1080,7 @@ export class FillTemplateComponent implements OnInit {
       }
     }
     this.evaluateTemplateConditions(false);
+    this.updateAnsweredProgress();
   }
 
   // method to capture dropdown value change event
@@ -1024,6 +1128,7 @@ export class FillTemplateComponent implements OnInit {
       }
     }
     this.evaluateTemplateConditions(false);
+    this.updateAnsweredProgress();
   }
 
   // radion button value changes
@@ -1078,6 +1183,7 @@ export class FillTemplateComponent implements OnInit {
     }
 
     this.evaluateTemplateConditions(false);
+    this.updateAnsweredProgress();
   }
 
   // fucntions written for highlighting fields and questions
@@ -1178,6 +1284,7 @@ export class FillTemplateComponent implements OnInit {
       this.submitflag = true;
     }
     this.backbuttonflag = true;
+    this.updateAnsweredProgress();
   }
 
   back() {
@@ -1193,6 +1300,7 @@ export class FillTemplateComponent implements OnInit {
 
     this.progress = parseInt('' + ((this.groupIdarray.indexOf(this.currentgroupid) + 1) / (this.groupIdarray.length)) * 100, 10);
     this.progresstyle = this.progress + '%';
+    this.updateAnsweredProgress();
   }
 
   checkAllPhotosUploaded(): boolean {

@@ -3,3 +3,4 @@ dist
 .local
 src/environments/environment.cloudflare.ts
 src/environments/environment.local.ts
+proxy.conf.js

@@ -1,45 +1,59 @@
 .dialogwrapper-cls{
     display:flex;
     flex-flow:column nowrap;
-    /* width:75vw; */
-    /* height:70vh; */
-    align-items:flex-end;
+    align-items:stretch;
     padding:10px;
-    height: 96vh;
+    height: 90vh;
+    width: 75vw;
+    max-width: 900px;
+    box-sizing: border-box;
 }
 
 .header-cls{
     width:100%;
-    height:6vh;
+    flex-shrink: 0;
     display:flex;
     flex-flow:row nowrap;
     justify-content: space-between;
     align-items: center;
-    /* background-color: #4C4D51; */
-    color:white
+    padding-bottom: 8px;
+    color: var(--customgrey);
+}
+
+.header-cls p {
+    margin: 0;
 }
 
 .body-cls{
     width:100%;
     height:90%;
     overflow-y: auto;
-    /* margin-left:10px */
 }
 
+/* Close (X) button — was width:6% with no set height, giving an
+   inconsistent, non-circular hit target that shrank oddly on narrow
+   screens. Now a fixed, properly circular icon button at every size. */
 .header-cls button{
     background-color: var(--custombgColor);
     outline: none;
     border: 0px;
     color: white;
-    /* border-radius: 26px; */
-    width: 6%;
-    margin: 5px;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    margin: 0;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 8px 2px #00000061;
+    box-shadow: 0 2px 6px -1px #00000045;
     cursor:pointer;
+    flex-shrink: 0;
+}
+
+.header-cls button:hover {
+    background-color: var(--customDarkgreen, #065634);
 }
 
 .header-cls button:active{
@@ -47,69 +61,123 @@
 }
 
 .header-cls button mat-icon {
-    font-size:25px;
+    font-size:20px;
     font-weight:bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.pdfcontent {
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.pdfcontent pdf-viewer {
+    width: 100%;
+    display: block;
+}
+
+/* Page nav (Prev / N of Total / Next) */
+.pdfcontent > span > div {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    padding: 4px 0;
+}
+
+.pdfcontent > span > div button {
+    background-color: var(--custombgColor);
+    color: white;
+    border: 0;
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.pdfcontent > span > div button:disabled {
+    background-color: rgb(200,200,200);
+    cursor: not-allowed;
+}
+
+/* ---- Action bar: just the embedded payment-check "Pay Now" trigger now
+   (the separate Cancel button was redundant with the close (X) icon in the
+   header, so it's been removed rather than just restyled). ---- */
 .actionbar{
-    
-    /* height: 6.0vh; */
-    margin-left: 0vh;
+    flex-shrink: 0;
     z-index: 13;
     display: flex;
-    /* -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal; */
     flex-flow: row wrap;
-    /* -webkit-box-pack: justify; */
     justify-content: center;
-    margin-top: 10px;
     align-items: center;
-    /* background-color: #4C4D51; */
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
 
-  }
+.actionbar app-payment-check {
+    display: flex;
+}
 
- 
-  .actionbar button {
-    width: 11vw;
+/* Download button (separate .actionbar block, shown after signing) */
+.actionbar button {
+    width: auto;
+    min-width: 160px;
     background-color: var(--custombgColor);
-    font-size: medium;
-    margin: 3px;
-  }
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: 0;
+    border-radius: 6px;
+    height: 42px;
+    padding: 0 20px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
 
-@media only screen and (max-width:768px) {
+.actionbar button:hover {
+    background-color: var(--customDarkgreen, #065634);
+}
 
-    .header-cls button mat-icon {
-        font-size:19px;
-        font-weight:bold;
-    }
-
-    .header-cls button{
-        width:8%;
-    }
-    
-
-  }
-
-@media only screen and (max-width:655px){
+@media only screen and (max-width: 900px) {
     .dialogwrapper-cls{
-        width:97vw;
-        height:90vh;
-        
-    }
-    .actionbar button{
-        width:28vw;
+        width: 92vw;
+        max-width: none;
+        height: 92vh;
     }
 }
 
-
-.container-local {
-    position: absolute;
-    left: 250px;
-  }
-  
- 
-  
-  @media screen and (max-width: 768px) {
-    .container-local {
-      left: 50px; /* adjust the left position for smaller screens */
+@media only screen and (max-width: 655px){
+    .dialogwrapper-cls{
+        width: 96vw;
+        height: 94vh;
+        padding: 8px;
     }
-  }
+
+    .header-cls p {
+        font-size: 1rem !important;
+    }
+
+    .actionbar {
+        justify-content: center;
+    }
+
+    .actionbar app-payment-check {
+        width: auto;
+    }
+
+    .actionbar button {
+        width: 80%;
+        max-width: 260px;
+        min-width: 0;
+    }
+}

@@ -2,21 +2,29 @@
   <nav class="shadow-sm navbar navbar-light w-100">
     <div class="container-fluid">
       <div class="company-logo-cls">
-        <span class="navbar-brand d-flex align-items-center" style="margin-left: 1rem">
+        <a class="navbar-brand d-flex align-items-center" style="margin-left: 1rem; cursor: pointer;"
+          [routerLink]="isSignedIn ? '/user/home/card/templist' : '/user/home'" aria-label="Go to home">
           <img src="assets/Notago_logo.png" alt="NotaGo logo" />
-        </span>
+        </a>
       </div>
 
       <div class="quick-options-cls">
-        <button mat-button class="hamburger-cls" *ngIf="isSignedIn" id="drawerbutton" (click)="toggleSidebar($event)"
+        <button mat-button class="hamburger-cls" *ngIf="isSignedIn && isInAccountArea()" id="drawerbutton" (click)="toggleSidebar($event)"
           style="
             color: var(--custombgColor);
             padding-right: 4px;
             cursor: pointer;
           ">
-          <mat-icon style="font-size: x-large; margin-bottom: 6px">menu</mat-icon>
+          <mat-icon style="font-size: x-large; margin-bottom: 6px">more_vert</mat-icon>
         </button>
-        <div class="d-flex flex-nowrap justify-content-end align-items-center ms-2 w-100 px-4">
+
+        <!-- Mobile menu toggle for public (signed-out) nav links -->
+        <button type="button" class="nav-toggle-label" (click)="toggleMobileMenu($event)"
+          aria-label="Toggle navigation menu" [attr.aria-expanded]="isOpen">
+          <mat-icon>{{ isOpen ? 'close' : 'menu' }}</mat-icon>
+        </button>
+
+        <div class="navlinks-panel" [class.nav-open]="isOpen">
           <div>
             <span>
               <button mat-button  [routerLink]="isSignedIn ? '/user/home/card/templist' : '/user/home'"  routerLinkActive="active"
@@ -70,7 +78,7 @@
             " (click)="goToDashboard(); remove()" *ngIf="isSignedIn">
             Dashboard
           </button>
-      
+    
           <button mat-button [routerLink]="'/user/how-it-work'" routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }" *ngIf="isSignedIn">
             How it works
@@ -99,6 +107,6 @@
   </nav>
   <div class="body-cls">
     <router-outlet></router-outlet>
-    <app-legal-footer variant="shell"></app-legal-footer>
+    <app-legal-footer variant="shell" *ngIf="!isInAccountArea()"></app-legal-footer>
   </div>
 </div>

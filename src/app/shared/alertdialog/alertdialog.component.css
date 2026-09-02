@@ -1,51 +1,78 @@
 .maincontent {
-    /* height: 36vh; */
-    /* width: 40vw; */
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    max-width:36vw;
-    max-height:90vh;
+    width: 100%;
+    max-width: 480px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-sizing: border-box;
 }
 
 .maincontent span {
     width: 100%;
 }
 
+.maincontent h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
 /* Preserve intentional line breaks in dialog messages (e.g. the reject reason details). */
 .maincontent p {
     white-space: pre-line;
+    line-height: 1.5;
 }
 
 .actiongroup {
-    margin-top: 1vh;
-    margin-bottom:1vh;
+    margin-top: 12px;
+    margin-bottom: 8px;
     width: 100%;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-end;
+    gap: 12px;
+    box-sizing: border-box;
+    padding: 0 20px;
 }
 
-@media only screen and (max-width:1024px) {
+/* The Yes/No/Close buttons only had inline background-colors before —
+   no shared radius, padding, or hover feedback. Layering these on keeps
+   each button's distinct color (set inline per action) while giving all
+   of them consistent shape and a visible hover state. */
+.actiongroup button {
+    border-radius: 6px !important;
+    height: 42px !important;
+    min-width: 90px !important;
+    padding: 0 20px !important;
+    transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+.actiongroup button:hover {
+    filter: brightness(0.9);
+}
+
+@media only screen and (max-width: 480px) {
     .maincontent {
-        /* width: 45vw; */
-        /* height: 42vh; */
+        max-width: 100%;
     }
 
     .maincontent p {
-        padding: 10px;
-        font-size:small;
+        padding: 6px 10px;
+        font-size: 0.9rem;
     }
 
     .maincontent h2{
-        font-size:medium;
+        font-size: 1.05rem;
     }
 
-}
-@media only screen and (max-width:655px) {
- .maincontent{
-    max-width: 87vw;
-    max-height: 44vh;
- }
+    .actiongroup {
+        justify-content: center;
+        padding: 0 8px;
+    }
 
+    .actiongroup button {
+        flex: 1;
+        min-width: 0 !important;
+    }
 }

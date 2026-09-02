@@ -1,91 +1,138 @@
 .pagewrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
-    /* background: linear-gradient(to bottom, #008e52 0%, #000000 100%); */
-    /* background: linear-gradient(to bottom, #be3a34 0%, #545859 100%); */
-    background-color: var(--custombtnColor);
-  }
-  
-  .loginbox {
-    width: 34vw;
-    /* height: 66vh; */
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-content: space-around;
-    align-items: space-around;
-    padding: 40px;
-    border-radius: 5px;
-    box-shadow: 0px 1px 20px 13px #00000078;
-  }
-  
-  .companyname {
-    display: flex;
-    justify-content: center;
-  
-  }
-  
-  .companynamepvt {
-    display: flex;
-    flex-flow: column wrap;
-  }
-  
-  .companynamepvt h3 {
-    letter-spacing: 11px;
-    margin-top: -7px;
-    margin-bottom: -15px;
-  }
-  
-  .content {
-    display: flex;
-    justify-content: flex-start;
-    color:var(--customgrey);
-    /* background-color: black; */
-  }
-  
-  .content img {
-    margin-bottom: 0px;
-    height: 21vh;
-    /* width: 16vw; */
-  }
-  
-  .form-container {
-    display: flex;
-    flex-flow: column wrap;
-    margin-top: 2vh;
-    /* background-color: grey; */
-  }
-  
-  form {
-    display: flex;
-    flex-flow: column wrap;
-  }
-  
-  .field {
-    margin: 5px;
-    padding: 5px;
-  }
-  
-  .subminbutton {
-    margin: 5px;
-    padding: 2px;
-    background-color: var(--custombtnColor);
-    color: white;
-    font-size: medium;
-    font-weight: 500;
-  }
-  
-  .errormessage{
-    background-color: rgba(228, 108, 99, 0);
-      color: red;
-      width: 100%;
-      height: 3vh;
-      display: flex;
-      font-weight:600;
-      justify-content: flex-start;
-      align-items: center;
-      font-size: medium;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+  background: linear-gradient(160deg, var(--custombtnColor) 0%, var(--customDarkgreen) 100%);
+}
+
+.loginbox {
+  width: 100%;
+  max-width: 420px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.45);
+  box-sizing: border-box;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: var(--customgrey);
+  margin-bottom: 8px;
+}
+
+.content h1 {
+  font-size: 1.9rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--customDarkgreen);
+  letter-spacing: 0.5px;
+}
+
+.content h1::after {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 3px;
+  margin-top: 10px;
+  border-radius: 3px;
+  background: var(--custombtnColor);
+}
+
+.content img {
+  margin-bottom: 8px;
+  height: 21vh;
+  max-height: 120px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.field {
+  width: 100%;
+  margin: 6px 0;
+}
+
+.subminbutton {
+  width: 100%;
+  margin: 14px 0 6px;
+  padding: 10px;
+  background-color: var(--custombtnColor);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  letter-spacing: 0.4px;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.subminbutton:hover {
+  background-color: var(--customDarkgreen);
+  box-shadow: 0 6px 18px -6px rgba(0, 0, 0, 0.4);
+}
+
+.rememberme {
+  margin: 8px 0 0;
+}
+
+.errormessage {
+  background-color: rgba(228, 108, 99, 0);
+  color: #d0342c;
+  width: 100%;
+  min-height: 24px;
+  display: flex;
+  font-weight: 600;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+.linksrow {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px 16px;
+  margin-top: 18px;
+}
+
+.linksrow a {
+  color: var(--custombtnColor);
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.linksrow a:hover {
+  text-decoration: underline;
+}
+
+/* legacy classes kept harmless */
+.companyname { display: flex; justify-content: center; }
+.companynamepvt { display: flex; flex-flow: column wrap; }
+.companynamepvt h3 { letter-spacing: 11px; margin-top: -7px; margin-bottom: -15px; }
+
+/* ---------- Responsive ---------- */
+@media only screen and (max-width: 480px) {
+  .pagewrapper { padding: 16px; }
+  .loginbox { padding: 26px 22px; border-radius: 14px; }
+  .content h1 { font-size: 1.6rem; }
+  .linksrow { justify-content: center; text-align: center; }
+}

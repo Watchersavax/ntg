@@ -1,0 +1,12 @@
+<div class="app-paginator-cls">
+  <p class="app-paginator-message-cls" *ngIf="message">{{ message }}</p>
+  <div class="app-paginator-controls-cls">
+    <button type="button" class="app-paginator-btn-cls" [disabled]="!hasPrev" (click)="onPrev()" aria-label="Previous page">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <span class="app-paginator-page-cls">{{ page + 1 }}</span>
+    <button type="button" class="app-paginator-btn-cls" [disabled]="!hasNext" (click)="onNext()" aria-label="Next page">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+</div>

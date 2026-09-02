@@ -67,6 +67,58 @@ h1,h2,h3,h4,h5,h6 {
   overflow: hidden;
 }
 
+/* Payment success/failure alert (opened via payment-check.component.ts) —
+   the .mat-dialog-container/.cdk-overlay-pane wrapping it sit OUTSIDE
+   AlertdialogComponent's own template, so its component-scoped CSS can
+   never reach them (::ng-deep only pierces into descendants, not
+   ancestors). This has to be a global rule, keyed by panelClass, same
+   pattern as .price-dialog-container above. Without it the dialog held a
+   fixed width regardless of viewport, with no margin to the screen edges. */
+.alert-dialog-container .mat-dialog-container {
+  width: calc(100vw - 32px);
+  max-width: 480px;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+/* NIN Validation / identity-verification dialog — its own component sets a
+   fixed rem width via dialogRef.updateSize() (30rem compact, 65rem for the
+   scheduling/Calendly step), which is a real inline style and overflows
+   badly on phones with zero margin to the screen edges. This overrides
+   that inline width responsively without touching the resize logic itself
+   (which is tied to legitimate compact <-> scheduling-step transitions). */
+.nin-validation-dialog-container .mat-dialog-container {
+  width: calc(100vw - 32px) !important;
+  max-width: 480px !important;
+  box-sizing: border-box !important;
+  margin: 0 auto !important;
+}
+
+@media only screen and (min-width: 700px) {
+  .nin-validation-dialog-container.calendly-active .mat-dialog-container {
+    max-width: 900px !important;
+  }
+}
+
+/* Calendly scheduling dialog (standalone mode — opened directly from the
+   documents list "Schedule" action, separate from the embedded mode inside
+   NIN validation). Same fixed-width-with-no-margin problem as the others. */
+.calendly-dialog-container .mat-dialog-container {
+  width: calc(100vw - 32px) !important;
+  max-width: 900px !important;
+  max-height: 90vh !important;
+  box-sizing: border-box !important;
+  margin: 0 auto !important;
+}
+
+.videocall-dialog-container .mat-dialog-container {
+  width: calc(100vw - 32px) !important;
+  max-width: 900px !important;
+  max-height: 90vh !important;
+  box-sizing: border-box !important;
+  margin: 0 auto !important;
+}
+
 @media only screen and (min-width: 768px) and (max-width: 1700px) {
     
   .custom-dialog-container {
@@ -764,6 +816,24 @@ textarea.mat-input-element {
   color: var(--customgrey);
   cursor: pointer;
   pointer-events: none;
+}
+
+/* Global responsive fix: this pagination row (dataMessage + Page: + prev/next)
+   is reused across ~15 pages app-wide (documents, transactions, appointments,
+   court/admin grids). It was a rigid "row nowrap" that overflowed the viewport
+   on narrow screens, causing horizontal scroll/clipping. Wrapping it here fixes
+   pagination on every one of those pages at once. */
+@media only screen and (max-width: 600px) {
+  .paginator-cls {
+    flex-flow: row wrap;
+    justify-content: center;
+    row-gap: 4px;
+    width: 100%;
+  }
+
+  .paginator-cls p {
+    font-size: 0.85rem;
+  }
 }
 
 @media only screen and (min-width:577px) and (max-width:1024px) {

@@ -328,4 +328,21 @@
     width: 24px !important;
     margin-right: 0px !important;
   }
+
+  /* .table-body-cls blocks horizontal overflow app-wide via !important; on
+     mobile the fixed-width columns no longer fit, so allow horizontal scroll
+     here instead of silently clipping content off-screen. */
+  .table-wrapper-cls {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-body-cls {
+    overflow-x: auto !important;
+  }
+
+  .table-header-cls,
+  .mat-card-list-cls {
+    min-width: 500px;
+  }
 }

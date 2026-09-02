@@ -16,6 +16,7 @@ import { RegistrationPaymnetComponent } from "../user/registration-payment/regis
 import { CalendlyAppointmentDialogComponent } from "../user/calendly-appointment-dialog/calendly-appointment-dialog.component";
 import { DocumensoSigningEmbedComponent } from "../shared/documenso-signing-embed/documenso-signing-embed.component";
 import { DocumensoSigningDialogComponent } from "../shared/documenso-signing-dialog/documenso-signing-dialog.component";
+import { PaginatorComponent } from "../shared/paginator/paginator.component";
 
 @NgModule({
   imports: [
@@ -41,6 +42,7 @@ import { DocumensoSigningDialogComponent } from "../shared/documenso-signing-dia
     CalendlyAppointmentDialogComponent,
     DocumensoSigningEmbedComponent,
     DocumensoSigningDialogComponent,
+    PaginatorComponent,
   ],
   exports: [
     FilterPipe,
@@ -54,6 +56,7 @@ import { DocumensoSigningDialogComponent } from "../shared/documenso-signing-dia
     CalendlyAppointmentDialogComponent,
     DocumensoSigningEmbedComponent,
     DocumensoSigningDialogComponent,
+    PaginatorComponent,
   ],
   entryComponents: [
     TicketActionDialogComponent,

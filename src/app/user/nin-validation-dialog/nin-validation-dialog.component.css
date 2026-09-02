@@ -1,10 +1,10 @@
 .dialogwrapper {
-    width: 30rem;
+    width: 100%;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
     border-radius: 10px;
-    /* box-shadow: 0px 1px 20px 13px #00000078; */
+    box-sizing: border-box;
   }
 
   .dialogwrapper span {
@@ -12,10 +12,11 @@
   }
 
   .mat-dialog-content {
-    width: 70% !important;
+    width: 88% !important;
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
+    box-sizing: border-box;
   }
 
   .mat-form-field-appearance-legacy .mat-form-field-label {
@@ -31,18 +32,24 @@
     margin: 20px !important;
   }
   .actiongroup {
-    margin-top:1vh;
-    margin-bottom:1vh;
     width: 100%;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
+    gap: 12px;
     margin-top: 20px;
     margin-bottom: 30px;
   }
 
+  .actiongroup button {
+    border-radius: 6px !important;
+    height: 42px !important;
+    min-width: 100px !important;
+    margin-right: 0 !important;
+  }
+
   .validateNIN {
-    /* height:34vh; */
+    width: 100%;
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
@@ -54,15 +61,41 @@
     align-items: flex-start;
   }
 
+/* ---- Verification error — was plain red text at the top with no visual
+   weight or structure. Now a proper card: icon + message, so it reads as
+   a distinct, clearly-scoped notice rather than a stray line of red text. ---- */
 .errormessage{
-    color:red;
-    margin-bottom:1vh;
-    font-weight:500;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fdecea;
+    border-left: 4px solid #d32f2f;
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+  }
+
+  .errormessage mat-icon {
+    color: #d32f2f;
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .errormessage span {
+    color: #7a1c1c;
+    font-weight: 500;
+    font-size: 0.9rem;
+    line-height: 1.4;
   }
 
   .calendly-dialogwrapper {
-    width: 65rem;
-    max-width: calc(100vw - 48px);
+    width: 100%;
     overflow-x: hidden;
     align-items: stretch;
   }
@@ -72,28 +105,25 @@
     width: 100%;
   }
 
-
-  @media only screen and (max-width:1024px) {
-    .dialogwrapper {
-      /* width: 37vw; */
-      /* height: 55vh; */
+  @media only screen and (max-width: 480px) {
+    .dialogwrapper h2{
+      font-size: 1.05rem;
     }
 
-    .dialogwrapper h2{
-      font-size:medium;
-  }
+    .mat-dialog-content {
+      width: 92% !important;
+    }
 
     .actiongroup {
-      margin-top: 1vh;
-      margin-bottom:1vh;
+      justify-content: center;
     }
-    .mat-button {
-      width:120px;
-      font-size: larger;
+
+    .actiongroup button {
+      flex: 1;
+      min-width: 0 !important;
+    }
+
+    .errormessage span {
+      font-size: 0.85rem;
     }
   }
-
-
-
-
-

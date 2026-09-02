@@ -164,6 +164,13 @@ export class PaymentCheckComponent implements OnInit  {
                         paymentResponse.affidavitPrice  = thisInstance.affidavitprice;
 
                         thisInstance.savePaymentDetails(paymentResponse);
+                    } else {
+                        // Payment was declined/failed at Flutterwave's end — previously
+                        // this branch did nothing, leaving the person with no feedback
+                        // at all once the widget closed.
+                        thisInstance.ngzone.run(() => {
+                            thisInstance.openAlertDialogBox('Payment Failed', 'Your payment was not successful. Please try again.', true, undefined);
+                        });
                     }
                     paidSetup.close();
                 }
@@ -177,9 +184,22 @@ export class PaymentCheckComponent implements OnInit  {
 
         this.http.post(environment.url + 'user/template/updatePaymentDetails', paymentResponse)
         .subscribe((response: any) => {
+            this.loadingscreenservice.stopLoading();
             if (response.success && paymentResponse.status == 'successful') {
                 this.showData();
+            } else {
+                // Flutterwave confirmed the charge, but our own backend didn't
+                // confirm the save — previously silent, leaving the person
+                // unsure whether their payment actually went through.
+                this.ngzone.run(() => {
+                    this.openAlertDialogBox('Payment Failed', 'We could not confirm your payment. If you were charged, please contact support before trying again.', true, undefined);
+                });
             }
+        }, () => {
+            this.loadingscreenservice.stopLoading();
+            this.ngzone.run(() => {
+                this.openAlertDialogBox('Payment Failed', 'Something went wrong while confirming your payment. If you were charged, please contact support before trying again.', true, undefined);
+            });
         });
     }
 
@@ -197,9 +217,18 @@ export class PaymentCheckComponent implements OnInit  {
                 this.someEvent.emit();
                 this.loadingscreenservice.stopLoading();
             //comment the code for court dialouge after payment
-            
+
+            this.openAlertDialogBox('Payment Successful', 'Your payment was successful. Redirecting you to identity verification.', true, undefined)
+            .afterClosed().subscribe(() => {
+                this.proceedToSigning();
+            });
+        });
+    }
+
+    proceedToSigning() {
             const dialogRef: MatDialogRef<NinValidationDialogComponent> = this.dialog.open(NinValidationDialogComponent, {
                 disableClose: true,
+                panelClass: 'nin-validation-dialog-container',
                 data: { affidavitId: this.affidavitId,isExpress: this.isExpress }
               });
               dialogRef.afterClosed().subscribe((data: string) => {
@@ -216,7 +245,6 @@ export class PaymentCheckComponent implements OnInit  {
                     }
                 });
               });
-        });
     }
 
     enterDummyTransaction() {
@@ -251,6 +279,7 @@ export class PaymentCheckComponent implements OnInit  {
 
     openAlertDialogBox(actionname: string, message: string, onlyclose, affidavitId): MatDialogRef<AlertdialogComponent>{
         const dialogRef = this.dialog.open(AlertdialogComponent, {
+            panelClass: 'alert-dialog-container',
             data: { actionname, message, onlyclose, affidavitId }
         });
         return dialogRef;

@@ -466,6 +466,7 @@ export class UserDocumentsListComponent implements OnInit {
     const dialogRef: MatDialogRef<NinValidationDialogComponent> =
       this.dialog.open(NinValidationDialogComponent, {
         disableClose: true,
+        panelClass: 'nin-validation-dialog-container',
         data: { affidavitId: documentObj.userAffidavitId,isExpress: documentObj.isExpress },
       });
 
@@ -571,6 +572,7 @@ export class UserDocumentsListComponent implements OnInit {
     const dialogRef: MatDialogRef<CalendlyAppointmentDialogComponent> =
       this.dialog.open(CalendlyAppointmentDialogComponent, {
         disableClose: true,
+        panelClass: 'calendly-dialog-container',
         data: { activeTab: activeTab}
       });
     dialogRef.componentInstance.affidavitId = documentObj.userAffidavitId;

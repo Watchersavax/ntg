@@ -44,9 +44,6 @@
             border-radius: 4px;
             height: 38px;" [affidavitIdFromParent]="affidavitId" [affidavitpriceFromParent]="affidavitprice"
             [affidavitnameFromParent]="documentname" [isExpress]="isExpress" [isPriceDialogOpen]="shouldOpenPriceDialog"></app-payment-check>
-        <span style="padding:3px"></span>
-        <button mat-raised-button (click)="close()">
-            <span style="padding:3px">Cancel</span></button>
     </div>
     <div class="actionbar" *ngIf="downloadbuttonflag">
         <button mat-raised-button (click)="downloadSignedPdf();">Download<mat-icon>file_download</mat-icon></button>

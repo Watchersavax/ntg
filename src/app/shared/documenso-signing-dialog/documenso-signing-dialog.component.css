@@ -5,7 +5,7 @@
   max-width: 1180px;
   min-width: 320px;
   background: #ffffff;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .close-button {
@@ -15,6 +15,7 @@
   z-index: 2;
   width: 36px;
   height: 36px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;

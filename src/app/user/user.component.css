@@ -56,7 +56,7 @@
 }
 
 .company-logo-cls img {
-    height: 80px;
+    height: 48px;
     width: auto;
     object-fit: contain;
 }
@@ -67,7 +67,8 @@
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-end;
-
+    align-items: center;
+    position: relative;
 }
 
 .quick-options-cls h4 {
@@ -173,33 +174,71 @@ button.mat-menu-item:hover {
     display: none;
 }
 
+/* Mobile nav toggle button (public/signed-out links) */
+.nav-toggle-label {
+    display: none;
+    cursor: pointer;
+    color: var(--custombgColor);
+    background: transparent;
+    border: none;
+    padding: 4px 8px;
+    margin: 0;
+    align-items: center;
+}
 
-@media only screen and (max-width:655px) {
+.navlinks-panel {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    margin-left: 0.5rem;
+    width: 100%;
+    padding: 0 1.5rem;
+}
 
-    .homepage-wrapper-cls .header-cls {
-        height: 10vh;
+
+@media only screen and (max-width: 1150px) {
+    .homepage-wrapper-cls .header-cls { height: 10vh; }
+    .upper-header-cls { height: 9vh; }
+    .lower-header-cls { height: 1vh; }
+    .hamburger-cls { display: block; }
+    .quick-options-cls { justify-content: flex-end; }
+    .nav-toggle-label { display: inline-flex; }
+    .company-logo-cls img { height: 36px; }
+    .navlinks-panel {
+        display: none !important;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        flex-direction: column !important;
+        flex-wrap: nowrap !important;
+        align-items: stretch !important;
+        justify-content: flex-start !important;
+        background: #ffffff;
+        box-shadow: 0 12px 24px rgba(0,0,0,0.18);
+        padding: 8px 12px !important;
+        width: 100% !important;
+        margin: 0 !important;
+        z-index: 1000;
     }
-
-    .upper-header-cls {
-        height: 9vh;
+    .navlinks-panel.nav-open { display: flex !important; }
+    .navlinks-panel > div { width: 100%; display: flex; flex-direction: column; }
+    .navlinks-panel .mat-button,
+    .navlinks-panel .dropbtn {
+        width: 100%;
+        justify-content: flex-start;
+        text-align: left;
+        margin: 2px 0 !important;
     }
-
-    .lower-header-cls {
-        height: 1vh;
+    .navlinks-panel .dropdown { display: block; width: 100%; }
+    .navlinks-panel .dropdown-content {
+        position: static;
+        box-shadow: none;
+        min-width: 100%;
+        padding-left: 12px;
     }
-
-    .mat-button {
-        font-size: x-small;
-        padding: 0 5px;
-    }
-
-    .hamburger-cls {
-        display: block;
-    }
-
-    .quick-options-cls {
-        justify-content: space-between;
-    }
+    .navlinks-panel .dropdown:hover .dropdown-content { display: block; }
 }
 
 

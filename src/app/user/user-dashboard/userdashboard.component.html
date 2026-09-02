@@ -1,4 +1,5 @@
 <div class="userdashboard-cls">
+  <div class="userdashboard-backdrop-cls" *ngIf="toggledrawer" (click)="closeDrawer()"></div>
   <div [ngClass]="(toggledrawer == true ) ? 'userdashboard-sidebar-mobile-cls' : 'userdashboard-sidebar-cls'" (clickElsewhere)="closeDrawer()">
     <div class="sidebar-user-avatar-cls">
       <div style="height:112px;display:flex;flex-flow:row wrap;justify-content: center;align-items: center;">

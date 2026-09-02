@@ -1,27 +1,34 @@
 .card-container {
     display: flex;
-    justify-content: space-around;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 24px;
     margin: 20px 0;
     background-color: transparent;
     width: 100% !important;
+    box-sizing: border-box;
 }
 
 .card {
-    width: 28vw; 
-    height: 50vh;
-    border: 1px solid #ccc;
+    flex: 1 1 260px;
+    max-width: 320px;
+    height: auto;
+    display: flex;
+    flex-flow: column nowrap;
+    border: 1px solid #e6e6e6;
     border-radius: 10px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    background-color: #fff; /* White background for the price cards */
+    padding: 20px;
+    background-color: #fff;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    margin-right: 80px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-sizing: border-box;
 }
 
 .card:hover {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
 }
 
 .card h3 {
@@ -59,29 +66,40 @@
 
 .proceed-btn-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     margin-top: auto;
-    margin-right: 10px;
+    padding-top: 12px;
 }
 
 .proceed-btn {
     background-color: #197B51;
     color: #fff;
     border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
+    border-radius: 6px;
+    padding: 10px 24px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s;
-    width: 40%;
-    margin: 0;
-
+    font-weight: 600;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+    box-shadow: 0 2px 8px -1px rgba(0,0,0,0.3);
 }
 
 .proceed-btn:hover {
-    background-color:#197B51;
+    background-color: var(--customDarkgreen, #065634);
 }
 
 .proceed-btn:focus {
     outline: none;
+}
+
+@media only screen and (max-width: 480px) {
+    .card {
+        flex: 1 1 100%;
+        max-width: none;
+    }
+
+    .card h3 {
+        font-size: 20px !important;
+    }
 }

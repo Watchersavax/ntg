@@ -104,6 +104,7 @@ export class UserComponent implements OnInit, AfterViewChecked {
       }
       if (routerEvent instanceof NavigationEnd) {
         this.loadingService.stopLoading();
+        this.isOpen = false;
       }
       if (routerEvent instanceof NavigationError) {
         this.loadingService.stopLoading();
@@ -297,9 +298,20 @@ export class UserComponent implements OnInit, AfterViewChecked {
     return this.router.isActive(url, true);
   }
 
+  isInAccountArea(): boolean {
+    return this.router.url.includes('/myaccount');
+  }
+
   toggleSidebar(event) {
     this.navigationdrawer.toggleDrawer();
     event.stopPropagation();
+  }
+
+  toggleMobileMenu(event?: MouseEvent) {
+    if (event) {
+      event.stopPropagation();
+    }
+    this.isOpen = !this.isOpen;
   }
 
   logout() {

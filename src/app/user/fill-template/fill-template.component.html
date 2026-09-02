@@ -1,16 +1,19 @@
 <div class="usertemplatefilling-wrapper-cls">
     <div class="usertemplatefilling-header-cls">
         <p>{{selectedTemplateobj.templateName}}</p>
-        <div class="progressbar-wrapper-cls">
-            <div class="templatefillingloader-cls">
-                <div class="loadingprogress-cls" [style.width]="progresstyle">
-                </div>
+        <button type="button" class="mobile-preview-toggle-cls" (click)="toggleMobilePreview()">
+            <mat-icon>{{ showMobilePreview ? 'edit_note' : 'visibility' }}</mat-icon>
+            {{ showMobilePreview ? 'Edit Answers' : 'View Preview' }}
+        </button>
+    </div>
+    <div class="progressbar-wrapper-cls">
+        <div class="templatefillingloader-cls">
+            <div class="loadingprogress-cls" [style.width.%]="answeredProgressPercent">
             </div>
-            <div *ngIf="progress == 0" style="color:white;margin-left:28px;" class="progress-text">{{progresstyle}}</div>
-            <div *ngIf="progress != 0" class="progress-text">{{progresstyle}} complete</div>
+            <span class="progress-text-inline-cls">{{ answeredProgressPercent }}%</span>
         </div>
     </div>
-    <div class="usertemplatefilling-body-cls">
+    <div class="usertemplatefilling-body-cls" [class.mobile-preview-open]="showMobilePreview">
         <div class="questionsection-cls">
             <div class="questions-cls">
                 <div  *ngFor="let question of questionlist;let i = index" style="width:100%;">
@@ -75,9 +78,7 @@
             </div>
         </div>
         <div class="templatesection-cls">
-            <div class="templatesection-header-cls">
-                <p>Document Preview</p>
-            </div>
+            <span class="templatesection-badge-cls">Document Preview</span>
             <div class="templatesection-body-cls" id="templatecontainer">
 
             </div>

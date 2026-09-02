@@ -12,23 +12,23 @@
         <div class="templatenameandfill-cls">
                 <h2>{{selectedTemplateobj.templateName}}</h2>
                 <div class="versionpriceinfo-cls">
-                        <div class="step-cls" style="border:0px;box-shadow:none;">
-                                <span class="versioninfo-cls">
-                                        <mat-icon style="font-size: 25px;color:var(--custombgColor)">query_builder</mat-icon>
-                                        <h5 style="    margin-left: 10px;color: var(--custombgColor);">Latest Version</h5>
-                                    </span>
-                            
-                            <span style="font-size: smaller;margin-left: 30px;">{{(!!selectedTemplateobj.publishedTemplateVersion) ? selectedTemplateobj.publishedTemplateVersion.templateVersionName : ''}}</span>
-        
+                        <div class="stat-block-cls">
+                                <div class="stat-icon-cls">
+                                        <mat-icon>query_builder</mat-icon>
+                                </div>
+                                <div class="stat-text-cls">
+                                        <span class="stat-label-cls">Latest Version</span>
+                                        <span class="stat-value-cls">{{(!!selectedTemplateobj.publishedTemplateVersion) ? selectedTemplateobj.publishedTemplateVersion.templateVersionName : ''}}</span>
+                                </div>
                         </div>
-                        <div class="step-cls" style="border:0px;box-shadow:none;">
-                                <span class="versioninfo-cls" >
-                                        <mat-icon style="font-size: 25px;color:var(--custombgColor)">payment</mat-icon>
-                                        <h5 style="    margin-left: 10px;color: var(--custombgColor);">Price</h5>
-                                    </span>
-                                
-                            <span style="font-size: smaller;margin-left: 30px;">{{selectedTemplateobj.templatePrice}} (NGN)</span>
-                            
+                        <div class="stat-block-cls">
+                                <div class="stat-icon-cls">
+                                        <mat-icon>payment</mat-icon>
+                                </div>
+                                <div class="stat-text-cls">
+                                        <span class="stat-label-cls">Price</span>
+                                        <span class="stat-value-cls">{{selectedTemplateobj.templatePrice}} <span class="stat-currency-cls">NGN</span></span>
+                                </div>
                         </div>
                     </div>
             
@@ -60,7 +60,7 @@
 
     </div>
     <div class="lowersectionofpage-cls">
-        <div class="affidavitdesc-cls" [innerHtml]="descriptionPageHtml">
+        <div class="affidavitdesc-cls" *ngIf="descriptionPageHtml" [innerHtml]="descriptionPageHtml">
         </div>
         <button class="fill-affidavit-button" (click)="filltemplate()">Fill out affidavit</button>
     </div>

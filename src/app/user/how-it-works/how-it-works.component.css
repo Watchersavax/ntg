@@ -109,3 +109,27 @@
     text-align: left;
 
 }
+/* ---------- Responsive ---------- */
+@media only screen and (max-width: 900px) {
+    .how-it-works-container {
+        margin-left: 0;
+        padding: 0 1.25rem;
+        padding-top: 2.5rem;
+    }
+
+    .steps-container {
+        grid-template-columns: 1fr;
+        margin-right: 0;
+        gap: 2.25rem;
+    }
+
+    .step-content {
+        width: 100%;
+    }
+
+    /* connecting lines only make sense in a horizontal row */
+    .step-number-circle::after,
+    .step-number-before-circle::before {
+        display: none;
+    }
+}

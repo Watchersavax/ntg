@@ -1,40 +1,38 @@
 <div class="pagewrapper">
-    <div class="loginbox">
-      <div class="content">
-        
-        <h1>Login</h1>
-      </div>
-      
-      <div class="form-container">
-        
-        <form [formGroup]="loginformgroup" (keydown)="keyDownFunction($event)">
-          <mat-form-field class="field">
-            <input matInput matTooltip="Enter your registered Username or Email" placeholder="Username/Email" formControlName="username">
-          </mat-form-field>
+  <div class="loginbox">
+    <div class="content">
+      <h1>Login</h1>
+    </div>
 
-          <mat-form-field class="field">
-            <input matInput matTooltip="Enter your password" placeholder="Enter your password"
-              [type]="hide ? 'password' : 'text'" formControlName="password">
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-          </mat-form-field>
-  
-          <div class="errormessage" *ngIf="errorflag" (click)="toggle()">
-            <span style="margin-left: 10px;">{{errormessage}}</span>
-          </div>
-          <button mat-button class="subminbutton" (click)="onSubmit()">Login</button>
-  
-          <div style="display:flex;flex-flow:row wrap;justify-content: space-around;align-items: baseline;">
-          <mat-checkbox class="field">Remember Me</mat-checkbox>
-          <div class="field" style="text-align:center "><a [routerLink]="['/register']">Signup</a></div>
-          <div class="field" style="text-align:center "><a [routerLink]="['/forgot']">Forgot
-            Password</a></div>
-            <div class="field" style="text-align:center "><a [routerLink]="['/user','home']">Continue without login</a></div>
-          </div>
-        </form>
+    <div class="form-container">
+      <form [formGroup]="loginformgroup" (keydown)="keyDownFunction($event)">
+        <mat-form-field class="field">
+          <input matInput matTooltip="Enter your registered Username or Email" placeholder="Username/Email" formControlName="username">
+        </mat-form-field>
 
-      </div>
+        <mat-form-field class="field">
+          <input matInput matTooltip="Enter your password" placeholder="Enter your password"
+            [type]="hide ? 'password' : 'text'" formControlName="password">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <div class="errormessage" *ngIf="errorflag" (click)="toggle()">
+          <span style="margin-left: 10px;">{{errormessage}}</span>
+        </div>
+
+        <button mat-button class="subminbutton" (click)="onSubmit()">Login</button>
+
+        <mat-checkbox class="rememberme">Remember Me</mat-checkbox>
+
+        <div class="linksrow">
+          <a [routerLink]="['/register']">Signup</a>
+          <a [routerLink]="['/forgot']">Forgot Password</a>
+          <a [routerLink]="['/user','home']">Continue without login</a>
+        </div>
+      </form>
     </div>
   </div>
+</div>

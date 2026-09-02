@@ -21,6 +21,7 @@ import { SigningDialogService } from "src/app/services/signing-dialog.service";
 import { NIN_DIALOG_SIZE } from "src/app/shared/constants/dialog-size.constants";
 import { resolveDialogStatus } from "src/app/shared/utils/dialog-result.util";
 import { readUserData } from "src/app/shared/utils/userdata-storage.util";
+import { AlertdialogComponent } from "src/app/shared/alertdialog/alertdialog.component";
 
 @Component({
   selector: "app-nin-validation-dialog",
@@ -244,34 +245,48 @@ export class NinValidationDialogComponent implements OnInit {
               this.ninValidation.ninStatus = response.data.matchStatus;
               this.getAffidavitDetailsCreateDocument();
             } else {
-              this.showErrorMessage(
-                response.data.message || "Please provide valid information."
-              );
+              this.showErrorMessage(response.data.message || "We couldn't verify this information.");
             }
           } else if (response.data.statusCode === 404) {
-            this.showErrorMessage("Please provide valid information.");
+            this.showErrorMessage(response.data.message || "We couldn't find a record matching this information.");
           } else if (response.data.statusCode === 400) {
-            this.showErrorMessage("Please provide valid information.");
+            this.showErrorMessage(response.data.message || "Please provide valid information.");
           } else if (response.data.statusCode === 403) {
             this.showErrorMessage("You are not allowed to validate this affidavit.");
           }else if (response.data.verificationType === "CAC" && response.data.statusCode === 500) {
-            this.showErrorMessage("Please provide valid information.");
+            this.showErrorMessage(response.data.message || "We couldn't verify this CAC number. Please check and try again.");
           }  else {
-            this.showErrorMessage("Something went wrong!");
+            this.showErrorMessage(response.data.message || "Something went wrong while verifying your identity.");
           }
         } else {
-          this.showErrorMessage("Something went wrong!");
+          this.showErrorMessage("Something went wrong while verifying your identity.");
         }
       },
       () => {
-        this.showErrorMessage("Something went wrong!");
+        this.showErrorMessage("Something went wrong while verifying your identity. Please check your connection and try again.");
       }
     );
   }
 
+  /* Turns a raw verification error into something a person can actually
+     act on. When the backend's own message is available it's used as-is
+     (never discarded/replaced) — this only recognizes a couple of common,
+     specific cases to phrase more clearly, and otherwise passes the real
+     reason straight through instead of a generic catch-all. */
+  private toFriendlyErrorMessage(rawMessage: string): string {
+    if (!rawMessage) {
+      return "We couldn't verify this information. Please check and try again.";
+    }
+    const lower = rawMessage.toLowerCase();
+    if (lower.indexOf("name") >= 0 && (lower.indexOf("match") >= 0 || lower.indexOf("mismatch") >= 0)) {
+      return "Your Notago profile doesn't match the government database record. Please check your details and try again.";
+    }
+    return rawMessage;
+  }
+
   showErrorMessage(message: string) {
     this.errorFlag = true;
-    this.errorMessage = "*" + message;
+    this.errorMessage = this.toFriendlyErrorMessage(message);
   }
 
   close() {
@@ -281,8 +296,18 @@ export class NinValidationDialogComponent implements OnInit {
   getAffidavitDetailsCreateDocument() {
     this.message = "Verified";
     localStorage.setItem("message", this.message);
-    this.showCalendly = true;
-    this.dialogRef.updateSize(NIN_DIALOG_SIZE.calendlyWidth, "auto");
+    this.dialog.open(AlertdialogComponent, {
+      panelClass: 'alert-dialog-container',
+      data: {
+        actionname: 'Identity Verified',
+        message: 'Identity verified successfully. Redirecting you to schedule a video conference.',
+        onlyclose: true
+      }
+    }).afterClosed().subscribe(() => {
+      this.showCalendly = true;
+      this.dialogRef.addPanelClass('calendly-active');
+      this.dialogRef.updateSize(NIN_DIALOG_SIZE.calendlyWidth, "auto");
+    });
   }
 
   private openSigningDialogAfterSchedule(result) {
@@ -309,6 +334,7 @@ export class NinValidationDialogComponent implements OnInit {
 
   modalClosed(result) {
     this.showCalendly = false;
+    this.dialogRef.removePanelClass('calendly-active');
     this.dialogRef.updateSize(NIN_DIALOG_SIZE.compactWidth, "auto");
     const status = resolveDialogStatus(result);
     if (status === "Scheduled") {

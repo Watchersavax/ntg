@@ -1,10 +1,12 @@
 .maincontent {
-    height: 300px;
-    width: 500px;
+    width: 100%;
+    max-width: 460px;
+    height: auto;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    overflow-x: hidden;
+    box-sizing: border-box;
+    padding: 4px 8px;
 }
 
 .maincontent span {
@@ -12,7 +14,7 @@
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    /* background-color: var(--custombgColor); */
+    align-items: center;
 }
 
 .mat-dialog-title {
@@ -20,43 +22,54 @@
     background-color: white !important;
     color: black !important;
     font-family: Inter;
-    font-size: 26px;
-    font-weight: 500 !important;
-    line-height: 16px;
+    font-size: 22px;
+    font-weight: 600 !important;
+    line-height: 1.3;
     letter-spacing: -0.02em;
     text-align: left;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
 }
 
-
 .maincontent h2{
-    margin-top: 20px !important;
-    margin-left : 20px !important
+    margin: 20px 0 0 20px !important;
 }
 
-.maincontent button{
-    background-color: var(--custombgColor);
+/* Close (X) button — was width:8%/height:30% of the fixed 500x300 box,
+   giving a distorted, non-square hit target. Now a fixed, properly
+   circular icon button regardless of screen size. */
+.maincontent > span > button{
+    background-color: transparent;
     outline: none;
     border: 0px;
-    color: white;
-    /* border-radius: 6px; */
-    width: 8%;
+    color: var(--customgrey);
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 50%;
     margin: 10px;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
     cursor:pointer;
-    height: 30%;
+}
+
+.maincontent > span > button:hover{
+    background-color: #f0f0f0;
 }
 
 ::ng-deep .mat-form-field-label-wrapper {
-    font-size: 18px !important;
+    font-size: 16px !important;
 }
+
+.mat-form-field {
+    width: 100%;
+}
+
 .mat-input-element {
- height: 50px !important;
- padding: 20px !important;
+    height: 44px !important;
+    padding: 0 8px !important;
 }
 
 .maincontent button:active{
@@ -64,52 +77,62 @@
 }
 
 .maincontent button mat-icon {
-    font-size:25px;
+    font-size:22px;
     font-weight:bold;
 }
 
 .actiongroup {
-    margin-top: 3vh;
-    margin-bottom:1vh;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
     width: 100%;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-end;
+    gap: 12px;
+    box-sizing: border-box;
+    padding: 0 20px;
 }
 
 .actiongroup button{
+    background-color: var(--custombgColor);
+    outline: none;
+    border: 0;
+    color: white;
     border-radius: 6px;
-    height: 50px !important;
-    width:  100px !important;
-    font-size: medium !important;
-
+    height: 44px !important;
+    min-width: 90px !important;
+    width: auto !important;
+    padding: 0 20px;
+    font-size: 0.9rem !important;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
+
+.actiongroup button:hover{
+    background-color: var(--customDarkgreen, #065634);
+}
+
 .mat-form-field-appearance-legacy .mat-form-field-wrapper{
     padding: 0.6375em 0!important;
 }
 
-@media only screen and (max-width:1024px) {
+@media only screen and (max-width: 480px) {
     .maincontent {
-        /* width: 45vw; */
-        /* height: 42vh; */
-    }
-
-    .maincontent p {
-        padding: 10px;
-        font-size:small;
+        max-width: 100%;
     }
 
     .maincontent h2{
-        font-size:medium;
+        font-size: 1.1rem;
     }
 
-}
+    .actiongroup {
+        justify-content: center;
+        padding: 0 12px;
+    }
 
-@media only screen and (max-width:425px){
-
-    .mat-form-field{
-        width: 180px;
+    .actiongroup button {
+        flex: 1;
+        min-width: 0 !important;
     }
 }
-
-

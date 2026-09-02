@@ -3,7 +3,10 @@
     <h2 mat-dialog-title>Validate Your Identity</h2>
   </span>
   <mat-dialog-content class="mat-typography">
-    <div class="errormessage" *ngIf="errorFlag">{{ errorMessage }}</div>
+    <div class="errormessage" *ngIf="errorFlag">
+      <mat-icon>error_outline</mat-icon>
+      <span>{{ errorMessage }}</span>
+    </div>
     <form class="validateNIN" [formGroup]="validateNIN">
       <mat-form-field style="width: 100%" class="custom-form-field">
         <mat-label style="font-size: small !important"

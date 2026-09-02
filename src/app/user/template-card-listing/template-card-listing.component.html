@@ -19,27 +19,25 @@
     </div>
     <div class="pagewrapper-cls">
         <div class="header mb-4">
-            <h2 class="text-start d-flex align-items-center">Templates
-                <mat-icon class="text-muted ml-2 mt-2">play_arrow</mat-icon>
-                <span *ngIf="selectedSubCategoryName" class="text-muted  ml-2 mt-2" style="font-size: 18px" >
-           {{ selectedSubCategoryName }}
-        </span>
-           
-            <form class="documents-search-form-cls" (keydown)="onhittingEnter($event)">
-                <div class="searchbox-wrapper-cls">
-                  <input class="searchbox-cls" id="js-search-input" name="q" type="search" placeholder="Search"
-                    required=""  [(ngModel)]="filtervalue"/>
-                  <div class="btn-solid-cls">
-                    <button type="submit" (click)="searchTemplates()">
-                      <span>
-                        <mat-icon style="font-size: x-large">search</mat-icon>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </form>
-            
-            </h2>
+            <div class="header-titlerow-cls">
+                <h2 class="text-start d-flex align-items-center">Templates
+                    <mat-icon class="text-muted ml-2 mt-2">play_arrow</mat-icon>
+                    <span *ngIf="selectedSubCategoryName" class="text-muted  ml-2 mt-2" style="font-size: 18px" >
+                        {{ selectedSubCategoryName }}
+                    </span>
+                </h2>
+
+                <form class="documents-search-form-cls" (keydown)="onhittingEnter($event)">
+                    <div class="searchbox-wrapper-cls">
+                        <mat-icon class="search-icon-cls">search</mat-icon>
+                        <input class="searchbox-cls" id="js-search-input" name="q" type="search" placeholder="Search templates..."
+                            required=""  [(ngModel)]="filtervalue"/>
+                        <button type="submit" class="btn-solid-cls" (click)="searchTemplates()" aria-label="Search">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
         <div class="container-local">
             <mat-grid-list (window:resize)="handleSize($event)" [cols]="mybreakpoint" rowHeight="50vh" gutterSize="70px">
@@ -62,19 +60,8 @@
         </div>
 
         <div class="footer">
-            <div class="paginator-cls"  style="margin-bottom: 16px;">
-            <p style="color:var(--customgrey)">{{dataMessage}}</p>
-            <p style="color:var(--custombgColor)">Page: </p>
-            <button [disabled]="prevflag" (click)="previousPage()"
-                [ngClass]="(prevflag == true) ?'page-navigation-disabled-cls': 'page-navigation-cls'">
-                <mat-icon style="font-size: 27px;">navigate_before</mat-icon>
-            </button>
-            <p>{{page+1}}</p>
-            <button [disabled]="nextflag" (click)="nextPage()"
-                [ngClass]="(nextflag == true) ?'page-navigation-disabled-cls': 'page-navigation-cls'">
-                <mat-icon style="font-size: 27px;">navigate_next</mat-icon>
-            </button>
-            </div>
+            <app-paginator [page]="page" [hasPrev]="!prevflag" [hasNext]="!nextflag" [message]="dataMessage"
+                (prevClick)="previousPage()" (nextClick)="nextPage()" style="margin-bottom: 16px;"></app-paginator>
         </div>
 
     </div>

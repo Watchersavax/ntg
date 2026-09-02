@@ -61,6 +61,7 @@ export class UserAppointmentJoinService {
 
     this.dialog
       .open(VideocallDialogComponent, {
+        panelClass: 'videocall-dialog-container',
         data: {
           userAffidavitObj: options.userAffidavitObj,
           meetingId: options.meetingId,

@@ -5,8 +5,8 @@
         
     </span>
     
-    <mat-form-field style=" width: 90%; margin-left: 30px;">
-        <input matInput [(ngModel)]="affidavitname" placeholder="Save your affidavit as " style="font-size: 20px !important; margin-top: 20px !important;">
+    <mat-form-field style="width: 92%; margin: 8px 0 0 20px;">
+        <input matInput [(ngModel)]="affidavitname" placeholder="Save your affidavit as " style="font-size: 18px !important;">
       </mat-form-field>
     <div class="actiongroup">
         <button mat-button  mat-dialog-close="" 
@@ -14,4 +14,4 @@
         <button mat-button  [mat-dialog-close]="affidavitname" 
             style="background-color: var(--custombtnColor); font-size:small;    font-weight: 600; color: white;margin-right:20px;" *ngIf="!!affidavitname">Save</button>
     </div>
-</div> 
+</div>
